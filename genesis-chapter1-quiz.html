@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Genesis 1 Quiz</title>
+  <style>
+    body {
+      background: #fefbf6;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 30px;
+      color: #2c3e50;
+      text-align: center;
+    }
+    .quiz-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+    }
+    h1 { color: #1a3d7c; margin-bottom: 5px; }
+    h2 { margin-top: 0; color: #4d4d4d; font-size: 16px; }
+    .question-image {
+      width: 100%;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+    .option-btn {
+      display: block;
+      background: #f0f4f8;
+      border: none;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    .option-btn:hover {
+      background: #d9e4f0;
+    }
+    .option-btn.correct { background-color: #2ecc71; color: white; }
+    .option-btn.incorrect { background-color: #e74c3c; color: white; }
+    .score, .takeaway { margin-top: 20px; font-weight: bold; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h1>Genesis Chapter 1</h1>
+    <h2>Discover the beginning of creation</h2>
+
+    <!-- Question 1 -->
+    <div class="question" id="q1">
+      <p><strong>1. What did God create on the first day?</strong></p>
+      <img src="https://chatgpt-image-files.s3.us-west-2.amazonaws.com/file_000000006724622fb33c6dba445844f2.png" class="question-image" alt="Light and Darkness">
+      <button class="option-btn" onclick="answer(this, true, 'q1')">Light</button>
+      <button class="option-btn" onclick="answer(this, false, 'q1')">Land</button>
+      <button class="option-btn" onclick="answer(this, false, 'q1')">Animals</button>
+      <button class="option-btn" onclick="answer(this, false, 'q1')">Water</button>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question hidden" id="q2">
+      <p><strong>2. What did God say after He created something?</strong></p>
+      <button class="option-btn" onclick="answer(this, true, 'q2')">It is good</button>
+      <button class="option-btn" onclick="answer(this, false, 'q2')">It is bad</button>
+      <button class="option-btn" onclick="answer(this, false, 'q2')">It is okay</button>
+      <button class="option-btn" onclick="answer(this, false, 'q2')">It is powerful</button>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question hidden" id="q3">
+      <p><strong>3. How many days did God take to create the world?</strong></p>
+      <button class="option-btn" onclick="answer(this, false, 'q3')">5</button>
+      <button class="option-btn" onclick="answer(this, true, 'q3')">6</button>
+      <button class="option-btn" onclick="answer(this, false, 'q3')">7</button>
+      <button class="option-btn" onclick="answer(this, false, 'q3')">10</button>
+    </div>
+
+    <!-- Results -->
+    <div class="score hidden" id="results">
+      <p>You completed Genesis 1 Quiz!</p>
+      <p id="finalScore"></p>
+      <p class="takeaway">Takeaway: God is a creative and orderly God. He speaks and it becomes. You were created on purpose.</p>
+      <p class="takeaway">Memory Verse: “In the beginning, God created the heavens and the earth.” – Genesis 1:1</p>
+    </div>
+  </div>
+
+  <script>
+    let score = 0;
+    let currentQuestion = 1;
+    const totalQuestions = 3;
+
+    function answer(button, isCorrect, questionId) {
+      if (button.parentElement.classList.contains('answered')) return;
+
+      const buttons = button.parentElement.querySelectorAll('.option-btn');
+      buttons.forEach(btn => btn.disabled = true);
+      button.parentElement.classList.add('answered');
+
+      if (isCorrect) {
+        button.classList.add('correct');
+        score++;
+      } else {
+        button.classList.add('incorrect');
+      }
+
+      setTimeout(() => {
+        document.getElementById(questionId).classList.add('hidden');
+        if (currentQuestion < totalQuestions) {
+          currentQuestion++;
+          document.getElementById('q' + currentQuestion).classList.remove('hidden');
+        } else {
+          document.getElementById('results').classList.remove('hidden');
+          document.getElementById('finalScore').innerText = `Your Score: ${score} / ${totalQuestions}`;
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
