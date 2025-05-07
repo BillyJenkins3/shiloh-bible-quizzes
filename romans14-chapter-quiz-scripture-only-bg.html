@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Romans 14 Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #121212;
+      background-image: url('romans-series-background.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.85);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+    .splash {
+      text-align: center;
+      padding: 100px 20px;
+    }
+    .splash h1 {
+      font-size: 2.8rem;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+    .start-btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #42a5f5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .quiz-box, .result-box {
+      display: none;
+      background: rgba(30, 30, 30, 0.9);
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 20px;
+    }
+    .question h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .options button {
+      padding: 14px;
+      font-size: 16px;
+      background: #1a2a38;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .correct {
+      background-color: #388e3c !important;
+    }
+    .incorrect {
+      background-color: #d32f2f !important;
+    }
+    ul {
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+<div class="overlay">
+  <div class="container">
+    <div class="splash" id="splash">
+      <h1>Romans 14 Quiz</h1>
+      <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <div class="quiz-box" id="quiz">
+      <div id="questionContent"></div>
+    </div>
+
+    <div class="result-box" id="result">
+      <div id="finalScoreText"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    "q": "1. According to Romans 14:1, how should we treat someone whose faith is weak?",
+    "a": "Accept them without quarreling over disputable matters",
+    "options": [
+      "Correct them publicly",
+      "Avoid them until they grow",
+      "Accept them without quarreling over disputable matters",
+      "Rebuke them sternly"
+    ]
+  },
+  {
+    "q": "2. In Romans 14:2, what is one example Paul gives of a disputable matter?",
+    "a": "Eating only vegetables",
+    "options": [
+      "Praying out loud",
+      "Wearing jewelry",
+      "Eating only vegetables",
+      "Attending synagogue"
+    ]
+  },
+  {
+    "q": "3. Romans 14:3 warns believers not to do what toward one another regarding food?",
+    "a": "Despise or judge them",
+    "options": [
+      "Invite them to eat",
+      "Imitate them",
+      "Despise or judge them",
+      "Avoid their company"
+    ]
+  },
+  {
+    "q": "4. Who does Paul say is able to make the servant stand or fall? (Romans 14:4)",
+    "a": "Their own master (the Lord)",
+    "options": [
+      "The church leader",
+      "The strongest believer",
+      "Their own master (the Lord)",
+      "The apostle"
+    ]
+  },
+  {
+    "q": "5. What does Paul say some people consider more sacred than others? (Romans 14:5)",
+    "a": "One day",
+    "options": [
+      "The Sabbath",
+      "Prayer time",
+      "One day",
+      "Morning sacrifices"
+    ]
+  },
+  {
+    "q": "6. According to Romans 14:6, if someone regards a day as special, to whom do they do it?",
+    "a": "To the Lord",
+    "options": [
+      "To the church",
+      "To their parents",
+      "To the Lord",
+      "To their conscience"
+    ]
+  },
+  {
+    "q": "7. Who do we live and die for? (Romans 14:8)",
+    "a": "The Lord",
+    "options": [
+      "Ourselves",
+      "The church",
+      "The Lord",
+      "The law"
+    ]
+  },
+  {
+    "q": "8. According to Romans 14:9, why did Christ die and return to life?",
+    "a": "So that He might be Lord of both the dead and the living",
+    "options": [
+      "To become King",
+      "To defeat Satan",
+      "So that He might be Lord of both the dead and the living",
+      "To fulfill prophecy"
+    ]
+  },
+  {
+    "q": "9. What does Paul ask believers not to do in Romans 14:10?",
+    "a": "Judge or treat with contempt your brother or sister",
+    "options": [
+      "Ignore the law",
+      "Judge or treat with contempt your brother or sister",
+      "Pray without faith",
+      "Fellowship with sinners"
+    ]
+  },
+  {
+    "q": "10. Where will we all stand one day? (Romans 14:10\u201311)",
+    "a": "Before God\u2019s judgment seat",
+    "options": [
+      "At the city gate",
+      "Before God\u2019s judgment seat",
+      "In the synagogue",
+      "Before the apostles"
+    ]
+  },
+  {
+    "q": "11. What will every knee and every tongue do according to Romans 14:11?",
+    "a": "Knee will bow and tongue will confess to God",
+    "options": [
+      "Dance and sing praises",
+      "Fall and cry out",
+      "Knee will bow and tongue will confess to God",
+      "Judge the world"
+    ]
+  },
+  {
+    "q": "12. What should we stop doing, according to Romans 14:13?",
+    "a": "Passing judgment on one another",
+    "options": [
+      "Fasting for tradition",
+      "Avoiding church",
+      "Passing judgment on one another",
+      "Wasting time in debate"
+    ]
+  },
+  {
+    "q": "13. In Romans 14:14, Paul is convinced that no food is unclean in itself unless what?",
+    "a": "Someone regards it as unclean",
+    "options": [
+      "It is meat from idols",
+      "It was not prayed over",
+      "Someone regards it as unclean",
+      "It is offered by a Gentile"
+    ]
+  },
+  {
+    "q": "14. What should we avoid doing to a fellow believer with our eating? (Romans 14:15)",
+    "a": "Destroying someone for whom Christ died",
+    "options": [
+      "Destroying someone for whom Christ died",
+      "Feeding them before prayer",
+      "Tempting them into excess",
+      "Causing them to eat sinfully"
+    ]
+  },
+  {
+    "q": "15. What does Paul say the kingdom of God is NOT about? (Romans 14:17)",
+    "a": "Eating and drinking",
+    "options": [
+      "Worship style",
+      "Eating and drinking",
+      "Tradition and ritual",
+      "Law and sacrifice"
+    ]
+  }
+];
+
+let index = 0, wrongAnswers = {};
+
+function startQuiz() {
+  document.getElementById("splash").style.display = "none";
+  document.getElementById("quiz").style.display = "block";
+  index = 0;
+  wrongAnswers = {};
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const q = questions[index];
+  let html = `<div class="question"><h2>${q.q}</h2></div><div class="options">`;
+  q.options.forEach(opt => {
+    html += `<button onclick="checkAnswer(this,'${opt}','${q.a}')">${opt}</button>`;
+  });
+  html += '</div>';
+  document.getElementById("questionContent").innerHTML = html;
+}
+
+function checkAnswer(button, selected, correct) {
+  const all = button.parentElement.querySelectorAll("button");
+  all.forEach(b => b.disabled = true);
+  if (selected === correct) {
+    button.classList.add("correct");
+  } else {
+    button.classList.add("incorrect");
+    wrongAnswers[index] = true;
+  }
+  setTimeout(() => {
+    index++;
+    if (index < questions.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  }, 800);
+}
+
+function showResult() {
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("result").style.display = "block";
+  let output = "<h2>Review Incorrect Answers</h2><ul>";
+  let count = 0;
+  for (let i = 0; i < questions.length; i++) {
+    if (wrongAnswers[i]) {
+      count++;
+      output += `<li><strong>Q${i + 1}:</strong> ${questions[i].q}<br><em>Correct Answer:</em> ${questions[i].a}</li><br>`;
+    }
+  }
+  if (count === 0) {
+    output += "<li>Excellent! You got all questions correct.</li>";
+  }
+  output += "</ul>";
+  document.getElementById("finalScoreText").innerHTML = output;
+}
+</script>
+</body>
+</html>
