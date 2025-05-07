@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Genesis Chapter 1 - Full Quiz</title>
+  <style>
+    body {
+      background: #fefbf6;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 30px;
+      color: #2c3e50;
+      text-align: center;
+    }
+    .quiz-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 700px;
+      margin: auto;
+      padding: 30px;
+    }
+    h1 { color: #1a3d7c; margin-bottom: 5px; }
+    h2 { margin-top: 0; color: #4d4d4d; font-size: 16px; }
+    .option-btn {
+      display: block;
+      background: #f0f4f8;
+      border: none;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    .option-btn:hover {
+      background: #d9e4f0;
+    }
+    .option-btn.correct { background-color: #2ecc71; color: white; }
+    .option-btn.incorrect { background-color: #e74c3c; color: white; }
+    .score, .takeaway { margin-top: 20px; font-weight: bold; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h1>Genesis Chapter 1</h1>
+    <h2>Chapter Quiz with Verse References and Cross-Links</h2>
+
+    <div id="quiz-questions"></div>
+
+    <div class="score hidden" id="results">
+      <p>You completed the Genesis 1 Quiz!</p>
+      <p id="finalScore"></p>
+      <p class="takeaway">Key Takeaway: God is powerful, intentional, and creative. Everything He made was good and for a purpose—including you.</p>
+      <p class="takeaway">Memory Verse: “In the beginning, God created the heavens and the earth.” – <strong>Genesis 1:1</strong></p>
+      <p><strong>Cross-Reference Highlights:</strong><br>
+        John 1:1-3 • Colossians 1:16 • Psalm 8:5-6 • Romans 1:20 • 1 Corinthians 14:33
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      { q: "1. What did God create on the first day? (Genesis 1:3)", a: "Light", options: ["Land", "Water", "Animals", "Light"] },
+      { q: "2. What did God separate on the second day? (Genesis 1:6-8)", a: "Waters above from waters below", options: ["Land and Sea", "Sun and Moon", "Light and Darkness", "Waters above from waters below"] },
+      { q: "3. What did God call the dry land? (Genesis 1:10)", a: "Earth", options: ["Land", "Earth", "Dust", "Clay"] },
+      { q: "4. What was created on the fourth day? (Genesis 1:14-19)", a: "Sun, Moon, and Stars", options: ["Birds and Fish", "Plants", "Sun, Moon, and Stars", "Animals"] },
+      { q: "5. What phrase is repeated after creation acts? (Genesis 1:10,12)", a: "It was good", options: ["He was pleased", "It was powerful", "It was done", "It was good"] },
+      { q: "6. For what purpose were the heavenly lights made? (Genesis 1:14)", a: "To separate day and night", options: ["To shine", "To bring heat", "To separate day and night", "To count time"] },
+      { q: "7. What did God create on the fifth day? (Genesis 1:20-23)", a: "Birds and sea creatures", options: ["Stars", "Birds and sea creatures", "Plants", "Mankind"] },
+      { q: "8. What was God's command to living creatures? (Genesis 1:22)", a: "Be fruitful and multiply", options: ["Roam the earth", "Be fruitful and multiply", "Fill the waters", "Rest"] },
+      { q: "9. In whose image did God create man? (Genesis 1:26-27)", a: "His own", options: ["Angels", "His own", "Nature", "Heavenly creatures"] },
+      { q: "10. What dominion was man given? (Genesis 1:28)", a: "Over all living things", options: ["Over the stars", "Over angels", "Over all living things", "Over other men"] },
+      { q: "11. What did God give as food to man and animals? (Genesis 1:29-30)", a: "Every green plant", options: ["Bread", "Fruit trees only", "Every green plant", "Fish and birds"] },
+      { q: "12. What did God do on the seventh day? (Genesis 2:2-3)", a: "Rested", options: ["Judged creation", "Rested", "Created stars", "Blessed the animals"] },
+      { q: "13. What does creation reveal about God? (Romans 1:20)", a: "His eternal power and divine nature", options: ["His mercy", "His eternal power and divine nature", "His justice", "His plan"] },
+      { q: "14. According to John 1:1-3, who was with God in the beginning?", a: "The Word", options: ["The Spirit", "The Light", "The Word", "The Son"] },
+      { q: "15. What does 1 Corinthians 14:33 say about God?", a: "God is not the author of confusion", options: ["God is love", "God is not the author of confusion", "God is fire", "God is mighty"] }
+    ];
+
+    let score = 0;
+    let index = 0;
+
+    function loadQuestion() {
+      const container = document.getElementById('quiz-questions');
+      if (index >= questions.length) {
+        document.getElementById('quiz-questions').innerHTML = '';
+        document.getElementById('results').classList.remove('hidden');
+        document.getElementById('finalScore').innerText = `Your Score: ${score} / ${questions.length}`;
+        return;
+      }
+
+      const q = questions[index];
+      let html = `<div class="question"><p><strong>${q.q}</strong></p>`;
+      q.options.forEach(opt => {
+        html += `<button class="option-btn" onclick="checkAnswer(this, '${opt}', '${q.a}')">${opt}</button>`;
+      });
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    function checkAnswer(button, selected, correct) {
+      const buttons = button.parentElement.querySelectorAll('button');
+      buttons.forEach(btn => btn.disabled = true);
+      button.classList.add(selected === correct ? 'correct' : 'incorrect');
+      if (selected === correct) score++;
+      setTimeout(() => {
+        index++;
+        loadQuestion();
+      }, 800);
+    }
+
+    window.onload = loadQuestion;
+  </script>
+
+</body>
+</html>
