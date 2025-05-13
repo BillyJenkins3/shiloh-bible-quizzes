@@ -1,134 +1,88 @@
-<!-- reading-plan.html -->
+<!-- index.html (Home Page) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reading Plan Tracker</title>
+  <title>Church Education Hub</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
       padding: 20px;
-      max-width: 700px;
-      margin: auto;
-      background: linear-gradient(to bottom right, #f0f9ff, #ffffff);
       color: #333;
     }
-    header {
+    h1 {
       text-align: center;
+      color: #2c3e50;
+    }
+    .section {
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+    .devotional, .verse-of-day {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
       margin-bottom: 20px;
     }
-    header img {
-      width: 80px;
-      margin-bottom: 10px;
-    }
-    h1 {
+    .devotional h2, .verse-of-day h2 {
+      margin-top: 0;
       color: #01579b;
     }
-    p.description {
-      text-align: center;
-      font-style: italic;
-      margin-bottom: 30px;
-      color: #555;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      background: #ffffff;
-      margin: 10px 0;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    .class-cards {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      max-width: 400px;
+      margin: 0 auto;
+      gap: 10px;
     }
-    li label {
-      flex-grow: 1;
-      margin-left: 10px;
-    }
-    .progress-bar {
-      width: 100%;
-      height: 20px;
-      background: #cfd8dc;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 30px;
-      position: relative;
-    }
-    .progress-fill {
-      height: 100%;
-      background: #0277bd;
-      width: 0%;
-      transition: width 0.4s ease-in-out;
-    }
-    .progress-label {
-      text-align: center;
-      margin-top: 10px;
-      font-weight: bold;
-      color: #01579b;
-    }
-    .back-home {
-      margin-top: 30px;
+    .class-cards a {
       display: block;
-      text-align: center;
-      background: #0277bd;
-      color: #fff;
-      padding: 10px 20px;
+      padding: 15px;
+      background: #ffffff;
       text-decoration: none;
-      border-radius: 5px;
+      color: #01579b;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      text-align: center;
       font-weight: bold;
+    }
+    .class-cards a:hover {
+      background: #e1f5fe;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png" alt="Bible Icon">
-    <h1>📖 My Reading Plan</h1>
-  </header>
-  <p class="description">Follow along day by day and grow in the Word! Check off each chapter you’ve read and watch your journey unfold.</p>
+  <h1>Welcome to the Education Hub</h1>
 
-  <ul id="reading-plan">
-    <li><input type="checkbox" onchange="saveProgress(0)"><label>Genesis 1</label></li>
-    <li><input type="checkbox" onchange="saveProgress(1)"><label>Genesis 2</label></li>
-    <li><input type="checkbox" onchange="saveProgress(2)"><label>Genesis 3</label></li>
-    <li><input type="checkbox" onchange="saveProgress(3)"><label>Genesis 4</label></li>
-    <li><input type="checkbox" onchange="saveProgress(4)"><label>Genesis 5</label></li>
-  </ul>
-
-  <div class="progress-bar">
-    <div class="progress-fill" id="progress-fill"></div>
+  <div class="section devotional">
+    <h2>Daily Devotional</h2>
+    <p><strong>Title:</strong> God’s Creation and Care</p>
+    <p>"In the beginning, God created the heavens and the earth." (Genesis 1:1)</p>
+    <p>Start your day reflecting on God’s power and intentionality. Everything you see and experience was crafted by His hand. What will you do today to honor His work?</p>
+    <a href="#">Read Full Devotional →</a>
   </div>
-  <div class="progress-label" id="progress-label">0% Complete</div>
 
-  <a href="index.html" class="back-home">⬅ Back to Home</a>
+  <div class="section verse-of-day">
+    <h2>Verse of the Day</h2>
+    <blockquote style="margin: 0; font-style: italic; color: #444;">
+      "Your word is a lamp to my feet and a light to my path."<br>
+      <span style="display: block; text-align: right; margin-top: 10px;">— Psalm 119:105</span>
+    </blockquote>
+  </div>
 
-  <script>
-    const checkboxes = document.querySelectorAll("#reading-plan input[type='checkbox']");
-    const fill = document.getElementById('progress-fill');
-    const label = document.getElementById('progress-label');
-
-    checkboxes.forEach((cb, i) => {
-      cb.checked = localStorage.getItem(`reading-day-${i}`) === 'true';
-      cb.addEventListener('change', () => saveProgress(i));
-    });
-
-    function saveProgress(i) {
-      localStorage.setItem(`reading-day-${i}`, checkboxes[i].checked);
-      updateProgress();
-    }
-
-    function updateProgress() {
-      const total = checkboxes.length;
-      const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
-      const percentage = Math.round((completed / total) * 100);
-      fill.style.width = percentage + '%';
-      label.textContent = `${percentage}% Complete`;
-    }
-
-    updateProgress();
-  </script>
+  <div class="section">
+    <div class="class-cards">
+      <a href="class1.html">Tots (Class 1)</a>
+      <a href="#">Juniors (Class 2)</a>
+      <a href="#">Preteens (Class 3)</a>
+      <a href="#">Teens (Class 4)</a>
+      <a href="#">Ambassadors (Class 5)</a>
+      <a href="reading-plan.html">📖 Reading Plan Tracker</a>
+    </div>
+  </div>
 </body>
 </html>
