@@ -45,35 +45,6 @@
       src: url(https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2) format('woff2');
       unicode-range: U+0000-00FF;
     }
-  
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: var(--primary-dark);
-      border-top: 1px solid #1e293b;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      height: 70px;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
-      animation: slideUp 1.2s ease-in-out;
-    }
-    .bottom-nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 500;
-      padding: 8px 12px;
-      transition: color 0.3s ease, background-color 0.3s ease;
-    }
-    .bottom-nav a:hover,
-    .bottom-nav a.active {
-      color: var(--accent);
-      background-color: rgba(255, 204, 0, 0.1);
-      border-radius: 6px;
-    }
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,11 +80,11 @@
   </div>
 
   <nav class="bottom-nav">
-    <a href="index.html">Home</a>
-    <a href="#">Devotionals</a>
-    <a href="#">Audio</a>
-    <a href="reading-plan.html">Plan</a>
-    <a href="#">More</a>
+    <a href="index.html"><span>🏠</span>Home</a>
+    <a href="#"><span>📖</span>Devotionals</a>
+    <a href="#"><span>🎧</span>Audio</a>
+    <a href="reading-plan.html"><span>📅</span>Plan</a>
+    <a href="#"><span>☰</span>More</a>
   </nav>
 
   <script>
