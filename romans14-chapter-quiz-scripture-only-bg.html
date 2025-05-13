@@ -7,13 +7,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #0d9488;
-      --primary-dark: #0f766e;
-      --background: #f0fdfa;
-      --surface: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #475569;
-      --card-hover: #ccfbf1;
+      --primary: #1e3a8a; /* Royal Blue */
+      --primary-dark: #111827; /* Deep Navy */
+      --accent: #fbbf24; /* Gold */
+      --background: #0f172a; /* Almost Black */
+      --surface: #1f2937; /* Dark Gray */
+      --text-main: #f9fafb;
+      --text-muted: #94a3b8;
+      --card-hover: #334155;
     }
     body {
       font-family: 'Inter', sans-serif;
@@ -27,7 +28,7 @@
       color: white;
       padding: 40px 20px 20px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     h1 {
       margin: 0;
@@ -43,16 +44,16 @@
       background: var(--surface);
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
       margin-bottom: 30px;
     }
     .devotional h2, .verse-of-day h2 {
       margin-top: 0;
       font-size: 20px;
-      color: var(--primary);
+      color: var(--accent);
     }
     .devotional p strong {
-      color: var(--text-main);
+      color: var(--accent);
     }
     .card-links {
       display: grid;
@@ -63,7 +64,7 @@
       background: var(--surface);
       padding: 24px;
       border-radius: 10px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.6);
       text-decoration: none;
       color: var(--text-main);
       font-weight: 600;
@@ -71,7 +72,7 @@
       transition: all 0.3s ease;
     }
     .card-links a:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.7);
       transform: translateY(-3px);
       background: var(--card-hover);
     }
@@ -80,16 +81,16 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: var(--surface);
-      border-top: 1px solid #e2e8f0;
+      background: var(--primary-dark);
+      border-top: 1px solid #1e293b;
       display: flex;
       justify-content: space-around;
       align-items: center;
       height: 64px;
-      box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 -1px 3px rgba(0,0,0,0.4);
     }
     .bottom-nav a {
-      color: var(--text-main);
+      color: var(--text-muted);
       text-decoration: none;
       font-size: 14px;
       display: flex;
@@ -100,7 +101,7 @@
       font-size: 18px;
     }
     .bottom-nav a.active {
-      color: var(--primary-dark);
+      color: var(--accent);
       font-weight: 600;
     }
   </style>
@@ -115,7 +116,7 @@
     <p><strong>Title:</strong> God’s Creation and Care</p>
     <p>"In the beginning, God created the heavens and the earth." (Genesis 1:1)</p>
     <p>Start your day reflecting on God’s power and intentionality. Everything you see and experience was crafted by His hand. What will you do today to honor His work?</p>
-    <a href="#" style="color:var(--primary); text-decoration:underline;">Read Full Devotional →</a>
+    <a href="#" style="color:var(--accent); text-decoration:underline;">Read Full Devotional →</a>
   </div>
 
   <div class="section verse-of-day">
