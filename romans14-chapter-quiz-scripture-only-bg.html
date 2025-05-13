@@ -15,11 +15,28 @@
     header {
       background: #01579b;
       color: white;
-      padding: 20px;
+      padding: 40px 20px 30px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      width: 120%;
+      height: 100%;
+      top: 0;
+      left: -10%;
+      background: radial-gradient(circle at top center, rgba(255, 255, 255, 0.08), transparent 70%);
+      transform: rotate(2deg);
     }
     h1 {
       margin: 0;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
     }
     .section {
       max-width: 800px;
@@ -96,7 +113,7 @@
 </head>
 <body>
   <header>
-    <h1>Church Education Hub</h1>
+    <h1>📚 Church Education Hub</h1>
   </header>
 
   <div class="section devotional fade-in">
@@ -161,7 +178,8 @@
     ];
     const today = new Date().getDate() % verses.length;
     const verse = verses[today];
-    document.getElementById('verse-content').innerHTML = "${verse.text}"<br><span style="display: block; text-align: right; margin-top: 10px;">— ${verse.ref}</span>;
+    document.getElementById('verse-content').innerHTML =
+      `"${verse.text}"<br><span style="display: block; text-align: right; margin-top: 10px;">— ${verse.ref}</span>`;
   </script>
 </body>
 </html>
