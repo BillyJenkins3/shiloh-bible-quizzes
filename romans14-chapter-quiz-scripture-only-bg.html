@@ -4,94 +4,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Church Education Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
       margin: 0;
       padding-bottom: 80px;
-      color: #f4f4f4;
+      color: #111827;
     }
     header {
-      background: #1a73e8;
+      background: #1f2937;
       color: white;
       padding: 40px 20px 20px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     h1 {
       margin: 0;
       font-size: 32px;
       font-weight: 700;
-      letter-spacing: 1px;
     }
     .section {
-      max-width: 1100px;
-      margin: 30px auto;
+      max-width: 1140px;
+      margin: 40px auto;
       padding: 0 20px;
     }
-    .devotional, .verse-of-day, .card-links {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease-out;
-    }
-    .visible {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
     .devotional, .verse-of-day {
-      background: #1e1e2f;
+      background: white;
       padding: 30px;
-      border-radius: 18px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       margin-bottom: 30px;
     }
     .devotional h2, .verse-of-day h2 {
       margin-top: 0;
-      font-size: 22px;
-      color: #4fc3f7;
+      font-size: 20px;
+      color: #2563eb;
     }
     .devotional p strong {
-      color: #ffffff;
+      color: #111827;
     }
     .card-links {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 20px;
     }
     .card-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-      background: linear-gradient(145deg, #1e1e2f, #2c2c44);
+      background: white;
+      padding: 24px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
       text-decoration: none;
-      color: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      font-size: 18px;
+      color: #1f2937;
       font-weight: 600;
       text-align: center;
-      transition: transform 0.3s ease, background 0.3s ease;
+      transition: all 0.3s ease;
     }
     .card-links a:hover {
-      background: #3949ab;
-      transform: scale(1.04);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      transform: translateY(-3px);
+      background: #f3f4f6;
     }
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      background: #1a73e8;
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
       display: flex;
       justify-content: space-around;
       align-items: center;
       height: 64px;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
     }
     .bottom-nav a {
-      color: white;
+      color: #1f2937;
       text-decoration: none;
       font-size: 14px;
       display: flex;
@@ -99,11 +88,11 @@
       align-items: center;
     }
     .bottom-nav a span {
-      font-size: 20px;
+      font-size: 18px;
     }
     .bottom-nav a.active {
-      border-top: 3px solid #ffffff;
-      padding-top: 7px;
+      color: #2563eb;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -112,20 +101,20 @@
     <h1>Church Education Hub</h1>
   </header>
 
-  <div class="section devotional fade-in">
+  <div class="section devotional">
     <h2>Daily Devotional</h2>
     <p><strong>Title:</strong> God’s Creation and Care</p>
     <p>"In the beginning, God created the heavens and the earth." (Genesis 1:1)</p>
     <p>Start your day reflecting on God’s power and intentionality. Everything you see and experience was crafted by His hand. What will you do today to honor His work?</p>
-    <a href="#">Read Full Devotional →</a>
+    <a href="#" style="color:#2563eb; text-decoration:underline;">Read Full Devotional →</a>
   </div>
 
-  <div class="section verse-of-day fade-in">
+  <div class="section verse-of-day">
     <h2>Verse of the Day</h2>
-    <blockquote id="verse-content" style="margin: 0; font-style: italic; color: #f4f4f4;"></blockquote>
+    <blockquote id="verse-content" style="margin: 0; font-style: italic; color: #374151;"></blockquote>
   </div>
 
-  <div class="section fade-in">
+  <div class="section">
     <div class="card-links">
       <a href="class1.html">👶 Tots (Class 1)</a>
       <a href="#">🧒 Juniors (Class 2)</a>
@@ -145,23 +134,6 @@
   </nav>
 
   <script>
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    });
-    document.querySelectorAll('.fade-in').forEach(section => observer.observe(section));
-
-    const navLinks = document.querySelectorAll('.bottom-nav a');
-    const currentPath = window.location.pathname;
-    navLinks.forEach(link => {
-      if (link.href.includes(currentPath.split('/').pop())) {
-        link.classList.add('active');
-      }
-    });
-
     const verses = [
       { text: "Your word is a lamp to my feet and a light to my path.", ref: "Psalm 119:105" },
       { text: "Trust in the Lord with all your heart and lean not on your own understanding.", ref: "Proverbs 3:5" },
