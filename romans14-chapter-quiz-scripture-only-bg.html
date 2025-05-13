@@ -1,3 +1,101 @@
+<!-- index.html (Home Page) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Church Education Hub</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+    h1 { text-align: center; }
+    .class-cards { display: flex; flex-direction: column; max-width: 400px; margin: 0 auto; gap: 10px; }
+    .class-cards a { display: block; padding: 15px; background: #fff; text-decoration: none; color: #333; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; font-weight: bold; }
+    .class-cards a:hover { background: #e0f7fa; }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Education Hub</h1>
+  <div class="class-cards">
+    <a href="class1.html">Tots (Class 1)</a>
+    <a href="#">Juniors (Class 2)</a>
+    <a href="#">Preteens (Class 3)</a>
+    <a href="#">Teens (Class 4)</a>
+    <a href="#">Ambassadors (Class 5)</a>
+    <a href="reading-plan.html">Reading Plan Tracker</a>
+  </div>
+</body>
+</html>
+
+<!-- class1.html (Sample Class Page) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tots - Class 1</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff; padding: 20px; max-width: 800px; margin: auto; }
+    h1, h2 { color: #2c3e50; }
+    .video-container { margin: 20px 0; }
+    iframe { width: 100%; height: 315px; border: none; }
+    .quiz { margin: 20px 0; }
+    .question { margin-bottom: 10px; }
+    .back-home { margin-top: 20px; display: inline-block; background: #3498db; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Tots - Lesson 1</h1>
+  <h2>Overview</h2>
+  <p>In this lesson, we learn that God made the world in six days and rested on the seventh. Everything God made was good!</p>
+
+  <div class="video-container">
+    <h2>Lesson Video</h2>
+    <iframe src="https://www.youtube.com/embed/dNl4pZXrkDg" allowfullscreen></iframe>
+  </div>
+
+  <div class="quiz">
+    <h2>Quick Quiz</h2>
+    <form id="quiz-form">
+      <div class="question">
+        <label>1. How many days did it take God to make the world?</label><br>
+        <input type="radio" name="q1" value="5"> 5<br>
+        <input type="radio" name="q1" value="6"> 6<br>
+        <input type="radio" name="q1" value="7"> 7<br>
+      </div>
+      <div class="question">
+        <label>2. What did God do on the seventh day?</label><br>
+        <input type="radio" name="q2" value="Created animals"> Created animals<br>
+        <input type="radio" name="q2" value="Rested"> Rested<br>
+        <input type="radio" name="q2" value="Made stars"> Made stars<br>
+      </div>
+      <div class="question">
+        <label>3. Was what God made good?</label><br>
+        <input type="radio" name="q3" value="Yes"> Yes<br>
+        <input type="radio" name="q3" value="No"> No<br>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="result" style="margin-top: 15px; font-weight: bold;"></div>
+  </div>
+
+  <a href="index.html" class="back-home">Back to Home</a>
+
+  <script>
+    document.getElementById('quiz-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let score = 0;
+      if (document.querySelector('input[name="q1"]:checked')?.value === '6') score++;
+      if (document.querySelector('input[name="q2"]:checked')?.value === 'Rested') score++;
+      if (document.querySelector('input[name="q3"]:checked')?.value === 'Yes') score++;
+      
+      const result = document.getElementById('result');
+      result.textContent = `You got ${score} out of 3 correct.`;
+    });
+  </script>
+</body>
+</html>
+
+<!-- reading-plan.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,30 +103,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reading Plan Tracker</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; background: #f4f4f4; }
-    h1 { text-align: center; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; margin: auto; background: linear-gradient(to bottom right, #e0f7fa, #ffffff); }
+    h1 { text-align: center; color: #00796b; }
+    p.description { text-align: center; font-style: italic; margin-bottom: 30px; color: #333; }
     ul { list-style: none; padding: 0; }
-    li { background: #fff; margin: 10px 0; padding: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    li { background: #ffffff; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: space-between; }
+    li label { flex-grow: 1; margin-left: 10px; }
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #00796b;
+      width: 0%;
+      transition: width 0.3s ease-in-out;
+    }
+    .back-home {
+      margin-top: 30px;
+      display: block;
+      text-align: center;
+      background: #00796b;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <h1>My Reading Plan</h1>
+  <h1>📖 My Reading Plan</h1>
+  <p class="description">Track your journey through Genesis and watch your progress grow below!</p>
+
   <ul id="reading-plan">
-    <li><input type="checkbox" onchange="saveProgress(0)"> Genesis 1</li>
-    <li><input type="checkbox" onchange="saveProgress(1)"> Genesis 2</li>
-    <li><input type="checkbox" onchange="saveProgress(2)"> Genesis 3</li>
-    <li><input type="checkbox" onchange="saveProgress(3)"> Genesis 4</li>
-    <li><input type="checkbox" onchange="saveProgress(4)"> Genesis 5</li>
+    <li><input type="checkbox" onchange="saveProgress(0)"><label>Genesis 1</label></li>
+    <li><input type="checkbox" onchange="saveProgress(1)"><label>Genesis 2</label></li>
+    <li><input type="checkbox" onchange="saveProgress(2)"><label>Genesis 3</label></li>
+    <li><input type="checkbox" onchange="saveProgress(3)"><label>Genesis 4</label></li>
+    <li><input type="checkbox" onchange="saveProgress(4)"><label>Genesis 5</label></li>
   </ul>
 
-  <a href="index.html" class="back-home">Back to Home</a>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <a href="index.html" class="back-home">⬅ Back to Home</a>
 
   <script>
     const checkboxes = document.querySelectorAll("#reading-plan input[type='checkbox']");
-    checkboxes.forEach((cb, i) => cb.checked = localStorage.getItem(`reading-day-${i}`) === 'true');
+    const fill = document.getElementById('progress-fill');
+
+    checkboxes.forEach((cb, i) => {
+      cb.checked = localStorage.getItem(`reading-day-${i}`) === 'true';
+      cb.addEventListener('change', () => saveProgress(i));
+    });
+
     function saveProgress(i) {
       localStorage.setItem(`reading-day-${i}`, checkboxes[i].checked);
+      updateProgress();
     }
+
+    function updateProgress() {
+      const total = checkboxes.length;
+      const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+      const percentage = Math.round((completed / total) * 100);
+      fill.style.width = percentage + '%';
+    }
+
+    updateProgress();
   </script>
 </body>
 </html>
