@@ -1,4 +1,3 @@
-<!-- index.html (Home Page) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,16 +9,22 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f4f4f4;
       margin: 0;
-      padding: 20px;
+      padding-bottom: 80px;
       color: #333;
     }
-    h1 {
+    header {
+      background: #01579b;
+      color: white;
+      padding: 20px;
       text-align: center;
-      color: #2c3e50;
+    }
+    h1 {
+      margin: 0;
     }
     .section {
       max-width: 800px;
-      margin: 0 auto 30px;
+      margin: 20px auto;
+      padding: 0 20px;
     }
     .devotional, .verse-of-day {
       background: #ffffff;
@@ -32,14 +37,12 @@
       margin-top: 0;
       color: #01579b;
     }
-    .class-cards {
+    .card-links {
       display: flex;
       flex-direction: column;
-      max-width: 400px;
-      margin: 0 auto;
-      gap: 10px;
+      gap: 12px;
     }
-    .class-cards a {
+    .card-links a {
       display: block;
       padding: 15px;
       background: #ffffff;
@@ -50,13 +53,38 @@
       text-align: center;
       font-weight: bold;
     }
-    .class-cards a:hover {
+    .card-links a:hover {
       background: #e1f5fe;
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #01579b;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 60px;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+    .bottom-nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .bottom-nav a span {
+      font-size: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to the Education Hub</h1>
+  <header>
+    <h1>Church Education Hub</h1>
+  </header>
 
   <div class="section devotional">
     <h2>Daily Devotional</h2>
@@ -75,7 +103,7 @@
   </div>
 
   <div class="section">
-    <div class="class-cards">
+    <div class="card-links">
       <a href="class1.html">Tots (Class 1)</a>
       <a href="#">Juniors (Class 2)</a>
       <a href="#">Preteens (Class 3)</a>
@@ -84,5 +112,13 @@
       <a href="reading-plan.html">📖 Reading Plan Tracker</a>
     </div>
   </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html"><span>🏠</span>Home</a>
+    <a href="#"><span>📖</span>Devotionals</a>
+    <a href="#"><span>🎧</span>Audio</a>
+    <a href="reading-plan.html"><span>📅</span>Plan</a>
+    <a href="#"><span>☰</span>More</a>
+  </nav>
 </body>
 </html>
