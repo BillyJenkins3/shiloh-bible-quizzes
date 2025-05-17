@@ -3,18 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Church Education Hub</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>The Vine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <style>
     :root {
-      --primary: #003366; /* Deep Royal Blue */
-      --primary-dark: #001f3f; /* Navy */
-      --accent: #ffcc00; /* Bright Gold */
-      --background: linear-gradient(to right, #0a0f1c, #0e1b30);
-      --surface: #121d2c;
-      --text-main: #f8fafc;
-      --text-muted: #a1acc5;
-      --card-hover: #1f2d44;
+      --primary: #003366;
+      --primary-dark: #001f3f;
+      --accent: #66ccff;
+      --background: #f8fbfe;
+      --surface: #ffffffee;
+      --text-main: #1a1a1a;
+      --text-muted: #5f6c7b;
+      --card-hover: #f0f4f8;
+      --highlight: #66ccff;
+      --highlight-border: #003366;
+      --nav-bg: #0a192fe0;
+      --subtext-bg: #5f6c7b;
+      --divider: #cccccc;
+    }
+    * {
+      scroll-behavior: smooth;
+      box-sizing: border-box;
     }
     body {
       font-family: 'Inter', sans-serif;
@@ -22,84 +32,124 @@
       margin: 0;
       padding-bottom: 80px;
       color: var(--text-main);
+      animation: fadeInBody 1.5s ease-in;
     }
-    header {
-      background: var(--primary);
-      color: white;
-      padding: 50px 20px 30px;
+    @keyframes fadeInBody {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .floating-header {
+      background: var(--nav-bg);
+      padding: 40px 0 10px;
       text-align: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    h1 {
+    .floating-header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      font-weight: 400;
+      color: var(--accent);
       margin: 0;
-      font-size: 36px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+      animation: fadeSlide 1s ease-in-out;
+    }
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .floating-header .subtext {
+      font-size: 16px;
+      color: #ffffff;
+      margin-top: 6px;
+      letter-spacing: 1px;
+      background-color: var(--subtext-bg);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
     }
     .section {
       max-width: 1140px;
-      margin: 50px auto;
-      padding: 0 24px;
+      margin: 40px auto;
+      padding: 24px;
+      border-bottom: 1px solid var(--divider);
     }
-    .devotional, .verse-of-day {
+    .card-section h3 {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+    .card-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 16px;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .card-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .card-scroll a {
+      flex: 0 0 auto;
+      width: 250px;
       background: var(--surface);
-      padding: 32px;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      margin-bottom: 32px;
-    }
-    .devotional h2, .verse-of-day h2 {
-      margin-top: 0;
-      font-size: 22px;
-      color: var(--accent);
-    }
-    .devotional p strong {
-      color: var(--accent);
-    }
-    .card-links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
-    }
-    .card-links a {
-      background: var(--surface);
-      padding: 28px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      border-radius: 16px;
       text-decoration: none;
-      color: var(--text-main);
+      color: var(--primary);
       font-weight: 600;
       text-align: center;
-      font-size: 18px;
-      transition: all 0.3s ease-in-out;
+      font-size: 16px;
+      position: relative;
+      border: 2px solid transparent;
+      transition: all 0.3s ease-in-out, box-shadow 0.3s ease;
+      backdrop-filter: blur(10px);
+      overflow: hidden;
     }
-    .card-links a:hover {
+    .card-scroll a:hover {
       background: var(--card-hover);
-      transform: scale(1.03);
+      transform: scale(1.05);
+      border: 2px solid var(--highlight-border);
+      box-shadow: 0 0 12px var(--highlight);
+    }
+    .card-scroll a img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-scroll a span {
+      display: block;
+      padding: 12px;
     }
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      background: var(--primary-dark);
-      border-top: 1px solid #1e293b;
+      background: var(--nav-bg);
+      border-top: 1px solid #ccc;
       display: flex;
       justify-content: space-around;
       align-items: center;
       height: 70px;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
     }
     .bottom-nav a {
-      color: var(--text-muted);
+      color: #ffffff;
       text-decoration: none;
       font-size: 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: color 0.3s ease;
     }
     .bottom-nav a span {
-      font-size: 20px;
+      font-family: 'Material Symbols Outlined';
+      font-size: 24px;
+      margin-bottom: 4px;
     }
     .bottom-nav a.active {
       color: var(--accent);
@@ -108,41 +158,10 @@
   </style>
 </head>
 <body>
-  <header>
-    <h1>Church Education Hub</h1>
+  <header class="floating-header">
+    <h1>The Vine</h1>
+    <p class="subtext">Grow | Learn | Live the Word</p>
   </header>
-
-  <div class="section devotional">
-    <h2>Daily Devotional</h2>
-    <p><strong>Title:</strong> God’s Creation and Care</p>
-    <p>"In the beginning, God created the heavens and the earth." (Genesis 1:1)</p>
-    <p>Start your day reflecting on God’s power and intentionality. Everything you see and experience was crafted by His hand. What will you do today to honor His work?</p>
-    <a href="#" style="color:var(--accent); text-decoration:underline;">Read Full Devotional →</a>
-  </div>
-
-  <div class="section verse-of-day">
-    <h2>Verse of the Day</h2>
-    <blockquote id="verse-content" style="margin: 0; font-style: italic; color: var(--text-muted);"></blockquote>
-  </div>
-
-  <div class="section">
-    <div class="card-links">
-      <a href="class1.html">👶 Tots (Class 1)</a>
-      <a href="#">🧒 Juniors (Class 2)</a>
-      <a href="#">👦 Preteens (Class 3)</a>
-      <a href="#">🧑 Teens (Class 4)</a>
-      <a href="#">🧔 Ambassadors (Class 5)</a>
-      <a href="reading-plan.html">📖 Reading Plan Tracker</a>
-    </div>
-  </div>
-
-  <nav class="bottom-nav">
-    <a href="index.html"><span>🏠</span>Home</a>
-    <a href="#"><span>📖</span>Devotionals</a>
-    <a href="#"><span>🎧</span>Audio</a>
-    <a href="reading-plan.html"><span>📅</span>Plan</a>
-    <a href="#"><span>☰</span>More</a>
-  </nav>
 
   <script>
     const verses = [
@@ -152,7 +171,89 @@
     ];
     const today = new Date().getDate() % verses.length;
     const verse = verses[today];
-    document.getElementById('verse-content').innerHTML = `"${verse.text}"<br><span style="display: block; text-align: right; margin-top: 10px;">— ${verse.ref}</span>`;
+    const verseContainer = document.createElement('section');
+    verseContainer.className = 'section';
+    verseContainer.innerHTML = `
+      <h3>Verse of the Day</h3>
+      <blockquote style="margin: 0; font-style: italic; color: var(--text-muted);">
+        "${verse.text}"<br>
+        <span style="display: block; text-align: right; margin-top: 10px;">— ${verse.ref}</span>
+      </blockquote>`;
+    document.body.insertBefore(verseContainer, document.body.children[1]);
   </script>
+
+  <section class="section card-section">
+    <h3>Featured Lessons</h3>
+    <div class="card-scroll">
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Lesson+Q1"><span>Quarter 1</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Lesson+Q2"><span>Quarter 2</span></a>
+    </div>
+  </section>
+
+  <section class="section card-section">
+    <h3>Start Here</h3>
+    <div class="card-scroll">
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Jesus"><span>Who is Jesus</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Holy+Living"><span>Basics to Holy Living</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Feast+Days"><span>The Feast Days</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Why+Christ"><span>Why Choose Christ</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Jesus+101"><span>Jesus 101</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Church"><span>What is the Church</span></a>
+    </div>
+  </section>
+
+  <section class="section card-section">
+    <h3>Recently Played</h3>
+    <div class="card-scroll">
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Recently+Played+1"><span>Lesson One</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Recently+Played+2"><span>Lesson Two</span></a>
+    </div>
+  </section>
+
+  <section class="section card-section">
+    <h3>Topics</h3>
+    <div class="card-scroll">
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Biblical+Studies"><span>Biblical Studies</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Christian+Life"><span>Christian Life</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Church"><span>Church</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Family"><span>Family</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Salvation"><span>Salvation</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Sin"><span>Sin</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Theology"><span>Theology</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Worldview"><span>Worldview</span></a>
+    </div>
+  </section>
+
+  <section class="section card-section">
+    <h3>Sermon / Lesson Series</h3>
+    <div class="card-scroll">
+      <a href="https://www.youtube.com/watch?v=iRvHy_MqihI"><img src="https://img.youtube.com/vi/iRvHy_MqihI/0.jpg"><span>Sabbath School Lessons</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Romans"><span>Journey Through Romans</span></a>
+    </div>
+  </section>
+
+  <section class="section card-section">
+    <h3>Steven Best Devotionals</h3>
+    <div class="card-scroll">
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Devotional+1"><span>Encouragement</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Devotional+2"><span>Faithfulness</span></a>
+    </div>
+  </section>
+
+  <section class="section card-section">
+    <h3>Blog Posts</h3>
+    <div class="card-scroll">
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Blog+1"><span>Spiritual Growth</span></a>
+      <a href="#"><img src="https://via.placeholder.com/300x170?text=Blog+2"><span>Church Life</span></a>
+    </div>
+  </section>
+
+  <nav class="bottom-nav">
+    <a href="#"><span>calendar_today</span>Lessons</a>
+    <a href="#"><span>search</span>Search</a>
+    <a href="#"><span>bookmarks</span>My Library</a>
+    <a href="https://docs.google.com/spreadsheets"><span>menu_book</span>Bible</a>
+    <a href="#"><span>explore</span>Explore</a>
+  </nav>
 </body>
 </html>
