@@ -3,26 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Vine</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <meta name="description" content="The Vine - A modern Christian learning platform for spiritual growth and biblical studies">
+  <title>The Vine | Spiritual Growth Platform</title>
+  <!-- Modern font integration -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- Custom CSS -->
   <style>
     :root {
-      /* Original Variables */
-      --primary: #003366;
-      --primary-dark: #001f3f;
-      --accent: #66ccff;
-      --background: #f8fbfe;
-      --surface: #ffffffee;
-      --text-main: #1a1a1a;
-      --text-muted: #5f6c7b;
-      --card-hover: #f0f4f8;
-      --highlight: #66ccff;
-      --highlight-border: #003366;
-      --nav-bg: #0a192fe0;
-      --subtext-bg: #5f6c7b;
-      --divider: #cccccc;
+      /* Modern color palette */
+      --primary: #2d5282;
+      --primary-dark: #1a365d;
+      --primary-light: #4a69a7;
+      --accent: #5cbbf6;
+      --accent-dark: #3aa0e9;
+      --background: #f9fafb;
+      --surface: #ffffff;
+      --surface-elevated: #ffffff;
+      --text-primary: #1a202c;
+      --text-secondary: #4a5568;
+      --text-tertiary: #718096;
+      --divider: #e2e8f0;
+      --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --card-hover-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      --nav-shadow: 0 -2px 10px rgba(0,0,0,0.06);
+      --header-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      --header-gradient: linear-gradient(135deg, #2d5282 0%, #1a365d 100%);
+      --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --border-radius-sm: 8px;
+      --border-radius-md: 12px;
+      --border-radius-lg: 16px;
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+      --spacing-xxl: 48px;
       
       /* Card and Bible Modal Variables */
       --gray-100: #f8f9fa;
@@ -38,222 +57,311 @@
       --radius-sm: 4px;
       --radius-md: 8px;
       --radius-lg: 16px;
-      
-      /* Spacing Variables */
-      --space-xs: 4px;
-      --space-sm: 8px;
-      --space-md: 16px;
-      --space-lg: 24px;
-      --space-xl: 32px;
-      --space-xxl: 48px;
     }
-    
+
+    /* Base styles */
     * {
-      scroll-behavior: smooth;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--background);
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      font-weight: 400;
       padding-bottom: 80px;
-      color: var(--text-main);
-      animation: fadeInBody 1.5s ease-in;
+      overflow-x: hidden;
+      animation: fadeInBody 0.8s ease-in;
     }
-    
+
     @keyframes fadeInBody {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-    
-    /* Original Header Styles */
-    .floating-header {
-      background: var(--nav-bg);
-      padding: 40px 0 10px;
+
+    /* Typography */
+    h1, h2, h3, h4, h5 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: var(--spacing-md);
+      color: var(--text-primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    h3::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Header */
+    .app-header {
+      background: var(--header-gradient);
+      padding: var(--spacing-xl) var(--spacing-md) var(--spacing-lg);
       text-align: center;
       position: relative;
-      z-index: 1;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 10;
+      box-shadow: var(--header-shadow);
+      border-bottom-left-radius: var(--border-radius-lg);
+      border-bottom-right-radius: var(--border-radius-lg);
     }
-    
-    .floating-header h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 48px;
-      font-weight: 400;
-      color: var(--accent);
+
+    .app-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.75rem;
+      font-weight: 700;
+      color: white;
       margin: 0;
       letter-spacing: 1px;
-      animation: fadeSlide 1s ease-in-out;
+      animation: fadeSlideDown 1s ease-out;
     }
-    
-    @keyframes fadeSlide {
+
+    .app-header .tagline {
+      font-size: 1rem;
+      font-weight: 500;
+      color: white;
+      margin-top: var(--spacing-sm);
+      letter-spacing: 0.5px;
+      background-color: rgba(255, 255, 255, 0.15);
+      display: inline-block;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      animation: fadeSlideUp 1.2s ease-out;
+    }
+
+    @keyframes fadeSlideDown {
       0% { opacity: 0; transform: translateY(-20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    
-    .floating-header .subtext {
-      font-size: 16px;
-      color: #ffffff;
-      margin-top: 6px;
-      letter-spacing: 1px;
-      background-color: var(--subtext-bg);
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
     
-    /* Modern Card Styles */
+    /* Main content */
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 var(--space-md);
+      padding: 0 var(--spacing-md);
     }
-    
+
     .section {
-      padding: var(--space-xxl) 0;
-      max-width: 1140px;
-      margin: 0 auto;
+      margin: var(--spacing-xl) 0;
+      padding-bottom: var(--spacing-lg);
+      border-bottom: 1px solid var(--divider);
     }
-    
-    .section-title {
-      font-size: 24px;
-      margin-bottom: var(--space-xl);
-      text-align: center;
-      position: relative;
-      padding-bottom: var(--space-md);
-      color: var(--text-muted);
+
+    .section:last-child {
+      border-bottom: none;
     }
-    
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 3px;
-      background-color: var(--accent);
-      border-radius: var(--radius-sm);
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-md);
     }
-    
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: var(--space-lg);
-    }
-    
-    .card {
-      background-color: var(--white);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    .view-all {
+      font-size: 0.875rem;
+      color: var(--primary);
       text-decoration: none;
-      color: var(--text-main);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      transition: var(--transition-standard);
+    }
+
+    .view-all:hover {
+      color: var(--primary-dark);
+    }
+
+    .view-all .material-icons-round {
+      font-size: 1rem;
+      margin-left: var(--spacing-xs);
     }
     
+    /* Card styles */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: var(--spacing-lg);
+      margin-top: var(--spacing-md);
+    }
+
+    .card-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: var(--spacing-md);
+      padding-bottom: var(--spacing-md);
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .card-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card {
+      flex: 0 0 auto;
+      width: 250px;
+      background: var(--surface);
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text-primary);
+      box-shadow: var(--card-shadow);
+      transition: var(--transition-standard);
+      position: relative;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+    }
+
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: var(--shadow-lg);
+      box-shadow: var(--card-hover-shadow);
     }
-    
+
+    .card:active {
+      transform: translateY(-2px);
+    }
+
     .card-image {
+      position: relative;
       width: 100%;
-      height: 180px;
+      height: 160px;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      transition: transform 0.5s ease;
     }
-    
+
+    .card:hover .card-image img {
+      transform: scale(1.05);
+    }
+
     .card-content {
-      padding: var(--space-lg);
+      padding: var(--spacing-md);
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
-    
+
     .card-title {
-      font-size: 1.25rem;
-      margin-bottom: var(--space-sm);
-      color: var(--primary);
       font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-xs);
     }
-    
-    .card-text {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: var(--space-md);
+
+    .card-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-top: var(--spacing-xs);
+      line-height: 1.4;
     }
-    
+
     .card-meta {
       display: flex;
       align-items: center;
-      font-size: 0.85rem;
-      color: var(--text-light);
+      margin-top: auto;
+      padding-top: var(--spacing-sm);
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
     }
-    
-    .card-meta-item {
-      display: flex;
-      align-items: center;
-      margin-right: var(--space-md);
+
+    .card-meta .material-icons-round {
+      font-size: 0.875rem;
+      margin-right: var(--spacing-xs);
     }
-    
-    .card-meta-icon {
-      font-size: 1rem;
-      margin-right: var(--space-xs);
-    }
-    
-    /* Original Bottom Navigation */
+
+    /* Bottom navigation */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      background: var(--nav-bg);
-      border-top: 1px solid #ccc;
+      background: var(--surface-elevated);
       display: flex;
       justify-content: space-around;
       align-items: center;
       height: 70px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+      box-shadow: var(--nav-shadow);
       z-index: 100;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    
-    .bottom-nav a {
-      color: #ffffff;
+
+    .nav-item {
+      color: var(--text-tertiary);
       text-decoration: none;
-      font-size: 14px;
+      font-size: 0.75rem;
+      font-weight: 500;
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: color 0.3s ease;
+      transition: var(--transition-standard);
+      padding: var(--spacing-xs);
+    }
+
+    .nav-item .material-icons-round {
+      font-size: 1.5rem;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item:hover {
+      color: var(--primary-light);
     }
     
-    .bottom-nav a span {
-      font-family: 'Material Symbols Outlined';
-      font-size: 24px;
-      margin-bottom: 4px;
-    }
-    
-    .bottom-nav a.active {
-      color: var(--accent);
-      font-weight: 600;
-    }
-    
-    /* Bible Modal Styles */
+    /* Bible Modal Styles - UPDATED FOR FULL SCREEN */
     .bible-modal {
       position: fixed;
+      top: 0;
       bottom: 0;
       left: 0;
       right: 0;
       height: 0;
+      width: 100%;
       background-color: var(--white);
       z-index: 2000;
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       overflow: hidden;
       transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: var(--shadow-xl);
+      display: flex;
+      flex-direction: column;
+      border-radius: 0;
     }
     
     .bible-modal.open {
-      height: 90vh;
+      height: 100vh; /* Full viewport height */
     }
     
     .bible-modal-header {
@@ -262,8 +370,9 @@
       align-items: center;
       padding: 16px 24px;
       border-bottom: 1px solid var(--gray-200);
-      background-color: var(--nav-bg);
+      background-color: var(--primary-dark);
       color: white;
+      min-height: 60px; /* Fixed minimum height for the header */
     }
     
     .bible-modal-title {
@@ -280,25 +389,33 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Material Symbols Outlined';
+      font-family: 'Material Icons Round';
     }
     
     .bible-modal-content {
-      height: calc(90vh - 60px);
-      overflow: hidden;
+      flex: 1; /* Take up all available space */
       position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
     
     .bible-iframe-container {
+      flex: 1; /* Take up all available space */
+      position: relative;
       width: 100%;
       height: 100%;
       overflow: hidden;
     }
     
     .bible-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       border: none;
+      overflow: hidden;
     }
     
     .bible-modal-pull-indicator {
@@ -330,6 +447,7 @@
       opacity: 1;
     }
     
+    /* Enhanced Version Selector Styles */
     .version-button {
       background: var(--accent);
       color: var(--primary-dark);
@@ -338,16 +456,23 @@
       border-radius: 4px;
       cursor: pointer;
       position: absolute;
-      top: 70px;
-      right: 20px;
+      top: 12px;
+      right: 70px;
       z-index: 5;
       font-weight: 600;
       font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .version-button .material-icons-round {
+      font-size: 16px;
     }
     
     .version-selector {
       position: absolute;
-      top: 70px;
+      top: 60px;
       right: 20px;
       z-index: 10;
       background: white;
@@ -355,26 +480,93 @@
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       display: none;
+      width: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .version-search {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--gray-300);
+      border-radius: 4px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    
+    .version-categories {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+      scrollbar-width: thin;
+    }
+    
+    .version-category {
+      background: var(--gray-200);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .version-category.active {
+      background: var(--primary-light);
+      color: white;
     }
     
     .version-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 4px;
+      max-height: 300px;
+      overflow-y: auto;
     }
     
     .version-item {
       background: none;
       border: none;
       text-align: left;
-      padding: 8px 16px;
+      padding: 8px 12px;
       cursor: pointer;
       border-radius: 4px;
       transition: background-color 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     
     .version-item:hover {
       background-color: var(--gray-200);
+    }
+    
+    .version-item.preferred {
+      background-color: rgba(92, 187, 246, 0.1);
+    }
+    
+    .version-abbr {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .version-full-name {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .version-publisher {
+      font-size: 10px;
+      color: var(--text-tertiary);
+    }
+    
+    .no-results {
+      padding: 20px;
+      text-align: center;
+      color: var(--text-tertiary);
+      font-size: 14px;
     }
     
     .guidance-message {
@@ -395,17 +587,50 @@
     }
     
     /* Responsive Styles */
+    @media (min-width: 768px) {
+      .app-header {
+        padding: var(--spacing-xxl) var(--spacing-md) var(--spacing-xl);
+      }
+
+      .app-header h1 {
+        font-size: 3.5rem;
+      }
+
+      .app-header .tagline {
+        font-size: 1.125rem;
+      }
+
+      .section {
+        margin: var(--spacing-xxl) 0;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+
+      .card {
+        width: 280px;
+      }
+
+      .card-image {
+        height: 180px;
+      }
+      
+      .version-selector {
+        width: 350px;
+        max-height: 500px;
+      }
+    }
+    
     @media (max-width: 768px) {
       .section-title {
         font-size: 1.75rem;
       }
       
-      .cards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      }
-      
-      .floating-header h1 {
-        font-size: 36px;
+      .version-button {
+        right: 60px;
+        padding: 6px 10px;
+        font-size: 12px;
       }
     }
     
@@ -414,528 +639,1417 @@
         font-size: 1.5rem;
       }
       
-      .cards-grid {
-        grid-template-columns: 1fr;
+      .bible-modal-header {
+        padding: 12px 16px; /* Smaller padding on mobile */
       }
       
-      .floating-header h1 {
-        font-size: 32px;
+      .bible-modal-title {
+        font-size: 18px; /* Smaller font on mobile */
+      }
+      
+      .version-button {
+        right: 50px;
+        top: 10px;
+        padding: 4px 8px;
+        font-size: 11px;
+      }
+      
+      .version-selector {
+        width: 90%;
+        left: 5%;
+        right: 5%;
+      }
+    }
+    
+    /* Portrait and landscape orientations */
+    @media (orientation: landscape) and (max-height: 500px) {
+      .bible-modal-header {
+        min-height: 50px; /* Smaller header in landscape */
+      }
+      
+      .version-selector {
+        max-height: 200px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Original Header -->
-  <header class="floating-header">
+  <!-- Modern Header -->
+  <header class="app-header">
     <h1>The Vine</h1>
-    <p class="subtext">Grow | Learn | Live the Word</p>
+    <p class="tagline">Grow | Learn | Live the Word</p>
   </header>
 
-  <!-- Featured Courses Section with Modern Cards -->
-  <section class="section">
-    <h3 class="section-title">Featured Courses</h3>
-    <div class="cards-grid">
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Foundations of Faith" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Foundations of Faith</h3>
-          <p class="card-text">Explore the core principles of Christian faith and build a strong spiritual foundation.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
+  <div class="container">
+    <!-- Featured Courses Section with Modern Cards -->
+    <section class="section">
+      <div class="section-header">
+        <h3>Featured Lessons</h3>
+      </div>
+      <div class="card-scroll">
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Foundations of Faith">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Foundations of Faith</h3>
+            <p class="card-description">Explore the core principles of Christian faith and build a strong spiritual foundation.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
               <span>8 weeks</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
               <span>12 lessons</span>
             </div>
           </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Prayer & Meditation" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Prayer & Meditation</h3>
-          <p class="card-text">Deepen your prayer life and learn practical meditation techniques for spiritual growth.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Prayer & Meditation">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Prayer & Meditation</h3>
+            <p class="card-description">Deepen your prayer life and learn practical meditation techniques for spiritual growth.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
               <span>6 weeks</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
               <span>9 lessons</span>
             </div>
           </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Living with Purpose" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Living with Purpose</h3>
-          <p class="card-text">Discover God's purpose for your life and learn to live intentionally every day.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Living with Purpose">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Living with Purpose</h3>
+            <p class="card-description">Discover God's purpose for your life and learn to live intentionally every day.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
               <span>10 weeks</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
               <span>15 lessons</span>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- Start Here Section with Modern Cards -->
-  <section class="section">
-    <h3 class="section-title">Start Here</h3>
-    <div class="cards-grid">
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1468164016595-6108e4c60c8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Who is Jesus" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Who is Jesus</h3>
-          <p class="card-text">Discover the person, teachings, and significance of Jesus Christ in Christian faith.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
-              <span>4 weeks</span>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Biblical Leadership">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Biblical Leadership</h3>
+            <p class="card-description">Learn principles of godly leadership from biblical examples and modern applications.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
+              <span>12 weeks</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
+              <span>18 lessons</span>
             </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Start Here Section with Modern Cards -->
+    <section class="section">
+      <div class="section-header">
+        <h3>Start Here</h3>
+      </div>
+      <div class="card-scroll">
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1468164016595-6108e4c60c8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Who is Jesus">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Who is Jesus</h3>
+            <p class="card-description">Discover the person, teachings, and significance of Jesus Christ in Christian faith.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
+              <span>4 weeks</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
               <span>8 lessons</span>
             </div>
           </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1507692049790-de58290a4334?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Basics to Holy Living" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Basics to Holy Living</h3>
-          <p class="card-text">Learn the fundamental principles and practices for living a holy, God-centered life.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1507692049790-de58290a4334?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Basics to Holy Living">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Basics to Holy Living</h3>
+            <p class="card-description">Learn the fundamental principles and practices for living a holy, God-centered life.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
               <span>6 weeks</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
               <span>10 lessons</span>
             </div>
           </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="The Feast Days" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">The Feast Days</h3>
-          <p class="card-text">Explore the biblical feast days, their significance, and relevance for believers today.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="The Feast Days">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">The Feast Days</h3>
+            <p class="card-description">Explore the biblical feast days, their significance, and relevance for believers today.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
               <span>5 weeks</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
               <span>7 lessons</span>
             </div>
           </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Why Choose Christ" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Why Choose Christ</h3>
-          <p class="card-text">Understand the compelling reasons for choosing to follow Jesus Christ in today's world.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Why Choose Christ">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Why Choose Christ</h3>
+            <p class="card-description">Understand the compelling reasons for choosing to follow Jesus Christ in today's world.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
               <span>3 weeks</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
               <span>6 lessons</span>
             </div>
           </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Jesus 101" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Jesus 101</h3>
-          <p class="card-text">An introductory course on the life, ministry, and teachings of Jesus Christ.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
-              <span>4 weeks</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
-              <span>8 lessons</span>
-            </div>
-          </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="What is the Church" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">What is the Church</h3>
-          <p class="card-text">Explore the biblical concept of the Church, its purpose, and your place within it.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
-              <span>5 weeks</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
-              <span>9 lessons</span>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </section>
+        </a>
+      </div>
+    </section>
 
-  <!-- Recently Played Section with Modern Cards -->
-  <section class="section">
-    <h3 class="section-title">Recently Played</h3>
-    <div class="cards-grid">
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lesson One" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Lesson One</h3>
-          <p class="card-text">Continue your journey through this foundational teaching on Christian living.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">play_circle</span>
+    <!-- Recently Played Section with Modern Cards -->
+    <section class="section">
+      <div class="section-header">
+        <h3>Recently Played</h3>
+      </div>
+      <div class="card-scroll">
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lesson One">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Lesson One</h3>
+            <p class="card-description">Continue your journey through this foundational teaching on Christian living.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">play_circle</span>
               <span>Resume</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span class="material-icons-round" style="margin-left: 12px;">access_time</span>
               <span>45 min</span>
             </div>
           </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lesson Two" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Lesson Two</h3>
-          <p class="card-text">Continue exploring the practical applications of biblical principles in daily life.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">play_circle</span>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lesson Two">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Lesson Two</h3>
+            <p class="card-description">Continue exploring the practical applications of biblical principles in daily life.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">play_circle</span>
               <span>Resume</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span class="material-icons-round" style="margin-left: 12px;">access_time</span>
               <span>38 min</span>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-  </section>
+        </a>
+      </div>
+    </section>
 
-  <!-- Topics Section with Modern Cards -->
-  <section class="section">
-    <h3 class="section-title">Topics</h3>
-    <div class="cards-grid">
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1507499739999-097f9693f797?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Biblical Studies" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Biblical Studies</h3>
-          <p class="card-text">In-depth exploration of biblical texts, contexts, and interpretations.</p>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Christian Life" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Christian Life</h3>
-          <p class="card-text">Practical guidance for living out your faith in everyday situations.</p>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Church" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Church</h3>
-          <p class="card-text">Understanding the role, structure, and mission of the Church.</p>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Family" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Family</h3>
-          <p class="card-text">Building strong, faith-centered families in today's challenging world.</p>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Salvation" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Salvation</h3>
-          <p class="card-text">Understanding God's plan of salvation through Jesus Christ.</p>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sin" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Sin</h3>
-          <p class="card-text">Biblical perspectives on sin, repentance, and restoration.</p>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Theology" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Theology</h3>
-          <p class="card-text">Exploring the nature of God and foundational Christian doctrines.</p>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1518183214770-9cffbec72538?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Worldview" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Worldview</h3>
-          <p class="card-text">Developing a biblical perspective on contemporary issues and culture.</p>
-        </div>
-      </a>
-    </div>
-  </section>
+    <!-- Topics Section with Modern Cards -->
+    <section class="section">
+      <div class="section-header">
+        <h3>Topics</h3>
+      </div>
+      <div class="card-scroll">
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1507499739999-097f9693f797?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Biblical Studies">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Biblical Studies</h3>
+            <p class="card-description">In-depth exploration of biblical texts, contexts, and interpretations.</p>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Christian Life">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Christian Life</h3>
+            <p class="card-description">Practical guidance for living out your faith in everyday situations.</p>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Church">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Church</h3>
+            <p class="card-description">Understanding the role, structure, and mission of the Church.</p>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Family">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Family</h3>
+            <p class="card-description">Building strong, faith-centered families in today's challenging world.</p>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Salvation">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Salvation</h3>
+            <p class="card-description">Understanding God's plan of salvation through Jesus Christ.</p>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sin">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Sin</h3>
+            <p class="card-description">Biblical perspectives on sin, repentance, and restoration.</p>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Theology">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Theology</h3>
+            <p class="card-description">Exploring the nature of God and foundational Christian doctrines.</p>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1518183214770-9cffbec72538?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Worldview">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Worldview</h3>
+            <p class="card-description">Developing a biblical perspective on contemporary issues and culture.</p>
+          </div>
+        </a>
+      </div>
+    </section>
 
-  <!-- Sermon/Lesson Series Section with Modern Cards -->
-  <section class="section">
-    <h3 class="section-title">Sermon / Lesson Series</h3>
-    <div class="cards-grid">
-      <a href="https://www.youtube.com/watch?v=iRvHy_MqihI" class="card">
-        <img src="https://img.youtube.com/vi/iRvHy_MqihI/0.jpg" alt="Sabbath School Lessons" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Sabbath School Lessons</h3>
-          <p class="card-text">Weekly lessons exploring Scripture and its application to daily life.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">video_library</span>
+    <!-- Sermon/Lesson Series Section with Modern Cards -->
+    <section class="section">
+      <div class="section-header">
+        <h3>Sermon / Lesson Series</h3>
+      </div>
+      <div class="card-scroll">
+        <a href="https://www.youtube.com/watch?v=iRvHy_MqihI" class="card">
+          <div class="card-image">
+            <img src="https://img.youtube.com/vi/iRvHy_MqihI/0.jpg" alt="Sabbath School Lessons">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Sabbath School Lessons</h3>
+            <p class="card-description">Weekly lessons exploring Scripture and its application to daily life.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">video_library</span>
               <span>52 episodes</span>
             </div>
           </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Journey Through Romans" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Journey Through Romans</h3>
-          <p class="card-text">A comprehensive study of Paul's letter to the Romans.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">video_library</span>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Journey Through Romans">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Journey Through Romans</h3>
+            <p class="card-description">A comprehensive study of Paul's letter to the Romans.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">video_library</span>
               <span>16 episodes</span>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-  </section>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="The Gospel of John">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">The Gospel of John</h3>
+            <p class="card-description">Verse-by-verse exposition of John's Gospel and its profound theology.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">video_library</span>
+              <span>21 episodes</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
 
-  <!-- Steven Best Devotionals Section with Modern Cards -->
-  <section class="section">
-    <h3 class="section-title">Steven Best Devotionals</h3>
-    <div class="cards-grid">
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Encouragement" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Encouragement</h3>
-          <p class="card-text">Daily devotionals to uplift your spirit and strengthen your faith.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
-              <span>30 devotionals</span>
+    <!-- Steven Best Devotionals Section with Modern Cards -->
+    <section class="section">
+      <div class="section-header">
+        <h3>Apostle Steven Best, Sr. Devotionals</h3>
+      </div>
+      <div class="card-scroll">
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Morning Reflections">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Morning Reflections</h3>
+            <p class="card-description">Start your day with spiritual insights and encouragement.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">headset</span>
+              <span>Daily</span>
+              <span class="material-icons-round" style="margin-left: 12px;">access_time</span>
+              <span>10 min</span>
             </div>
           </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Faithfulness" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Faithfulness</h3>
-          <p class="card-text">Reflections on remaining faithful to God through all seasons of life.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">menu_book</span>
-              <span>25 devotionals</span>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Weekly Wisdom">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Weekly Wisdom</h3>
+            <p class="card-description">In-depth devotional teachings on applying biblical wisdom to daily life.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">headset</span>
+              <span>Weekly</span>
+              <span class="material-icons-round" style="margin-left: 12px;">access_time</span>
+              <span>25 min</span>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-  </section>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Prayer Moments">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Prayer Moments</h3>
+            <p class="card-description">Guided prayer sessions to deepen your communion with God.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">headset</span>
+              <span>Daily</span>
+              <span class="material-icons-round" style="margin-left: 12px;">access_time</span>
+              <span>15 min</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
 
-  <!-- Blog Posts Section with Modern Cards -->
-  <section class="section">
-    <h3 class="section-title">Blog Posts</h3>
-    <div class="cards-grid">
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Spiritual Growth" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Spiritual Growth</h3>
-          <p class="card-text">Insights and practices for deepening your relationship with God.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">calendar_today</span>
-              <span>May 10, 2025</span>
+    <!-- Popular Series Section with Modern Cards -->
+    <section class="section">
+      <div class="section-header">
+        <h3>Popular Series</h3>
+      </div>
+      <div class="card-scroll">
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1501139083538-0139583c060f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fruit of the Spirit">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Fruit of the Spirit</h3>
+            <p class="card-description">Explore the nine fruits of the Spirit and how to cultivate them in your daily life.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
+              <span>9 weeks</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
+              <span>9 episodes</span>
             </div>
           </div>
-        </div>
-      </a>
-      
-      <a href="#" class="card">
-        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Church Life" class="card-image">
-        <div class="card-content">
-          <h3 class="card-title">Church Life</h3>
-          <p class="card-text">Reflections on community, worship, and service within the church.</p>
-          <div class="card-meta">
-            <div class="card-meta-item">
-              <span class="material-icons-round card-meta-icon">calendar_today</span>
-              <span>May 5, 2025</span>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Psalms: Songs for the Soul">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Psalms: Songs for the Soul</h3>
+            <p class="card-description">Find comfort, wisdom, and inspiration in the timeless poetry of the Psalms.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
+              <span>12 weeks</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
+              <span>12 episodes</span>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-  </section>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1504681869696-d977211a5f4c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Heroes of Faith">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Heroes of Faith</h3>
+            <p class="card-description">Learn from the lives of biblical heroes who demonstrated extraordinary faith in God.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
+              <span>10 weeks</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
+              <span>10 episodes</span>
+            </div>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Parables of Jesus">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Parables of Jesus</h3>
+            <p class="card-description">Unpack the profound teachings hidden in Jesus' simple yet powerful stories.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
+              <span>8 weeks</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
+              <span>8 episodes</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
 
-  <!-- Original Bottom Navigation -->
+    <!-- Recent Additions Section with Modern Cards -->
+    <section class="section">
+      <div class="section-header">
+        <h3>Recent Additions</h3>
+      </div>
+      <div class="card-scroll">
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Apologetics Today">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Apologetics Today</h3>
+            <p class="card-description">Equip yourself to defend your faith with reason, evidence, and compassion.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
+              <span>6 weeks</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
+              <span>12 lessons</span>
+            </div>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Digital Discipleship">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Digital Discipleship</h3>
+            <p class="card-description">Learn how to share your faith and make disciples in the digital age.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
+              <span>4 weeks</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
+              <span>8 lessons</span>
+            </div>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Faith & Mental Health">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Faith & Mental Health</h3>
+            <p class="card-description">Explore the intersection of Christian faith and mental health wellness.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
+              <span>5 weeks</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
+              <span>10 lessons</span>
+            </div>
+          </div>
+        </a>
+        
+        <a href="#" class="card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Christian Ethics">
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Christian Ethics</h3>
+            <p class="card-description">Navigate complex moral issues with biblical wisdom and Christ-centered values.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">access_time</span>
+              <span>7 weeks</span>
+              <span class="material-icons-round" style="margin-left: 12px;">menu_book</span>
+              <span>14 lessons</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bottom Navigation -->
   <nav class="bottom-nav">
-    <a href="#"><span>calendar_today</span>Lessons</a>
-    <a href="#"><span>search</span>Search</a>
-    <a href="#"><span>bookmarks</span>My Library</a>
-    <a href="javascript:void(0);" id="bible-nav-item"><span>menu_book</span>Bible</a>
-    <a href="#"><span>explore</span>Explore</a>
+    <a href="#" class="nav-item active">
+      <span class="material-icons-round">home</span>
+      <span>Home</span>
+    </a>
+    <a href="#" class="nav-item">
+      <span class="material-icons-round">explore</span>
+      <span>Explore</span>
+    </a>
+    <a href="#" class="nav-item" id="bible-nav-item">
+      <span class="material-icons-round">menu_book</span>
+      <span>Bible</span>
+    </a>
+    <a href="#" class="nav-item">
+      <span class="material-icons-round">bookmark</span>
+      <span>Saved</span>
+    </a>
   </nav>
   
   <!-- Bible Modal -->
-  <div class="bible-modal-overlay" id="bible-modal-overlay"></div>
   <div class="bible-modal" id="bible-modal">
-    <div class="bible-modal-pull-indicator"></div>
     <div class="bible-modal-header">
-      <h3 class="bible-modal-title">Bible</h3>
       <button class="bible-modal-close" id="bible-modal-close">close</button>
+      <div class="bible-modal-title">Bible</div>
+      <div style="width: 24px;"></div>
     </div>
     <div class="bible-modal-content">
+      <button class="version-button" id="version-button">
+        <span id="current-version">NIV</span>
+        <span class="material-icons-round">arrow_drop_down</span>
+      </button>
+      <div class="version-selector" id="version-selector">
+        <input type="text" class="version-search" id="version-search" placeholder="Search versions...">
+        <div class="version-categories">
+          <button class="version-category active" data-category="preferred">Preferred</button>
+          <button class="version-category" data-category="all">All Versions</button>
+          <button class="version-category" data-category="english">English</button>
+        </div>
+        <div class="version-list" id="version-list">
+          <!-- Version items will be populated dynamically -->
+        </div>
+      </div>
       <div class="bible-iframe-container">
         <iframe src="https://www.bible.com/bible/111/JHN.1.NIV" class="bible-iframe" id="bible-iframe" allowfullscreen></iframe>
       </div>
+      <div class="guidance-message" id="guidance-message">
+        Use the version selector in the top-right to choose from all available Bible versions
+      </div>
     </div>
   </div>
+  <div class="bible-modal-overlay" id="bible-modal-overlay"></div>
   
+  <!-- Bible Versions Data -->
+  <script>
+    // YouVersion Bible versions data - All versions
+    const allBibleVersions = [
+      {
+        "id": "1588-amp-amplified-bible",
+        "name": "AMP",
+        "fullName": "Amplified Bible",
+        "publisher": "The Lockman Foundation",
+        "language": "Unknown"
+      },
+      {
+        "id": "8-ampc-amplified-bible-classic-edition",
+        "name": "AMPC",
+        "fullName": "Amplified Bible, Classic Edition",
+        "publisher": "The Lockman Foundation",
+        "language": "Unknown"
+      },
+      {
+        "id": "12-asv-american-standard-version",
+        "name": "ASV",
+        "fullName": "American Standard Version",
+        "publisher": "",
+        "language": "Unknown"
+      },
+      {
+        "id": "31-books-the-books-of-the-bible-nt",
+        "name": "BOOKS",
+        "fullName": "The Books of the Bible NT",
+        "publisher": "Biblica, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "3034-bsb-english-berean-standard-bible",
+        "name": "BSB",
+        "fullName": "English: Berean Standard Bible",
+        "publisher": "BSB Publishing, LLC",
+        "language": "Unknown"
+      },
+      {
+        "id": "37-ceb-common-english-bible",
+        "name": "CEB",
+        "fullName": "Common English Bible",
+        "publisher": "Common English Bible",
+        "language": "Unknown"
+      },
+      {
+        "id": "392-cev-contemporary-english-version",
+        "name": "CEV",
+        "fullName": "Contemporary English Version",
+        "publisher": "American Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "303-cevdci-contemporary-english-version-interconfessional-edition",
+        "name": "CEVDCI",
+        "fullName": "Contemporary English Version Interconfessional Edition",
+        "publisher": "American Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "294-cevuk-contemporary-english-version-anglicised-2012",
+        "name": "CEVUK",
+        "fullName": "Contemporary English Version (Anglicised) 2012",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "1275-cjb-complete-jewish-bible",
+        "name": "CJB",
+        "fullName": "Complete Jewish Bible",
+        "publisher": "Messianic Jewish Publishers and Resources",
+        "language": "Unknown"
+      },
+      {
+        "id": "42-cpdv-catholic-public-domain-version",
+        "name": "CPDV",
+        "fullName": "Catholic Public Domain Version",
+        "publisher": "",
+        "language": "Unknown"
+      },
+      {
+        "id": "1713-csb-christian-standard-bible",
+        "name": "CSB",
+        "fullName": "Christian Standard Bible",
+        "publisher": "LifeWay Christian Resources",
+        "language": "Unknown"
+      },
+      {
+        "id": "4124-csba-christian-standard-bible-anglicised",
+        "name": "CSBA",
+        "fullName": "Christian Standard Bible Anglicised",
+        "publisher": "LifeWay Christian Resources",
+        "language": "Unknown"
+      },
+      {
+        "id": "478-darby-darbys-translation-1890",
+        "name": "DARBY",
+        "fullName": "Darby's Translation 1890",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "55-drc1752-douay-rheims-challoner-revision-1752",
+        "name": "DRC1752",
+        "fullName": "Douay-Rheims Challoner Revision 1752",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "2079-easy-easyenglish-bible-2024",
+        "name": "EASY",
+        "fullName": "EasyEnglish Bible 2024",
+        "publisher": "MissionAssist",
+        "language": "Unknown"
+      },
+      {
+        "id": "4224-ehv-evangelical-heritage-version-2021",
+        "name": "EHV",
+        "fullName": "Evangelical Heritage Version - 2021",
+        "publisher": "The Wartburg Project",
+        "language": "Unknown"
+      },
+      {
+        "id": "406-erv-holy-bible-easy-to-read-version",
+        "name": "ERV",
+        "fullName": "Holy Bible: Easy-to-Read Version",
+        "publisher": "Bible League International",
+        "language": "Unknown"
+      },
+      {
+        "id": "59-esv-english-standard-version-revision-2016",
+        "name": "ESV",
+        "fullName": "English Standard Version Revision 2016",
+        "publisher": "Crossway / Good News Publishers",
+        "language": "Unknown"
+      },
+      {
+        "id": "1932-fbv-free-bible-version",
+        "name": "FBV",
+        "fullName": "Free Bible Version",
+        "publisher": "Free Bible Ministry, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "3633-fnvnt-first-nations-version",
+        "name": "FNVNT",
+        "fullName": "First Nations Version",
+        "publisher": "Intervarsity Press",
+        "language": "Unknown"
+      },
+      {
+        "id": "416-gnbdc-good-news-bible-british-with-dc-section-2017",
+        "name": "GNBDC",
+        "fullName": "Good News Bible (British) with DC section 2017",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "431-gnbdk-good-news-bible-british-catholic-edition-2017",
+        "name": "GNBDK",
+        "fullName": "Good News Bible (British) Catholic Edition 2017",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "296-gnbuk-good-news-bible-british-version-2017",
+        "name": "GNBUK",
+        "fullName": "Good News Bible (British Version) 2017",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "68-gnt-good-news-translation",
+        "name": "GNT",
+        "fullName": "Good News Translation",
+        "publisher": "American Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "69-gntd-good-news-translation-us-version",
+        "name": "GNTD",
+        "fullName": "Good News Translation (US Version)",
+        "publisher": "American Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "2163-gnv-geneva-bible",
+        "name": "GNV",
+        "fullName": "Geneva Bible",
+        "publisher": "eBible.org",
+        "language": "Unknown"
+      },
+      {
+        "id": "70-gw-gods-word",
+        "name": "GW",
+        "fullName": "GOD'S WORD",
+        "publisher": "God's Word to the Nations Mission Society, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "1047-gwc-st-paul-from-the-trenches-1916",
+        "name": "GWC",
+        "fullName": "St Paul from the Trenches 1916",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "72-hcsb-holman-christian-standard-bible",
+        "name": "HCSB",
+        "fullName": "Holman Christian Standard Bible",
+        "publisher": "LifeWay Christian Resources",
+        "language": "Unknown"
+      },
+      {
+        "id": "1359-icb-international-childrens-bible",
+        "name": "ICB",
+        "fullName": "International Children's Bible",
+        "publisher": "Thomas Nelson, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "1077-jub-jubilee-bible",
+        "name": "JUB",
+        "fullName": "Jubilee Bible",
+        "publisher": "Ransom Press International, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "1-kjv-king-james-version",
+        "name": "KJV",
+        "fullName": "King James Version",
+        "publisher": "Cambridge Univ. Press & BFBS",
+        "language": "Unknown"
+      },
+      {
+        "id": "546-kjvaae-king-james-version-with-apocrypha-american-edition",
+        "name": "KJVAAE",
+        "fullName": "King James Version with Apocrypha, American Edition",
+        "publisher": "American Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "547-kjvae-king-james-version-american-edition",
+        "name": "KJVAE",
+        "fullName": "King James Version, American Edition",
+        "publisher": "American Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "90-leb-lexham-english-bible",
+        "name": "LEB",
+        "fullName": "Lexham English Bible",
+        "publisher": "Logos Bible Software",
+        "language": "Unknown"
+      },
+      {
+        "id": "3345-lsb-legacy-standard-bible",
+        "name": "LSB",
+        "fullName": "Legacy Standard Bible",
+        "publisher": "The Lockman Foundation",
+        "language": "Unknown"
+      },
+      {
+        "id": "1171-mev-modern-english-version",
+        "name": "MEV",
+        "fullName": "Modern English Version",
+        "publisher": "United Bible Association",
+        "language": "Unknown"
+      },
+      {
+        "id": "1365-mp1650-psalms-of-david-in-metre-1650-scottish-psalter",
+        "name": "MP1650",
+        "fullName": "Psalms of David in Metre 1650 (Scottish Psalter)",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "3051-mp1781-scottish-metrical-paraphrases-1781",
+        "name": "MP1781",
+        "fullName": "Scottish Metrical Paraphrases 1781",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "97-msg-the-message",
+        "name": "MSG",
+        "fullName": "The Message",
+        "publisher": "Tyndale House Publishers Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "463-nabre-new-american-bible-revised-edition",
+        "name": "NABRE",
+        "fullName": "New American Bible, revised edition",
+        "publisher": "Confraternity of Christian Doctrine",
+        "language": "Unknown"
+      },
+      {
+        "id": "100-nasb1995-new-american-standard-bible-nasb-1995",
+        "name": "NASB1995",
+        "fullName": "New American Standard Bible - NASB 1995",
+        "publisher": "The Lockman Foundation",
+        "language": "Unknown"
+      },
+      {
+        "id": "2692-nasb2020-new-american-standard-bible-nasb",
+        "name": "NASB2020",
+        "fullName": "New American Standard Bible - NASB",
+        "publisher": "The Lockman Foundation",
+        "language": "Unknown"
+      },
+      {
+        "id": "105-ncv-new-century-version",
+        "name": "NCV",
+        "fullName": "New Century Version",
+        "publisher": "Thomas Nelson, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "107-net-new-english-translation",
+        "name": "NET",
+        "fullName": "New English Translation",
+        "publisher": "Biblical Studies Press",
+        "language": "Unknown"
+      },
+      {
+        "id": "110-nirv-new-international-readers-version",
+        "name": "NIrV",
+        "fullName": "New International Reader's Version",
+        "publisher": "Biblica, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "111-niv-new-international-version",
+        "name": "NIV",
+        "fullName": "New International Version",
+        "publisher": "Biblica, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "113-nivuk-new-international-version-anglicised",
+        "name": "NIVUK",
+        "fullName": "New International Version (Anglicised)",
+        "publisher": "Biblica, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "114-nkjv-new-king-james-version",
+        "name": "NKJV",
+        "fullName": "New King James Version",
+        "publisher": "Thomas Nelson, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "116-nlt-new-living-translation",
+        "name": "NLT",
+        "fullName": "New Living Translation",
+        "publisher": "Tyndale House Publishers Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "4249-nltce-new-living-translation-catholic-edition",
+        "name": "NLTCE",
+        "fullName": "New Living Translation Catholic Edition",
+        "publisher": "Tyndale House Publishers Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "2135-nmv-new-messianic-version-bible",
+        "name": "NMV",
+        "fullName": "New Messianic Version Bible",
+        "publisher": "TovRose",
+        "language": "Unknown"
+      },
+      {
+        "id": "2016-nrsv-new-revised-standard-version",
+        "name": "NRSV",
+        "fullName": "New Revised Standard Version",
+        "publisher": "National Council of the Churches of Christ",
+        "language": "Unknown"
+      },
+      {
+        "id": "2015-nrsv-ci-new-revised-standard-version-catholic-interconfessional",
+        "name": "NRSV-CI",
+        "fullName": "New Revised Standard Version Catholic Interconfessional",
+        "publisher": "National Council of the Churches of Christ",
+        "language": "Unknown"
+      },
+      {
+        "id": "3523-nrsvue-new-revised-standard-version-updated-edition-2021",
+        "name": "NRSVUE",
+        "fullName": "New Revised Standard Version Updated Edition 2021",
+        "publisher": "National Council of the Churches of Christ",
+        "language": "Unknown"
+      },
+      {
+        "id": "3915-oybcengl-the-third-line-in-english-translating-the-meaning-of-each-word-in-the-orthodox-yiddish-brit-chadashah-new-testament",
+        "name": "OYBCENGL",
+        "fullName": "The third line in English translating the meaning of each word in the Orthodox Yiddish Brit Chadashah (New Testament)",
+        "publisher": "Artists for Israel International",
+        "language": "Unknown"
+      },
+      {
+        "id": "4070-oytorheg-translation-into-english-of-orthodox-yiddish-torah-oytorah",
+        "name": "OYTORHEG",
+        "fullName": "Translation into English of Orthodox Yiddish Torah (OYTORAH)",
+        "publisher": "Artists for Israel International",
+        "language": "Unknown"
+      },
+      {
+        "id": "2530-pev-plain-english-version",
+        "name": "PEV",
+        "fullName": "Plain English Version",
+        "publisher": "Wycliffe Bible Translators, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "2753-rad-radiate-new-testament",
+        "name": "RAD",
+        "fullName": "Radiate New Testament",
+        "publisher": "Biblica, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "2020-rsv-revised-standard-version",
+        "name": "RSV",
+        "fullName": "Revised Standard Version",
+        "publisher": "National Council of the Churches of Christ",
+        "language": "Unknown"
+      },
+      {
+        "id": "2017-rsv-c-revised-standard-version-old-tradition-1952",
+        "name": "RSV-C",
+        "fullName": "Revised Standard Version Old Tradition 1952",
+        "publisher": "National Council of the Churches of Christ",
+        "language": "Unknown"
+      },
+      {
+        "id": "3548-rsvci-revised-standard-version",
+        "name": "RSVCI",
+        "fullName": "Revised Standard Version",
+        "publisher": "National Council of the Churches of Christ",
+        "language": "Unknown"
+      },
+      {
+        "id": "477-rv1885-revised-version-1885",
+        "name": "RV1885",
+        "fullName": "Revised Version 1885",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "1922-rv1895-revised-version-with-apocrypha-1885-1895",
+        "name": "RV1895",
+        "fullName": "Revised Version with Apocrypha 1885, 1895",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "3427-tcent-the-text-critical-english-new-testament",
+        "name": "TCENT",
+        "fullName": "The Text-Critical English New Testament",
+        "publisher": "eBible.org",
+        "language": "Unknown"
+      },
+      {
+        "id": "3010-teg-isaiah-1830-1842-john-jones-alias-ioan-tegid",
+        "name": "TEG",
+        "fullName": "Isaiah 1830, 1842 (John Jones alias Ioan Tegid)",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "314-tlv-tree-of-life-version",
+        "name": "TLV",
+        "fullName": "Tree of Life Version",
+        "publisher": "Tree of Life Bible Society",
+        "language": "Unknown"
+      },
+      {
+        "id": "130-tojb2011-the-orthodox-jewish-bible",
+        "name": "TOJB2011",
+        "fullName": "The Orthodox Jewish Bible",
+        "publisher": "Artists for Israel International",
+        "language": "Unknown"
+      },
+      {
+        "id": "1849-tpt-the-passion-translation",
+        "name": "TPT",
+        "fullName": "The Passion Translation",
+        "publisher": "BroadStreet Publishing Group",
+        "language": "Unknown"
+      },
+      {
+        "id": "316-ts2009-the-scriptures-2009",
+        "name": "TS2009",
+        "fullName": "The Scriptures 2009",
+        "publisher": "Institute for Scripture Research",
+        "language": "Unknown"
+      },
+      {
+        "id": "2407-wbms-wycliffes-bible-with-modern-spelling",
+        "name": "WBMS",
+        "fullName": "Wycliffe's Bible with Modern Spelling",
+        "publisher": "Terence P. Noble",
+        "language": "Unknown"
+      },
+      {
+        "id": "1204-webbe-world-english-bible-british-edition",
+        "name": "WEBBE",
+        "fullName": "World English Bible British Edition",
+        "publisher": "eBible.org",
+        "language": "Unknown"
+      },
+      {
+        "id": "206-webus-world-english-bible-american-english-edition-without-strongs-numbers",
+        "name": "WEBUS",
+        "fullName": "World English Bible, American English Edition, without Strong's Numbers",
+        "publisher": "eBible.org",
+        "language": "Unknown"
+      },
+      {
+        "id": "1209-wmb-world-messianic-bible",
+        "name": "WMB",
+        "fullName": "World Messianic Bible",
+        "publisher": "eBible.org",
+        "language": "Unknown"
+      },
+      {
+        "id": "1207-wmbbe-world-messianic-bible-british-edition",
+        "name": "WMBBE",
+        "fullName": "World Messianic Bible British Edition",
+        "publisher": "eBible.org",
+        "language": "Unknown"
+      },
+      {
+        "id": "4108-yall-yall-version-bible",
+        "name": "YALL",
+        "fullName": "Y'all Version Bible",
+        "publisher": "Y'all Version Bible",
+        "language": "Unknown"
+      },
+      {
+        "id": "821-ylt98-youngs-literal-translation-1898",
+        "name": "YLT98",
+        "fullName": "Young's Literal Translation 1898",
+        "publisher": "British & Foreign Bible Society",
+        "language": "Unknown"
+      }
+    ];
+
+    // English Bible versions only (all versions are English in this case)
+    const englishBibleVersions = allBibleVersions;
+
+    // Preferred Bible versions
+    const preferredBibleVersions = [
+      {
+        "id": "111-niv-new-international-version",
+        "name": "NIV",
+        "fullName": "New International Version",
+        "publisher": "Biblica, Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "1-kjv-king-james-version",
+        "name": "KJV",
+        "fullName": "King James Version",
+        "publisher": "Cambridge Univ. Press & BFBS",
+        "language": "Unknown"
+      },
+      {
+        "id": "116-nlt-new-living-translation",
+        "name": "NLT",
+        "fullName": "New Living Translation",
+        "publisher": "Tyndale House Publishers Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "59-esv-english-standard-version-revision-2016",
+        "name": "ESV",
+        "fullName": "English Standard Version Revision 2016",
+        "publisher": "Crossway / Good News Publishers",
+        "language": "Unknown"
+      },
+      {
+        "id": "1849-tpt-the-passion-translation",
+        "name": "TPT",
+        "fullName": "The Passion Translation",
+        "publisher": "BroadStreet Publishing Group",
+        "language": "Unknown"
+      },
+      {
+        "id": "97-msg-the-message",
+        "name": "MSG",
+        "fullName": "The Message",
+        "publisher": "Tyndale House Publishers Inc.",
+        "language": "Unknown"
+      },
+      {
+        "id": "8-ampc-amplified-bible-classic-edition",
+        "name": "AMPC",
+        "fullName": "Amplified Bible, Classic Edition",
+        "publisher": "The Lockman Foundation",
+        "language": "Unknown"
+      }
+    ];
+  </script>
+  
+  <!-- Main JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Bible Modal Script
+      // Bible Modal Elements
       const bibleNavItem = document.getElementById('bible-nav-item');
       const bibleModal = document.getElementById('bible-modal');
-      const bibleModalOverlay = document.getElementById('bible-modal-overlay');
       const bibleModalClose = document.getElementById('bible-modal-close');
+      const bibleModalOverlay = document.getElementById('bible-modal-overlay');
       const bibleIframe = document.getElementById('bible-iframe');
+      const versionButton = document.getElementById('version-button');
+      const versionSelector = document.getElementById('version-selector');
+      const versionList = document.getElementById('version-list');
+      const versionSearch = document.getElementById('version-search');
+      const currentVersionSpan = document.getElementById('current-version');
+      const guidanceMessage = document.getElementById('guidance-message');
+      const versionCategories = document.querySelectorAll('.version-category');
       
-      // Open Bible modal
+      // Current state
+      let currentVersion = 'NIV';
+      let currentVersionId = '111';
+      let currentCategory = 'preferred';
+      let searchTerm = '';
+      
+      // Show guidance message briefly when Bible modal is opened
+      function showGuidanceMessage() {
+        guidanceMessage.style.opacity = '1';
+        setTimeout(() => {
+          guidanceMessage.style.opacity = '0';
+        }, 5000);
+      }
+      
+      // Open Bible Modal
       bibleNavItem.addEventListener('click', function(e) {
         e.preventDefault();
         bibleModal.classList.add('open');
         bibleModalOverlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        
-        // Show guidance message
-        setTimeout(() => {
-          guidanceMessage.style.opacity = '1';
-          setTimeout(() => {
-            guidanceMessage.style.opacity = '0';
-          }, 5000);
-        }, 1000);
+        showGuidanceMessage();
       });
       
-      // Close Bible modal
+      // Close Bible Modal
       bibleModalClose.addEventListener('click', function() {
         bibleModal.classList.remove('open');
         bibleModalOverlay.classList.remove('open');
-        document.body.style.overflow = '';
+        versionSelector.style.display = 'none';
       });
       
-      // Close modal when clicking overlay
       bibleModalOverlay.addEventListener('click', function() {
         bibleModal.classList.remove('open');
         bibleModalOverlay.classList.remove('open');
-        document.body.style.overflow = '';
+        versionSelector.style.display = 'none';
       });
       
-      // Handle Bible version selection
-      const preferredVersions = [
-        { name: 'NIV', url: 'https://www.bible.com/bible/111/JHN.1.NIV' },
-        { name: 'KJV', url: 'https://www.bible.com/bible/1/JHN.1.KJV' },
-        { name: 'NLT', url: 'https://www.bible.com/bible/116/JHN.1.NLT' },
-        { name: 'ESV', url: 'https://www.bible.com/bible/59/JHN.1.ESV' },
-        { name: 'The Passion', url: 'https://www.bible.com/bible/1849/JHN.1.TPT' },
-        { name: 'Message', url: 'https://www.bible.com/bible/97/JHN.1.MSG' }
-      ];
-      
-      // Create version selector UI
-      const versionButton = document.createElement('button');
-      versionButton.textContent = 'Change Version';
-      versionButton.className = 'version-button';
-      
-      const versionSelector = document.createElement('div');
-      versionSelector.className = 'version-selector';
-      
-      const versionList = document.createElement('div');
-      versionList.className = 'version-list';
-      
-      preferredVersions.forEach(version => {
-        const versionItem = document.createElement('button');
-        versionItem.textContent = version.name;
-        versionItem.className = 'version-item';
-        
-        versionItem.addEventListener('click', function() {
-          bibleIframe.src = version.url;
+      // Toggle Version Selector
+      versionButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (versionSelector.style.display === 'block') {
           versionSelector.style.display = 'none';
-          versionButton.textContent = `Version: ${version.name}`;
-        });
-        
-        versionList.appendChild(versionItem);
+        } else {
+          versionSelector.style.display = 'block';
+          renderVersionList();
+        }
       });
       
-      versionSelector.appendChild(versionList);
-      
-      versionButton.addEventListener('click', function() {
-        if (versionSelector.style.display === 'none' || versionSelector.style.display === '') {
-          versionSelector.style.display = 'block';
-        } else {
+      // Close version selector when clicking outside
+      document.addEventListener('click', function(e) {
+        if (versionSelector.style.display === 'block' && 
+            !versionSelector.contains(e.target) && 
+            e.target !== versionButton) {
           versionSelector.style.display = 'none';
         }
       });
       
-      document.querySelector('.bible-modal-content').appendChild(versionButton);
-      document.querySelector('.bible-modal-content').appendChild(versionSelector);
+      // Prevent clicks inside version selector from closing it
+      versionSelector.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
       
-      // Add guidance message
-      const guidanceMessage = document.createElement('div');
-      guidanceMessage.className = 'guidance-message';
-      guidanceMessage.innerHTML = 'Interact directly with the Bible.com content to navigate chapters and verses';
+      // Handle version search
+      versionSearch.addEventListener('input', function() {
+        searchTerm = this.value.toLowerCase();
+        renderVersionList();
+      });
       
-      document.querySelector('.bible-modal-content').appendChild(guidanceMessage);
+      // Handle category selection
+      versionCategories.forEach(category => {
+        category.addEventListener('click', function() {
+          versionCategories.forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          currentCategory = this.dataset.category;
+          renderVersionList();
+        });
+      });
+      
+      // Render the version list based on current filters
+      function renderVersionList() {
+        versionList.innerHTML = '';
+        
+        let versionsToShow;
+        if (currentCategory === 'preferred') {
+          versionsToShow = preferredBibleVersions;
+        } else if (currentCategory === 'english') {
+          versionsToShow = englishBibleVersions;
+        } else {
+          versionsToShow = allBibleVersions;
+        }
+        
+        // Apply search filter if there's a search term
+        if (searchTerm) {
+          versionsToShow = versionsToShow.filter(version => 
+            version.name.toLowerCase().includes(searchTerm) || 
+            version.fullName.toLowerCase().includes(searchTerm) ||
+            version.publisher.toLowerCase().includes(searchTerm)
+          );
+        }
+        
+        // Show message if no results
+        if (versionsToShow.length === 0) {
+          const noResults = document.createElement('div');
+          noResults.className = 'no-results';
+          noResults.textContent = 'No versions found matching your search.';
+          versionList.appendChild(noResults);
+          return;
+        }
+        
+        // Create version items
+        versionsToShow.forEach(version => {
+          const versionItem = document.createElement('button');
+          versionItem.className = 'version-item';
+          if (isPreferredVersion(version.name)) {
+            versionItem.classList.add('preferred');
+          }
+          
+          const versionAbbr = document.createElement('span');
+          versionAbbr.className = 'version-abbr';
+          versionAbbr.textContent = version.name;
+          
+          const versionFullName = document.createElement('span');
+          versionFullName.className = 'version-full-name';
+          versionFullName.textContent = version.fullName;
+          
+          const versionPublisher = document.createElement('span');
+          versionPublisher.className = 'version-publisher';
+          versionPublisher.textContent = version.publisher;
+          
+          versionItem.appendChild(versionAbbr);
+          versionItem.appendChild(versionFullName);
+          versionItem.appendChild(versionPublisher);
+          
+          versionItem.addEventListener('click', function() {
+            selectVersion(version);
+          });
+          
+          versionList.appendChild(versionItem);
+        });
+      }
+      
+      // Check if a version is in the preferred list
+      function isPreferredVersion(abbr) {
+        return preferredBibleVersions.some(v => v.name === abbr);
+      }
+      
+      // Select a version
+      function selectVersion(version) {
+        currentVersion = version.name;
+        currentVersionId = version.id.split('-')[0];
+        currentVersionSpan.textContent = currentVersion;
+        versionSelector.style.display = 'none';
+        
+        // Update iframe URL
+        const currentUrl = bibleIframe.src;
+        const urlParts = currentUrl.split('/');
+        // Find the version ID part (usually after /bible/)
+        for (let i = 0; i < urlParts.length; i++) {
+          if (urlParts[i] === 'bible' && i + 1 < urlParts.length) {
+            // Replace the version ID
+            urlParts[i + 1] = currentVersionId;
+            break;
+          }
+        }
+        bibleIframe.src = urlParts.join('/');
+      }
+      
+      // Initialize with preferred versions
+      renderVersionList();
     });
   </script>
 </body>
