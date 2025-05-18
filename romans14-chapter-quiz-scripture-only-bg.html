@@ -42,6 +42,18 @@
       --spacing-lg: 24px;
       --spacing-xl: 32px;
       --spacing-xxl: 48px;
+      
+      /* Bible app specific colors */
+      --bible-bg: #1a202c;
+      --bible-text: #f7fafc;
+      --bible-accent: #5cbbf6;
+      --bible-verse: #e2e8f0;
+      --bible-chapter: #a0aec0;
+      --bible-highlight: rgba(92, 187, 246, 0.2);
+      --bible-drawer-bg: rgba(26, 32, 44, 0.98);
+      --bible-version-active: #5cbbf6;
+      --bible-version-inactive: #718096;
+      --bible-toolbar: rgba(26, 32, 44, 0.9);
     }
 
     /* Base styles */
@@ -284,41 +296,6 @@
       margin-right: var(--spacing-xs);
     }
 
-    /* Bible section */
-    #bible-section {
-      display: none;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .bible-version-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: var(--spacing-md);
-    }
-
-    .bible-version {
-      background: var(--surface);
-      border-radius: var(--border-radius-md);
-      padding: var(--spacing-md);
-      text-align: center;
-      text-decoration: none;
-      color: var(--primary);
-      font-weight: 600;
-      box-shadow: var(--card-shadow);
-      transition: var(--transition-standard);
-    }
-
-    .bible-version:hover {
-      background: var(--primary-light);
-      color: white;
-      transform: translateY(-3px);
-    }
-
     /* Bottom navigation */
     .bottom-nav {
       position: fixed;
@@ -423,6 +400,436 @@
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
+
+    /* Bible App Modal/Drawer Styles */
+    .bible-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background-color: var(--bible-drawer-bg);
+      z-index: 1000;
+      overflow: hidden;
+      transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      color: var(--bible-text);
+      border-top-left-radius: var(--border-radius-lg);
+      border-top-right-radius: var(--border-radius-lg);
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .bible-drawer.open {
+      height: 90vh;
+    }
+
+    .bible-drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-md) var(--spacing-lg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .bible-drawer-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .bible-close-btn {
+      background: none;
+      border: none;
+      color: var(--bible-text);
+      cursor: pointer;
+      padding: var(--spacing-xs);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .bible-close-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .bible-drawer-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bible-tabs {
+      display: flex;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .bible-tab {
+      flex: 1;
+      padding: var(--spacing-md);
+      text-align: center;
+      color: var(--bible-text);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-standard);
+      position: relative;
+      opacity: 0.7;
+    }
+
+    .bible-tab.active {
+      opacity: 1;
+    }
+
+    .bible-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 25%;
+      width: 50%;
+      height: 3px;
+      background-color: var(--bible-accent);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .bible-versions-container {
+      padding: var(--spacing-lg);
+    }
+
+    .bible-version-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .bible-version-item {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius-md);
+      padding: var(--spacing-md);
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition-standard);
+      border: 2px solid transparent;
+    }
+
+    .bible-version-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .bible-version-item.active {
+      border-color: var(--bible-version-active);
+      background-color: rgba(92, 187, 246, 0.1);
+    }
+
+    .bible-version-abbr {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-xs);
+      color: var(--bible-text);
+    }
+
+    .bible-version-name {
+      font-size: 0.75rem;
+      color: var(--bible-chapter);
+    }
+
+    .bible-content-container {
+      padding: var(--spacing-lg);
+      display: none;
+    }
+
+    .bible-content-container.active {
+      display: block;
+    }
+
+    .bible-chapter-header {
+      margin-bottom: var(--spacing-lg);
+      text-align: center;
+    }
+
+    .bible-book-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .bible-chapter-number {
+      font-size: 1.25rem;
+      color: var(--bible-chapter);
+    }
+
+    .bible-verses {
+      font-size: 1.125rem;
+      line-height: 1.8;
+    }
+
+    .bible-verse {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .bible-verse-number {
+      font-size: 0.875rem;
+      color: var(--bible-accent);
+      font-weight: 600;
+      margin-right: var(--spacing-xs);
+      vertical-align: top;
+    }
+
+    .bible-toolbar {
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: var(--bible-toolbar);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .bible-toolbar-btn {
+      background: none;
+      border: none;
+      color: var(--bible-text);
+      cursor: pointer;
+      padding: var(--spacing-sm);
+      border-radius: var(--border-radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .bible-toolbar-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .bible-chapter-selector {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+    }
+
+    .bible-chapter-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--bible-text);
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .bible-chapter-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .bible-chapter-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* Drawer pull indicator */
+    .drawer-pull {
+      width: 40px;
+      height: 5px;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      margin: var(--spacing-sm) auto;
+    }
+
+    /* Animation for drawer opening */
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .bible-drawer.open {
+      animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Search container */
+    .bible-search-container {
+      padding: var(--spacing-lg);
+      display: none;
+    }
+
+    .bible-search-container.active {
+      display: block;
+    }
+
+    .bible-search-form {
+      display: flex;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .bible-search-input {
+      flex: 1;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--border-radius-md);
+      padding: var(--spacing-md);
+      color: var(--bible-text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+    }
+
+    .bible-search-input:focus {
+      outline: none;
+      border-color: var(--bible-accent);
+    }
+
+    .bible-search-btn {
+      background-color: var(--bible-accent);
+      border: none;
+      color: var(--bible-bg);
+      font-weight: 600;
+      padding: 0 var(--spacing-lg);
+      border-radius: var(--border-radius-md);
+      margin-left: var(--spacing-sm);
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .bible-search-btn:hover {
+      background-color: var(--accent-dark);
+    }
+
+    .bible-search-results {
+      display: grid;
+      gap: var(--spacing-md);
+    }
+
+    .bible-search-result {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius-md);
+      padding: var(--spacing-md);
+      cursor: pointer;
+      transition: var(--transition-standard);
+    }
+
+    .bible-search-result:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .bible-result-reference {
+      font-weight: 600;
+      color: var(--bible-accent);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .bible-result-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .bible-result-highlight {
+      background-color: var(--bible-highlight);
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+
+    /* Bookmarks container */
+    .bible-bookmarks-container {
+      padding: var(--spacing-lg);
+      display: none;
+    }
+
+    .bible-bookmarks-container.active {
+      display: block;
+    }
+
+    .bible-bookmark-list {
+      display: grid;
+      gap: var(--spacing-md);
+    }
+
+    .bible-bookmark-item {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius-md);
+      padding: var(--spacing-md);
+      cursor: pointer;
+      transition: var(--transition-standard);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bible-bookmark-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .bible-bookmark-info {
+      flex: 1;
+    }
+
+    .bible-bookmark-reference {
+      font-weight: 600;
+      color: var(--bible-accent);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .bible-bookmark-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .bible-bookmark-remove {
+      color: var(--bible-text);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--spacing-sm);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .bible-bookmark-remove:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Empty state */
+    .bible-empty-state {
+      text-align: center;
+      padding: var(--spacing-xxl) 0;
+      color: var(--bible-chapter);
+    }
+
+    .bible-empty-icon {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-md);
+      opacity: 0.5;
+    }
+
+    .bible-empty-text {
+      font-size: 1.125rem;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .bible-empty-subtext {
+      font-size: 0.875rem;
+      opacity: 0.7;
+    }
   </style>
 </head>
 <body>
@@ -432,22 +839,6 @@
   </header>
 
   <main class="container">
-    <!-- Bible Section -->
-    <section id="bible-section" class="section">
-      <div class="section-header">
-        <h3>Bible Versions</h3>
-        <a href="#" class="view-all">View all <span class="material-icons-round">arrow_forward</span></a>
-      </div>
-      <div class="bible-version-grid">
-        <a href="https://www.biblegateway.com/versions/New-International-Version-NIV-Bible/" target="_blank" class="bible-version" aria-label="New International Version">NIV</a>
-        <a href="https://www.biblegateway.com/versions/King-James-Version-KJV-Bible/" target="_blank" class="bible-version" aria-label="King James Version">KJV</a>
-        <a href="https://www.biblegateway.com/versions/New-Living-Translation-NLT-Bible/" target="_blank" class="bible-version" aria-label="New Living Translation">NLT</a>
-        <a href="https://www.biblegateway.com/versions/English-Standard-Version-ESV-Bible/" target="_blank" class="bible-version" aria-label="English Standard Version">ESV</a>
-        <a href="https://www.biblegateway.com/versions/Christian-Standard-Bible-CSB/" target="_blank" class="bible-version" aria-label="Christian Standard Bible">CSB</a>
-        <a href="https://www.biblegateway.com/versions/New-King-James-Version-NKJV-Bible/" target="_blank" class="bible-version" aria-label="New King James Version">NKJV</a>
-      </div>
-    </section>
-
     <!-- Featured Lessons Section -->
     <section class="section">
       <div class="section-header">
@@ -759,6 +1150,168 @@
     </section>
   </main>
 
+  <!-- Bible App Drawer -->
+  <div id="bibleDrawer" class="bible-drawer">
+    <div class="drawer-pull"></div>
+    <div class="bible-drawer-header">
+      <h2 class="bible-drawer-title">Holy Bible</h2>
+      <button class="bible-close-btn" id="closeBibleDrawer" aria-label="Close Bible">
+        <span class="material-icons-round">close</span>
+      </button>
+    </div>
+    
+    <div class="bible-tabs">
+      <div class="bible-tab active" data-tab="versions">Versions</div>
+      <div class="bible-tab" data-tab="read">Read</div>
+      <div class="bible-tab" data-tab="search">Search</div>
+      <div class="bible-tab" data-tab="bookmarks">Bookmarks</div>
+    </div>
+    
+    <div class="bible-drawer-content">
+      <!-- Bible Versions Tab -->
+      <div class="bible-versions-container active" data-content="versions">
+        <div class="bible-version-list">
+          <div class="bible-version-item active" data-version="NIV">
+            <div class="bible-version-abbr">NIV</div>
+            <div class="bible-version-name">New International Version</div>
+          </div>
+          <div class="bible-version-item" data-version="KJV">
+            <div class="bible-version-abbr">KJV</div>
+            <div class="bible-version-name">King James Version</div>
+          </div>
+          <div class="bible-version-item" data-version="ESV">
+            <div class="bible-version-abbr">ESV</div>
+            <div class="bible-version-name">English Standard Version</div>
+          </div>
+          <div class="bible-version-item" data-version="NLT">
+            <div class="bible-version-abbr">NLT</div>
+            <div class="bible-version-name">New Living Translation</div>
+          </div>
+          <div class="bible-version-item" data-version="NASB">
+            <div class="bible-version-abbr">NASB</div>
+            <div class="bible-version-name">New American Standard Bible</div>
+          </div>
+          <div class="bible-version-item" data-version="CSB">
+            <div class="bible-version-abbr">CSB</div>
+            <div class="bible-version-name">Christian Standard Bible</div>
+          </div>
+          <div class="bible-version-item" data-version="NKJV">
+            <div class="bible-version-abbr">NKJV</div>
+            <div class="bible-version-name">New King James Version</div>
+          </div>
+          <div class="bible-version-item" data-version="MSG">
+            <div class="bible-version-abbr">MSG</div>
+            <div class="bible-version-name">The Message</div>
+          </div>
+          <div class="bible-version-item" data-version="AMP">
+            <div class="bible-version-abbr">AMP</div>
+            <div class="bible-version-name">Amplified Bible</div>
+          </div>
+          <div class="bible-version-item" data-version="NRSV">
+            <div class="bible-version-abbr">NRSV</div>
+            <div class="bible-version-name">New Revised Standard Version</div>
+          </div>
+          <div class="bible-version-item" data-version="TPT">
+            <div class="bible-version-abbr">TPT</div>
+            <div class="bible-version-name">The Passion Translation</div>
+          </div>
+          <div class="bible-version-item" data-version="NCV">
+            <div class="bible-version-abbr">NCV</div>
+            <div class="bible-version-name">New Century Version</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Bible Reading Tab -->
+      <div class="bible-content-container" data-content="read">
+        <div class="bible-chapter-header">
+          <div class="bible-book-title">John</div>
+          <div class="bible-chapter-number">Chapter 1</div>
+        </div>
+        <div class="bible-verses">
+          <p class="bible-verse"><span class="bible-verse-number">1</span>In the beginning was the Word, and the Word was with God, and the Word was God.</p>
+          <p class="bible-verse"><span class="bible-verse-number">2</span>He was with God in the beginning.</p>
+          <p class="bible-verse"><span class="bible-verse-number">3</span>Through him all things were made; without him nothing was made that has been made.</p>
+          <p class="bible-verse"><span class="bible-verse-number">4</span>In him was life, and that life was the light of all mankind.</p>
+          <p class="bible-verse"><span class="bible-verse-number">5</span>The light shines in the darkness, and the darkness has not overcome it.</p>
+          <p class="bible-verse"><span class="bible-verse-number">6</span>There was a man sent from God whose name was John.</p>
+          <p class="bible-verse"><span class="bible-verse-number">7</span>He came as a witness to testify concerning that light, so that through him all might believe.</p>
+          <p class="bible-verse"><span class="bible-verse-number">8</span>He himself was not the light; he came only as a witness to the light.</p>
+          <p class="bible-verse"><span class="bible-verse-number">9</span>The true light that gives light to everyone was coming into the world.</p>
+          <p class="bible-verse"><span class="bible-verse-number">10</span>He was in the world, and though the world was made through him, the world did not recognize him.</p>
+          <p class="bible-verse"><span class="bible-verse-number">11</span>He came to that which was his own, but his own did not receive him.</p>
+          <p class="bible-verse"><span class="bible-verse-number">12</span>Yet to all who did receive him, to those who believed in his name, he gave the right to become children of God—</p>
+          <p class="bible-verse"><span class="bible-verse-number">13</span>children born not of natural descent, nor of human decision or a husband's will, but born of God.</p>
+          <p class="bible-verse"><span class="bible-verse-number">14</span>The Word became flesh and made his dwelling among us. We have seen his glory, the glory of the one and only Son, who came from the Father, full of grace and truth.</p>
+          <p class="bible-verse"><span class="bible-verse-number">15</span>John testified concerning him. He cried out, saying, "This is the one I spoke about when I said, 'He who comes after me has surpassed me because he was before me.'"</p>
+        </div>
+        
+        <div class="bible-toolbar">
+          <div class="bible-chapter-selector">
+            <button class="bible-chapter-btn" aria-label="Previous chapter">
+              <span class="material-icons-round">chevron_left</span>
+            </button>
+            <span>Chapter 1</span>
+            <button class="bible-chapter-btn" aria-label="Next chapter">
+              <span class="material-icons-round">chevron_right</span>
+            </button>
+          </div>
+          <div>
+            <button class="bible-toolbar-btn" aria-label="Add bookmark">
+              <span class="material-icons-round">bookmark_add</span>
+            </button>
+            <button class="bible-toolbar-btn" aria-label="Share">
+              <span class="material-icons-round">share</span>
+            </button>
+            <button class="bible-toolbar-btn" aria-label="Settings">
+              <span class="material-icons-round">settings</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Bible Search Tab -->
+      <div class="bible-search-container" data-content="search">
+        <form class="bible-search-form">
+          <input type="text" class="bible-search-input" placeholder="Search the Bible..." aria-label="Search the Bible">
+          <button type="submit" class="bible-search-btn">Search</button>
+        </form>
+        
+        <div class="bible-search-results">
+          <div class="bible-empty-state">
+            <span class="material-icons-round bible-empty-icon">search</span>
+            <p class="bible-empty-text">Search for verses, topics, or passages</p>
+            <p class="bible-empty-subtext">Example: "love one another" or "John 3:16"</p>
+          </div>
+          
+          <!-- Search results will be dynamically added here -->
+        </div>
+      </div>
+      
+      <!-- Bible Bookmarks Tab -->
+      <div class="bible-bookmarks-container" data-content="bookmarks">
+        <div class="bible-bookmark-list">
+          <div class="bible-empty-state">
+            <span class="material-icons-round bible-empty-icon">bookmark</span>
+            <p class="bible-empty-text">No bookmarks yet</p>
+            <p class="bible-empty-subtext">Add bookmarks while reading to save them here</p>
+          </div>
+          
+          <!-- Example bookmark (would be dynamically added) -->
+          <div class="bible-bookmark-item">
+            <div class="bible-bookmark-info">
+              <div class="bible-bookmark-reference">John 3:16</div>
+              <div class="bible-bookmark-text">For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.</div>
+            </div>
+            <button class="bible-bookmark-remove" aria-label="Remove bookmark">
+              <span class="material-icons-round">close</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Bottom Navigation -->
   <nav class="bottom-nav">
     <a href="#" class="nav-item active" aria-label="Home">
@@ -773,7 +1326,7 @@
       <span class="material-icons-round">bookmark</span>
       Library
     </a>
-    <a href="javascript:void(0);" onclick="toggleBibleSection()" class="nav-item" aria-label="Bible">
+    <a href="javascript:void(0);" id="bibleNavBtn" class="nav-item" aria-label="Bible">
       <span class="material-icons-round">menu_book</span>
       Bible
     </a>
@@ -785,25 +1338,75 @@
 
   <!-- JavaScript -->
   <script>
-    // Toggle Bible section visibility
-    function toggleBibleSection() {
-      const section = document.getElementById('bible-section');
-      if (section.style.display === 'block') {
-        section.style.display = 'none';
-      } else {
-        section.style.display = 'block';
-        // Scroll to Bible section
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    // Add active class to current navigation item
     document.addEventListener('DOMContentLoaded', function() {
+      // Bible drawer functionality
+      const bibleDrawer = document.getElementById('bibleDrawer');
+      const bibleNavBtn = document.getElementById('bibleNavBtn');
+      const closeBibleDrawerBtn = document.getElementById('closeBibleDrawer');
+      
+      // Open Bible drawer when Bible nav item is clicked
+      bibleNavBtn.addEventListener('click', function() {
+        bibleDrawer.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling behind drawer
+      });
+      
+      // Close Bible drawer when close button is clicked
+      closeBibleDrawerBtn.addEventListener('click', function() {
+        bibleDrawer.classList.remove('open');
+        document.body.style.overflow = ''; // Restore scrolling
+      });
+      
+      // Tab switching functionality
+      const bibleTabs = document.querySelectorAll('.bible-tab');
+      const bibleContents = document.querySelectorAll('[data-content]');
+      
+      bibleTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const tabName = this.getAttribute('data-tab');
+          
+          // Update active tab
+          bibleTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Show corresponding content
+          bibleContents.forEach(content => {
+            if (content.getAttribute('data-content') === tabName) {
+              content.classList.add('active');
+            } else {
+              content.classList.remove('active');
+            }
+          });
+        });
+      });
+      
+      // Bible version selection
+      const bibleVersionItems = document.querySelectorAll('.bible-version-item');
+      
+      bibleVersionItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // Update active version
+          bibleVersionItems.forEach(v => v.classList.remove('active'));
+          this.classList.add('active');
+          
+          const version = this.getAttribute('data-version');
+          
+          // Switch to read tab after selecting version
+          document.querySelector('.bible-tab[data-tab="read"]').click();
+          
+          // In a real app, this would load the selected Bible version content
+          document.querySelector('.bible-chapter-header .bible-book-title').textContent = 'John';
+          document.querySelector('.bible-chapter-header .bible-chapter-number').textContent = `Chapter 1 (${version})`;
+        });
+      });
+      
+      // Add active class to current navigation item
       const navItems = document.querySelectorAll('.nav-item');
       navItems.forEach(item => {
-        item.addEventListener('click', function() {
-          navItems.forEach(i => i.classList.remove('active'));
-          this.classList.add('active');
+        item.addEventListener('click', function(e) {
+          if (!this.id || this.id !== 'bibleNavBtn') {
+            navItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+          }
         });
       });
 
