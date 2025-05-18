@@ -3,2326 +3,939 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="The True Vine - A modern Christian Education app for spiritual growth and biblical studies">
-  <title>The True Vine | Shiloh Temple House of God Education Department</title>
-  <!-- Modern font integration -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Material Icons -->
+  <title>The Vine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <!-- Custom CSS -->
   <style>
     :root {
-      /* Modern color palette */
-      --primary: #2d5282;
-      --primary-dark: #1a365d;
-      --primary-light: #4a69a7;
-      --accent: #5cbbf6;
-      --accent-dark: #3aa0e9;
-      --background: #f9fafb;
-      --surface: #ffffff;
-      --surface-elevated: #ffffff;
-      --text-primary: #1a202c;
-      --text-secondary: #4a5568;
-      --text-tertiary: #718096;
-      --divider: #e2e8f0;
-      --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      --card-hover-shadow: 0 8px 30px rgba(0,0,0,0.12);
-      --nav-shadow: 0 -2px 10px rgba(0,0,0,0.06);
-      --header-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      --header-gradient: linear-gradient(135deg, #2d5282 0%, #1a365d 100%);
-      --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --border-radius-sm: 8px;
-      --border-radius-md: 12px;
-      --border-radius-lg: 16px;
-      --spacing-xs: 4px;
-      --spacing-sm: 8px;
-      --spacing-md: 16px;
-      --spacing-lg: 24px;
-      --spacing-xl: 32px;
-      --spacing-xxl: 48px;
+      /* Original Variables */
+      --primary: #003366;
+      --primary-dark: #001f3f;
+      --accent: #66ccff;
+      --background: #f8fbfe;
+      --surface: #ffffffee;
+      --text-main: #1a1a1a;
+      --text-muted: #5f6c7b;
+      --card-hover: #f0f4f8;
+      --highlight: #66ccff;
+      --highlight-border: #003366;
+      --nav-bg: #0a192fe0;
+      --subtext-bg: #5f6c7b;
+      --divider: #cccccc;
       
-      /* Bible app specific colors */
-      --bible-bg: #1a202c;
-      --bible-text: #f7fafc;
-      --bible-accent: #5cbbf6;
-      --bible-verse: #e2e8f0;
-      --bible-chapter: #a0aec0;
-      --bible-highlight: rgba(92, 187, 246, 0.2);
-      --bible-drawer-bg: rgba(26, 32, 44, 0.98);
-      --bible-version-active: #5cbbf6;
-      --bible-version-inactive: #718096;
-      --bible-toolbar: rgba(26, 32, 44, 0.9);
-      --bible-dropdown-bg: rgba(45, 55, 72, 0.95);
-      --bible-dropdown-hover: rgba(92, 187, 246, 0.1);
-      --bible-dropdown-border: rgba(255, 255, 255, 0.1);
-      --bible-dropdown-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-      --bible-search-highlight: #ffeb3b;
+      /* Card and Bible Modal Variables */
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-400: #ced4da;
+      --gray-500: #adb5bd;
+      --white: #ffffff;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
+      
+      /* Spacing Variables */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-xxl: 48px;
     }
-
-    /* Base styles */
+    
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
       scroll-behavior: smooth;
+      box-sizing: border-box;
     }
-
+    
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--background);
-      color: var(--text-primary);
-      line-height: 1.6;
-      font-size: 16px;
-      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      margin: 0;
       padding-bottom: 80px;
-      overflow-x: hidden;
-      animation: fadeInBody 0.8s ease-in;
+      color: var(--text-main);
+      animation: fadeInBody 1.5s ease-in;
     }
-
+    
     @keyframes fadeInBody {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
-    /* Typography */
-    h1, h2, h3, h4, h5 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 600;
-      line-height: 1.3;
-    }
-
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: var(--spacing-md);
-      color: var(--text-primary);
-      position: relative;
-      display: inline-block;
-    }
-
-    h3::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 40px;
-      height: 3px;
-      background-color: var(--accent);
-      border-radius: 2px;
-    }
-
-    /* Header */
-    .app-header {
-      background: var(--header-gradient);
-      padding: var(--spacing-xl) var(--spacing-md) var(--spacing-lg);
+    
+    /* Original Header Styles */
+    .floating-header {
+      background: var(--nav-bg);
+      padding: 40px 0 10px;
       text-align: center;
       position: relative;
-      z-index: 10;
-      box-shadow: var(--header-shadow);
-      border-bottom-left-radius: var(--border-radius-lg);
-      border-bottom-right-radius: var(--border-radius-lg);
+      z-index: 1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
-    .app-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.75rem;
-      font-weight: 700;
-      color: white;
+    
+    .floating-header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      font-weight: 400;
+      color: var(--accent);
       margin: 0;
       letter-spacing: 1px;
-      animation: fadeSlideDown 1s ease-out;
+      animation: fadeSlide 1s ease-in-out;
     }
-
-    .app-header .tagline {
-      font-size: 1rem;
-      font-weight: 500;
-      color: white;
-      margin-top: var(--spacing-sm);
-      letter-spacing: 0.5px;
-      background-color: rgba(255, 255, 255, 0.15);
-      display: inline-block;
-      padding: var(--spacing-xs) var(--spacing-md);
-      border-radius: 30px;
-      backdrop-filter: blur(10px);
-      animation: fadeSlideUp 1.2s ease-out;
-    }
-
-    @keyframes fadeSlideDown {
+    
+    @keyframes fadeSlide {
       0% { opacity: 0; transform: translateY(-20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-
-    @keyframes fadeSlideUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    
+    .floating-header .subtext {
+      font-size: 16px;
+      color: #ffffff;
+      margin-top: 6px;
+      letter-spacing: 1px;
+      background-color: var(--subtext-bg);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
     }
-
-    /* Main content */
+    
+    /* Modern Card Styles */
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 var(--spacing-md);
+      padding: 0 var(--space-md);
     }
-
+    
     .section {
-      margin: var(--spacing-xl) 0;
-      padding-bottom: var(--spacing-lg);
-      border-bottom: 1px solid var(--divider);
+      padding: var(--space-xxl) 0;
+      max-width: 1140px;
+      margin: 0 auto;
     }
-
-    .section:last-child {
-      border-bottom: none;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: var(--spacing-md);
-    }
-
-    .view-all {
-      font-size: 0.875rem;
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      transition: var(--transition-standard);
-    }
-
-    .view-all:hover {
-      color: var(--primary-dark);
-    }
-
-    .view-all .material-icons-round {
-      font-size: 1rem;
-      margin-left: var(--spacing-xs);
-    }
-
-    /* Card styles */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: var(--spacing-lg);
-      margin-top: var(--spacing-md);
-    }
-
-    .card-scroll {
-      display: flex;
-      overflow-x: auto;
-      gap: var(--spacing-md);
-      padding-bottom: var(--spacing-md);
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-
-    .card-scroll::-webkit-scrollbar {
-      display: none;
-    }
-
-    .card {
-      flex: 0 0 auto;
-      width: 250px;
-      background: var(--surface);
-      border-radius: var(--border-radius-md);
-      overflow: hidden;
-      text-decoration: none;
-      color: var(--text-primary);
-      box-shadow: var(--card-shadow);
-      transition: var(--transition-standard);
+    
+    .section-title {
+      font-size: 24px;
+      margin-bottom: var(--space-xl);
+      text-align: center;
       position: relative;
-      scroll-snap-align: start;
-      display: flex;
-      flex-direction: column;
+      padding-bottom: var(--space-md);
+      color: var(--text-muted);
     }
-
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--accent);
+      border-radius: var(--radius-sm);
+    }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+    
+    .card {
+      background-color: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: var(--card-hover-shadow);
+      box-shadow: var(--shadow-lg);
     }
-
-    .card:active {
-      transform: translateY(-2px);
-    }
-
+    
     .card-image {
-      position: relative;
       width: 100%;
-      height: 160px;
-      overflow: hidden;
-    }
-
-    .card-image img {
-      width: 100%;
-      height: 100%;
+      height: 180px;
       object-fit: cover;
-      transition: transform 0.5s ease;
     }
-
-    .card:hover .card-image img {
-      transform: scale(1.05);
-    }
-
+    
     .card-content {
-      padding: var(--spacing-md);
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
+      padding: var(--space-lg);
     }
-
+    
     .card-title {
+      font-size: 1.25rem;
+      margin-bottom: var(--space-sm);
+      color: var(--primary);
       font-weight: 600;
-      font-size: 1rem;
-      color: var(--text-primary);
-      margin-bottom: var(--spacing-xs);
     }
-
-    .card-description {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      margin-top: var(--spacing-xs);
-      line-height: 1.4;
+    
+    .card-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: var(--space-md);
     }
-
+    
     .card-meta {
       display: flex;
       align-items: center;
-      margin-top: auto;
-      padding-top: var(--spacing-sm);
-      font-size: 0.75rem;
-      color: var(--text-tertiary);
+      font-size: 0.85rem;
+      color: var(--text-light);
     }
-
-    .card-meta .material-icons-round {
-      font-size: 0.875rem;
-      margin-right: var(--spacing-xs);
+    
+    .card-meta-item {
+      display: flex;
+      align-items: center;
+      margin-right: var(--space-md);
     }
-
-    /* Bottom navigation */
+    
+    .card-meta-icon {
+      font-size: 1rem;
+      margin-right: var(--space-xs);
+    }
+    
+    /* Original Bottom Navigation */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      background: var(--surface-elevated);
+      background: var(--nav-bg);
+      border-top: 1px solid #ccc;
       display: flex;
       justify-content: space-around;
       align-items: center;
       height: 70px;
-      box-shadow: var(--nav-shadow);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
       z-index: 100;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
     }
-
-    .nav-item {
-      color: var(--text-tertiary);
+    
+    .bottom-nav a {
+      color: #ffffff;
       text-decoration: none;
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: var(--transition-standard);
-      padding: var(--spacing-xs);
+      transition: color 0.3s ease;
     }
-
-    .nav-item .material-icons-round {
-      font-size: 1.5rem;
-      margin-bottom: var(--spacing-xs);
+    
+    .bottom-nav a span {
+      font-family: 'Material Symbols Outlined';
+      font-size: 24px;
+      margin-bottom: 4px;
     }
-
-    .nav-item.active {
-      color: var(--primary);
+    
+    .bottom-nav a.active {
+      color: var(--accent);
+      font-weight: 600;
     }
-
-    .nav-item:hover {
-      color: var(--primary-light);
-    }
-
-    /* Responsive adjustments */
-    @media (min-width: 768px) {
-      .app-header {
-        padding: var(--spacing-xxl) var(--spacing-md) var(--spacing-xl);
-      }
-
-      .app-header h1 {
-        font-size: 3.5rem;
-      }
-
-      .app-header .tagline {
-        font-size: 1.125rem;
-      }
-
-      .section {
-        margin: var(--spacing-xxl) 0;
-      }
-
-      .card-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      }
-
-      .card {
-        width: 280px;
-      }
-
-      .card-image {
-        height: 180px;
-      }
-    }
-
-    /* Accessibility improvements */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
-    }
-
-    /* Focus styles for keyboard navigation */
-    a:focus, button:focus {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    /* Loading state */
-    .loading-skeleton {
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: loading 1.5s infinite;
-      border-radius: var(--border-radius-sm);
-    }
-
-    @keyframes loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    /* Bible App Modal/Drawer Styles */
-    .bible-drawer {
+    
+    /* Bible Modal Styles */
+    .bible-modal {
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 100%;
+      right: 0;
       height: 0;
-      background-color: var(--bible-drawer-bg);
-      z-index: 1000;
+      background-color: var(--white);
+      z-index: 2000;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       overflow: hidden;
-      transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      flex-direction: column;
-      color: var(--bible-text);
-      border-top-left-radius: var(--border-radius-lg);
-      border-top-right-radius: var(--border-radius-lg);
-      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.3);
+      transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-xl);
     }
-
-    .bible-drawer.open {
+    
+    .bible-modal.open {
       height: 90vh;
     }
-
-    .bible-drawer-header {
+    
+    .bible-modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: var(--spacing-md) var(--spacing-lg);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      background-color: var(--nav-bg);
+      color: white;
     }
-
-    .bible-drawer-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+    
+    .bible-modal-title {
+      font-size: 20px;
       font-weight: 600;
     }
-
-    .bible-close-btn {
+    
+    .bible-modal-close {
       background: none;
       border: none;
-      color: var(--bible-text);
+      color: var(--accent);
+      font-size: 24px;
       cursor: pointer;
-      padding: var(--spacing-xs);
-      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.2s ease;
+      font-family: 'Material Symbols Outlined';
     }
-
-    .bible-close-btn:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+    
+    .bible-modal-content {
+      height: calc(90vh - 60px);
+      overflow: hidden;
+      position: relative;
     }
-
-    .bible-drawer-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Bible Search Bar - Truth For Life Style */
-    .bible-search-bar {
-      background-color: rgba(0, 0, 0, 0.2);
-      padding: var(--spacing-md) var(--spacing-lg);
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-md);
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .bible-search-group {
-      display: flex;
-      flex-direction: column;
-      min-width: 120px;
-      flex: 1;
-    }
-
-    .bible-search-label {
-      font-size: 0.8rem;
-      margin-bottom: var(--spacing-xs);
-      color: var(--bible-chapter);
-      font-weight: 500;
-    }
-
-    .bible-search-select {
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: var(--border-radius-md);
-      color: var(--bible-text);
-      padding: var(--spacing-sm) var(--spacing-md);
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: var(--transition-standard);
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f7fafc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      background-size: 16px;
-    }
-
-    .bible-search-select:hover, .bible-search-input:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .bible-search-select:focus, .bible-search-input:focus {
-      outline: none;
-      border-color: var(--bible-accent);
-    }
-
-    .bible-search-input {
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: var(--border-radius-md);
-      color: var(--bible-text);
-      padding: var(--spacing-sm) var(--spacing-md);
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      transition: var(--transition-standard);
+    
+    .bible-iframe-container {
       width: 100%;
-    }
-
-    .bible-search-btn {
-      background-color: var(--bible-accent);
-      border: none;
-      color: var(--bible-bg);
-      font-weight: 600;
-      padding: var(--spacing-sm) var(--spacing-lg);
-      border-radius: var(--border-radius-md);
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      margin-top: auto;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .bible-search-btn:hover {
-      background-color: var(--accent-dark);
-    }
-
-    .bible-search-btn .material-icons-round {
-      font-size: 1.1rem;
-      margin-right: var(--spacing-xs);
-    }
-
-    .bible-version-selector {
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: var(--border-radius-md);
-      color: var(--bible-text);
-      padding: var(--spacing-sm) var(--spacing-md);
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: var(--transition-standard);
-      margin-top: auto;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f7fafc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      background-size: 16px;
-      min-width: 80px;
-    }
-
-    .bible-version-selector:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .bible-version-selector:focus {
-      outline: none;
-      border-color: var(--bible-accent);
-    }
-
-    /* Bible Tabs */
-    .bible-tabs {
-      display: flex;
-      background-color: rgba(0, 0, 0, 0.2);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .bible-tab {
-      flex: 1;
-      padding: var(--spacing-md);
-      text-align: center;
-      color: var(--bible-text);
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--transition-standard);
-      position: relative;
-      opacity: 0.7;
-    }
-
-    .bible-tab.active {
-      opacity: 1;
-    }
-
-    .bible-tab.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 25%;
-      width: 50%;
-      height: 3px;
-      background-color: var(--bible-accent);
-      border-radius: 3px 3px 0 0;
-    }
-
-    /* Bible Content Containers */
-    .bible-content-container {
-      padding: 0;
-      display: none;
-    }
-
-    .bible-content-container.active {
-      display: block;
-    }
-
-    /* Bible Reading Area */
-    .bible-reading-area {
-      padding: var(--spacing-lg);
-    }
-
-    .bible-chapter-header {
-      margin-bottom: var(--spacing-lg);
-      text-align: center;
-    }
-
-    .bible-book-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: var(--spacing-xs);
-    }
-
-    .bible-chapter-number {
-      font-size: 1.25rem;
-      color: var(--bible-chapter);
-    }
-
-    .bible-verses {
-      font-size: 1.125rem;
-      line-height: 1.8;
-    }
-
-    .bible-verse {
-      margin-bottom: var(--spacing-md);
-      position: relative;
-      padding-left: 2rem;
-    }
-
-    .bible-verse-number {
-      position: absolute;
-      left: 0;
-      top: 0.3rem;
-      font-size: 0.875rem;
-      color: var(--bible-accent);
-      font-weight: 600;
-    }
-
-    /* Bible Toolbar */
-    .bible-toolbar {
-      position: sticky;
-      bottom: 0;
-      display: flex;
-      justify-content: space-between;
-      padding: var(--spacing-md) var(--spacing-lg);
-      background-color: var(--bible-toolbar);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .bible-toolbar-btn {
-      background: none;
-      border: none;
-      color: var(--bible-text);
-      cursor: pointer;
-      padding: var(--spacing-sm);
-      border-radius: var(--border-radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease;
-    }
-
-    .bible-toolbar-btn:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .bible-chapter-selector {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-md);
-    }
-
-    .bible-chapter-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      color: var(--bible-text);
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease;
-    }
-
-    .bible-chapter-btn:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .bible-chapter-btn:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-
-    /* Verse Selection */
-    .bible-verse.selectable {
-      cursor: pointer;
-      transition: var(--transition-standard);
-    }
-
-    .bible-verse.selectable:hover {
-      background-color: rgba(255, 255, 255, 0.05);
-    }
-
-    .bible-verse.selected {
-      background-color: var(--bible-highlight);
-      border-radius: var(--border-radius-sm);
-    }
-
-    /* Search Results Highlighting */
-    .search-highlight {
-      background-color: var(--bible-search-highlight);
-      color: var(--bible-bg);
-      padding: 0 2px;
-      border-radius: 3px;
-    }
-
-    /* Bible Search Results */
-    .bible-search-results {
-      padding: var(--spacing-lg);
-    }
-
-    .bible-search-results-header {
-      margin-bottom: var(--spacing-lg);
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--bible-text);
-    }
-
-    .bible-search-results-count {
-      font-size: 0.9rem;
-      color: var(--bible-chapter);
-      margin-bottom: var(--spacing-lg);
-    }
-
-    .bible-search-result-item {
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius-md);
-      padding: var(--spacing-md);
-      margin-bottom: var(--spacing-md);
-      cursor: pointer;
-      transition: var(--transition-standard);
-    }
-
-    .bible-search-result-item:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .bible-search-result-reference {
-      font-weight: 600;
-      color: var(--bible-accent);
-      margin-bottom: var(--spacing-xs);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .bible-search-result-version {
-      font-size: 0.8rem;
-      color: var(--bible-chapter);
-    }
-
-    .bible-search-result-text {
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* Bible Versions Tab */
-    .bible-versions-container {
-      padding: var(--spacing-lg);
-      display: none;
-    }
-
-    .bible-versions-container.active {
-      display: block;
-    }
-
-    .bible-version-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: var(--spacing-md);
-    }
-
-    .bible-version-item {
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius-md);
-      padding: var(--spacing-md);
-      text-align: center;
-      cursor: pointer;
-      transition: var(--transition-standard);
-      border: 2px solid transparent;
-    }
-
-    .bible-version-item:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      transform: translateY(-3px);
-    }
-
-    .bible-version-item.active {
-      border-color: var(--bible-version-active);
-      background-color: rgba(92, 187, 246, 0.1);
-    }
-
-    .bible-version-abbr {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: var(--spacing-xs);
-      color: var(--bible-text);
-    }
-
-    .bible-version-name {
-      font-size: 0.75rem;
-      color: var(--bible-chapter);
-    }
-
-    /* Bookmarks container */
-    .bible-bookmarks-container {
-      padding: var(--spacing-lg);
-      display: none;
-    }
-
-    .bible-bookmarks-container.active {
-      display: block;
-    }
-
-    .bible-bookmark-list {
-      display: grid;
-      gap: var(--spacing-md);
-    }
-
-    .bible-bookmark-item {
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius-md);
-      padding: var(--spacing-md);
-      cursor: pointer;
-      transition: var(--transition-standard);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .bible-bookmark-item:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .bible-bookmark-info {
-      flex: 1;
-    }
-
-    .bible-bookmark-reference {
-      font-weight: 600;
-      color: var(--bible-accent);
-      margin-bottom: var(--spacing-xs);
-    }
-
-    .bible-bookmark-text {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+      height: 100%;
       overflow: hidden;
     }
-
-    .bible-bookmark-remove {
-      color: var(--bible-text);
-      background: none;
+    
+    .bible-iframe {
+      width: 100%;
+      height: 100%;
       border: none;
-      cursor: pointer;
-      padding: var(--spacing-sm);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease;
     }
-
-    .bible-bookmark-remove:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Empty state */
-    .bible-empty-state {
-      text-align: center;
-      padding: var(--spacing-xxl) 0;
-      color: var(--bible-chapter);
-    }
-
-    .bible-empty-icon {
-      font-size: 3rem;
-      margin-bottom: var(--spacing-md);
-      opacity: 0.5;
-    }
-
-    .bible-empty-text {
-      font-size: 1.125rem;
-      margin-bottom: var(--spacing-md);
-    }
-
-    .bible-empty-subtext {
-      font-size: 0.875rem;
-      opacity: 0.7;
-    }
-
-    /* Drawer pull indicator */
-    .drawer-pull {
+    
+    .bible-modal-pull-indicator {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 40px;
-      height: 5px;
-      background-color: rgba(255, 255, 255, 0.3);
-      border-radius: 3px;
-      margin: var(--spacing-sm) auto;
+      height: 4px;
+      background-color: var(--gray-300);
+      border-radius: 2px;
     }
-
-    /* Animation for drawer opening */
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
+    
+    .bible-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
-
-    .bible-drawer.open {
-      animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    .bible-modal-overlay.open {
+      display: block;
+      opacity: 1;
     }
-
-    /* Responsive adjustments for Bible navigation */
-    @media (min-width: 768px) {
-      .bible-search-bar {
-        padding: var(--spacing-md) var(--spacing-xl);
-        flex-wrap: nowrap;
-      }
-
-      .bible-search-group {
-        min-width: 150px;
-      }
+    
+    .version-button {
+      background: var(--accent);
+      color: var(--primary-dark);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      z-index: 5;
+      font-weight: 600;
+      font-size: 14px;
     }
-
-    /* Advanced Search Form */
-    .bible-advanced-search {
-      padding: var(--spacing-lg);
+    
+    .version-selector {
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      z-index: 10;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       display: none;
     }
-
-    .bible-advanced-search.active {
-      display: block;
-    }
-
-    .bible-advanced-search-form {
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius-md);
-      padding: var(--spacing-lg);
-      margin-bottom: var(--spacing-lg);
-    }
-
-    .bible-advanced-search-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: var(--spacing-md);
-      color: var(--bible-text);
-    }
-
-    .bible-form-group {
-      margin-bottom: var(--spacing-md);
-    }
-
-    .bible-form-label {
-      display: block;
-      font-size: 0.9rem;
-      margin-bottom: var(--spacing-xs);
-      color: var(--bible-chapter);
-    }
-
-    .bible-form-input {
-      width: 100%;
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: var(--border-radius-md);
-      color: var(--bible-text);
-      padding: var(--spacing-sm) var(--spacing-md);
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      transition: var(--transition-standard);
-    }
-
-    .bible-form-input:focus {
-      outline: none;
-      border-color: var(--bible-accent);
-    }
-
-    .bible-form-select {
-      width: 100%;
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: var(--border-radius-md);
-      color: var(--bible-text);
-      padding: var(--spacing-sm) var(--spacing-md);
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      transition: var(--transition-standard);
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f7fafc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      background-size: 16px;
-    }
-
-    .bible-form-select:focus {
-      outline: none;
-      border-color: var(--bible-accent);
-    }
-
-    .bible-form-checkbox {
+    
+    .version-list {
       display: flex;
-      align-items: center;
-      margin-bottom: var(--spacing-sm);
+      flex-direction: column;
+      gap: 8px;
     }
-
-    .bible-form-checkbox input {
-      margin-right: var(--spacing-sm);
-    }
-
-    .bible-search-submit {
-      background-color: var(--bible-accent);
+    
+    .version-item {
+      background: none;
       border: none;
-      color: var(--bible-bg);
-      font-weight: 600;
-      padding: var(--spacing-md) var(--spacing-lg);
-      border-radius: var(--border-radius-md);
+      text-align: left;
+      padding: 8px 16px;
       cursor: pointer;
-      transition: background-color 0.2s ease;
-      width: 100%;
-      margin-top: var(--spacing-md);
+      border-radius: 4px;
+      transition: background-color 0.2s;
     }
-
-    .bible-search-submit:hover {
-      background-color: var(--accent-dark);
+    
+    .version-item:hover {
+      background-color: var(--gray-200);
     }
-
-    .bible-form-row {
-      display: flex;
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-md);
+    
+    .guidance-message {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      max-width: 80%;
+      text-align: center;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
-
-    .bible-form-col {
-      flex: 1;
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 1.75rem;
+      }
+      
+      .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+      
+      .floating-header h1 {
+        font-size: 36px;
+      }
     }
-
-    /* Recent Searches */
-    .bible-recent-searches {
-      margin-top: var(--spacing-xl);
-    }
-
-    .bible-recent-searches-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: var(--spacing-md);
-      color: var(--bible-text);
-    }
-
-    .bible-recent-search-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-sm);
-    }
-
-    .bible-recent-search-item {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 30px;
-      padding: var(--spacing-xs) var(--spacing-md);
-      font-size: 0.8rem;
-      color: var(--bible-text);
-      cursor: pointer;
-      transition: var(--transition-standard);
-    }
-
-    .bible-recent-search-item:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Popular Searches */
-    .bible-popular-searches {
-      margin-top: var(--spacing-xl);
-    }
-
-    .bible-popular-searches-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: var(--spacing-md);
-      color: var(--bible-text);
-    }
-
-    .bible-popular-search-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-sm);
-    }
-
-    .bible-popular-search-item {
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: 30px;
-      padding: var(--spacing-xs) var(--spacing-md);
-      font-size: 0.8rem;
-      color: var(--bible-chapter);
-      cursor: pointer;
-      transition: var(--transition-standard);
-    }
-
-    .bible-popular-search-item:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: var(--bible-text);
+    
+    @media (max-width: 480px) {
+      .section-title {
+        font-size: 1.5rem;
+      }
+      
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .floating-header h1 {
+        font-size: 32px;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="app-header">
+  <!-- Original Header -->
+  <header class="floating-header">
     <h1>The Vine</h1>
-    <p class="tagline">Grow • Learn • Live the Word</p>
+    <p class="subtext">Grow | Learn | Live the Word</p>
   </header>
 
-  <main class="container">
-    <!-- Featured Lessons Section -->
-    <section class="section">
-      <div class="section-header">
-        <h3>Featured Lessons</h3>
-        <a href="#" class="view-all">View all <span class="material-icons-round">arrow_forward</span></a>
-      </div>
-      <div class="card-scroll">
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?bible,study" alt="Quarter 1 Lesson">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Quarter 1: Foundations of Faith</div>
-            <p class="card-description">Explore the fundamental principles of Christian faith and practice.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">schedule</span> 8 lessons
+  <!-- Featured Courses Section with Modern Cards -->
+  <section class="section">
+    <h3 class="section-title">Featured Courses</h3>
+    <div class="cards-grid">
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Foundations of Faith" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Foundations of Faith</h3>
+          <p class="card-text">Explore the core principles of Christian faith and build a strong spiritual foundation.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>8 weeks</span>
             </div>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?prayer,christian" alt="Quarter 2 Lesson">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Quarter 2: Walking with Christ</div>
-            <p class="card-description">Deepen your relationship with Jesus through daily spiritual practices.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">schedule</span> 10 lessons
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>12 lessons</span>
             </div>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?scripture,light" alt="Quarter 3 Lesson">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Quarter 3: Living the Word</div>
-            <p class="card-description">Practical applications of scripture in everyday situations.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">schedule</span> 6 lessons
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- Start Here Section -->
-    <section class="section">
-      <div class="section-header">
-        <h3>Start Here</h3>
-        <a href="#" class="view-all">View all <span class="material-icons-round">arrow_forward</span></a>
-      </div>
-      <div class="card-scroll">
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?jesus,christ" alt="Who is Jesus">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Who is Jesus</div>
-            <p class="card-description">Discover the person and work of Jesus Christ through scripture.</p>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?holy,living" alt="Basics to Holy Living">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Basics to Holy Living</div>
-            <p class="card-description">Practical steps to living a life that honors God.</p>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?feast,celebration" alt="The Feast Days">
-          </div>
-          <div class="card-content">
-            <div class="card-title">The Feast Days</div>
-            <p class="card-description">Understanding biblical feasts and their significance today.</p>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?cross,faith" alt="Why Choose Christ">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Why Choose Christ</div>
-            <p class="card-description">Exploring the transformative power of a relationship with Jesus.</p>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- Recently Played Section -->
-    <section class="section">
-      <div class="section-header">
-        <h3>Continue Learning</h3>
-        <a href="#" class="view-all">View all <span class="material-icons-round">arrow_forward</span></a>
-      </div>
-      <div class="card-scroll">
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?bible,study,group" alt="Lesson One">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Understanding Grace</div>
-            <p class="card-description">Continue where you left off (70% complete)</p>
-            <div class="card-meta">
-              <span class="material-icons-round">play_circle</span> 18 minutes left
-            </div>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?prayer,hands" alt="Lesson Two">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Prayer Fundamentals</div>
-            <p class="card-description">Continue where you left off (45% complete)</p>
-            <div class="card-meta">
-              <span class="material-icons-round">play_circle</span> 24 minutes left
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- Topics Section -->
-    <section class="section">
-      <div class="section-header">
-        <h3>Topics</h3>
-        <a href="#" class="view-all">View all <span class="material-icons-round">arrow_forward</span></a>
-      </div>
-      <div class="card-scroll">
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?bible,study" alt="Biblical Studies">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Biblical Studies</div>
-            <p class="card-description">In-depth exploration of scripture and biblical contexts.</p>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?christian,life" alt="Christian Life">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Christian Life</div>
-            <p class="card-description">Practical guidance for living out your faith daily.</p>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?church,community" alt="Church">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Church</div>
-            <p class="card-description">Understanding the body of Christ and its mission.</p>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?family,home" alt="Family">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Family</div>
-            <p class="card-description">Building strong, faith-centered family relationships.</p>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- Sermon Series Section -->
-    <section class="section">
-      <div class="section-header">
-        <h3>Sermon & Lesson Series</h3>
-        <a href="#" class="view-all">View all <span class="material-icons-round">arrow_forward</span></a>
-      </div>
-      <div class="card-scroll">
-        <a href="https://www.youtube.com/watch?v=iRvHy_MqihI" class="card">
-          <div class="card-image">
-            <img src="https://img.youtube.com/vi/iRvHy_MqihI/maxresdefault.jpg" alt="Sabbath School Lessons">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Sabbath School Lessons</div>
-            <p class="card-description">Weekly lessons exploring scripture and doctrine.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">video_library</span> 24 episodes
-            </div>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?bible,romans" alt="Journey Through Romans">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Journey Through Romans</div>
-            <p class="card-description">Verse-by-verse study of Paul's letter to the Romans.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">video_library</span> 16 episodes
-            </div>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?gospel,matthew" alt="Matthew's Gospel">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Matthew's Gospel</div>
-            <p class="card-description">Exploring the life of Jesus through Matthew's account.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">video_library</span> 12 episodes
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- Devotionals Section -->
-    <section class="section">
-      <div class="section-header">
-        <h3>Daily Devotionals</h3>
-        <a href="#" class="view-all">View all <span class="material-icons-round">arrow_forward</span></a>
-      </div>
-      <div class="card-scroll">
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?encouragement,hope" alt="Encouragement">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Words of Encouragement</div>
-            <p class="card-description">Daily reflections to strengthen your faith and hope.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">auto_stories</span> 5 min read
-            </div>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?faithful,trust" alt="Faithfulness">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Faithfulness in Trials</div>
-            <p class="card-description">Finding God's presence in life's challenges.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">auto_stories</span> 7 min read
-            </div>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?morning,prayer" alt="Morning Reflections">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Morning Reflections</div>
-            <p class="card-description">Start your day with scripture and prayer.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">auto_stories</span> 4 min read
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- Blog Posts Section -->
-    <section class="section">
-      <div class="section-header">
-        <h3>Latest Articles</h3>
-        <a href="#" class="view-all">View all <span class="material-icons-round">arrow_forward</span></a>
-      </div>
-      <div class="card-scroll">
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?spiritual,growth" alt="Spiritual Growth">
-          </div>
-          <div class="card-content">
-            <div class="card-title">5 Practices for Spiritual Growth</div>
-            <p class="card-description">Practical habits to deepen your relationship with God.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">calendar_today</span> May 15, 2025
-            </div>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?church,community" alt="Church Life">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Building Authentic Community</div>
-            <p class="card-description">Creating meaningful connections in your church family.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">calendar_today</span> May 10, 2025
-            </div>
-          </div>
-        </a>
-        <a href="#" class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/300x170/?bible,interpretation" alt="Bible Study">
-          </div>
-          <div class="card-content">
-            <div class="card-title">Understanding Biblical Context</div>
-            <p class="card-description">Keys to interpreting scripture accurately.</p>
-            <div class="card-meta">
-              <span class="material-icons-round">calendar_today</span> May 5, 2025
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <!-- Bible App Drawer -->
-  <div id="bibleDrawer" class="bible-drawer">
-    <div class="drawer-pull"></div>
-    <div class="bible-drawer-header">
-      <h2 class="bible-drawer-title">Holy Bible</h2>
-      <button class="bible-close-btn" id="closeBibleDrawer" aria-label="Close Bible">
-        <span class="material-icons-round">close</span>
-      </button>
-    </div>
-    
-    <!-- Bible Search Bar - Truth For Life Style -->
-    <div class="bible-search-bar">
-      <div class="bible-search-group">
-        <label class="bible-search-label" for="bibleBookSelect">Book</label>
-        <select class="bible-search-select" id="bibleBookSelect">
-          <option value="Genesis">Genesis</option>
-          <option value="Exodus">Exodus</option>
-          <option value="Leviticus">Leviticus</option>
-          <option value="Numbers">Numbers</option>
-          <option value="Deuteronomy">Deuteronomy</option>
-          <option value="Joshua">Joshua</option>
-          <option value="Judges">Judges</option>
-          <option value="Ruth">Ruth</option>
-          <option value="1 Samuel">1 Samuel</option>
-          <option value="2 Samuel">2 Samuel</option>
-          <option value="1 Kings">1 Kings</option>
-          <option value="2 Kings">2 Kings</option>
-          <option value="1 Chronicles">1 Chronicles</option>
-          <option value="2 Chronicles">2 Chronicles</option>
-          <option value="Ezra">Ezra</option>
-          <option value="Nehemiah">Nehemiah</option>
-          <option value="Esther">Esther</option>
-          <option value="Job">Job</option>
-          <option value="Psalms">Psalms</option>
-          <option value="Proverbs">Proverbs</option>
-          <option value="Ecclesiastes">Ecclesiastes</option>
-          <option value="Song of Solomon">Song of Solomon</option>
-          <option value="Isaiah">Isaiah</option>
-          <option value="Jeremiah">Jeremiah</option>
-          <option value="Lamentations">Lamentations</option>
-          <option value="Ezekiel">Ezekiel</option>
-          <option value="Daniel">Daniel</option>
-          <option value="Hosea">Hosea</option>
-          <option value="Joel">Joel</option>
-          <option value="Amos">Amos</option>
-          <option value="Obadiah">Obadiah</option>
-          <option value="Jonah">Jonah</option>
-          <option value="Micah">Micah</option>
-          <option value="Nahum">Nahum</option>
-          <option value="Habakkuk">Habakkuk</option>
-          <option value="Zephaniah">Zephaniah</option>
-          <option value="Haggai">Haggai</option>
-          <option value="Zechariah">Zechariah</option>
-          <option value="Malachi">Malachi</option>
-          <option value="Matthew">Matthew</option>
-          <option value="Mark">Mark</option>
-          <option value="Luke">Luke</option>
-          <option value="John">John</option>
-          <option value="Acts">Acts</option>
-          <option value="Romans">Romans</option>
-          <option value="1 Corinthians">1 Corinthians</option>
-          <option value="2 Corinthians">2 Corinthians</option>
-          <option value="Galatians">Galatians</option>
-          <option value="Ephesians">Ephesians</option>
-          <option value="Philippians">Philippians</option>
-          <option value="Colossians">Colossians</option>
-          <option value="1 Thessalonians">1 Thessalonians</option>
-          <option value="2 Thessalonians">2 Thessalonians</option>
-          <option value="1 Timothy">1 Timothy</option>
-          <option value="2 Timothy">2 Timothy</option>
-          <option value="Titus">Titus</option>
-          <option value="Philemon">Philemon</option>
-          <option value="Hebrews">Hebrews</option>
-          <option value="James">James</option>
-          <option value="1 Peter">1 Peter</option>
-          <option value="2 Peter">2 Peter</option>
-          <option value="1 John">1 John</option>
-          <option value="2 John">2 John</option>
-          <option value="3 John">3 John</option>
-          <option value="Jude">Jude</option>
-          <option value="Revelation">Revelation</option>
-        </select>
-      </div>
-      <div class="bible-search-group">
-        <label class="bible-search-label" for="bibleChapterInput">Chapter</label>
-        <input type="number" class="bible-search-input" id="bibleChapterInput" min="1" value="1">
-      </div>
-      <div class="bible-search-group">
-        <label class="bible-search-label" for="bibleVerseInput">Verse</label>
-        <input type="number" class="bible-search-input" id="bibleVerseInput" min="1" placeholder="All">
-      </div>
-      <select class="bible-version-selector" id="bibleVersionSelect">
-        <option value="NIV">NIV</option>
-        <option value="KJV">KJV</option>
-        <option value="ESV">ESV</option>
-        <option value="NLT">NLT</option>
-        <option value="NASB">NASB</option>
-        <option value="CSB">CSB</option>
-        <option value="NKJV">NKJV</option>
-        <option value="MSG">MSG</option>
-        <option value="AMP">AMP</option>
-        <option value="NRSV">NRSV</option>
-        <option value="TPT">TPT</option>
-        <option value="NCV">NCV</option>
-      </select>
-      <button class="bible-search-btn" id="bibleLookupBtn">
-        <span class="material-icons-round">search</span> Look Up
-      </button>
-    </div>
-    
-    <div class="bible-tabs">
-      <div class="bible-tab active" data-tab="scripture">Scripture</div>
-      <div class="bible-tab" data-tab="search">Search</div>
-      <div class="bible-tab" data-tab="versions">Versions</div>
-      <div class="bible-tab" data-tab="bookmarks">Bookmarks</div>
-    </div>
-    
-    <div class="bible-drawer-content">
-      <!-- Bible Scripture Tab -->
-      <div class="bible-content-container active" data-content="scripture">
-        <div class="bible-reading-area">
-          <div class="bible-chapter-header">
-            <div class="bible-book-title">John</div>
-            <div class="bible-chapter-number">Chapter 1 (NIV)</div>
-          </div>
-          
-          <div class="bible-verses">
-            <p class="bible-verse selectable" data-verse="1"><span class="bible-verse-number">1</span>In the beginning was the Word, and the Word was with God, and the Word was God.</p>
-            <p class="bible-verse selectable" data-verse="2"><span class="bible-verse-number">2</span>He was in the beginning with God.</p>
-            <p class="bible-verse selectable" data-verse="3"><span class="bible-verse-number">3</span>All things were made through him, and without him was not any thing made that was made.</p>
-            <p class="bible-verse selectable" data-verse="4"><span class="bible-verse-number">4</span>In him was life, and the life was the light of men.</p>
-            <p class="bible-verse selectable" data-verse="5"><span class="bible-verse-number">5</span>The light shines in the darkness, and the darkness has not overcome it.</p>
-            <p class="bible-verse selectable" data-verse="6"><span class="bible-verse-number">6</span>There was a man sent from God, whose name was John.</p>
-            <p class="bible-verse selectable" data-verse="7"><span class="bible-verse-number">7</span>He came as a witness, to bear witness about the light, that all might believe through him.</p>
-            <p class="bible-verse selectable" data-verse="8"><span class="bible-verse-number">8</span>He was not the light, but came to bear witness about the light.</p>
-            <p class="bible-verse selectable" data-verse="9"><span class="bible-verse-number">9</span>The true light, which gives light to everyone, was coming into the world.</p>
-            <p class="bible-verse selectable" data-verse="10"><span class="bible-verse-number">10</span>He was in the world, and the world was made through him, yet the world did not know him.</p>
-            <p class="bible-verse selectable" data-verse="11"><span class="bible-verse-number">11</span>He came to his own, and his own people did not receive him.</p>
-            <p class="bible-verse selectable" data-verse="12"><span class="bible-verse-number">12</span>But to all who did receive him, who believed in his name, he gave the right to become children of God,</p>
-            <p class="bible-verse selectable" data-verse="13"><span class="bible-verse-number">13</span>who were born, not of blood nor of the will of the flesh nor of the will of man, but of God.</p>
-            <p class="bible-verse selectable" data-verse="14"><span class="bible-verse-number">14</span>And the Word became flesh and dwelt among us, and we have seen his glory, glory as of the only Son from the Father, full of grace and truth.</p>
-            <p class="bible-verse selectable" data-verse="15"><span class="bible-verse-number">15</span>(John bore witness about him, and cried out, "This was he of whom I said, 'He who comes after me ranks before me, because he was before me.'") </p>
-            <p class="bible-verse selectable" data-verse="16"><span class="bible-verse-number">16</span>For from his fullness we have all received, grace upon grace.</p>
-            <p class="bible-verse selectable" data-verse="17"><span class="bible-verse-number">17</span>For the law was given through Moses; grace and truth came through Jesus Christ.</p>
-            <p class="bible-verse selectable" data-verse="18"><span class="bible-verse-number">18</span>No one has ever seen God; the only God, who is at the Father's side, he has made him known.</p>
-            <p class="bible-verse selectable" data-verse="19"><span class="bible-verse-number">19</span>And this is the testimony of John, when the Jews sent priests and Levites from Jerusalem to ask him, "Who are you?"</p>
-            <p class="bible-verse selectable" data-verse="20"><span class="bible-verse-number">20</span>He confessed, and did not deny, but confessed, "I am not the Christ."</p>
-            <p class="bible-verse selectable" data-verse="21"><span class="bible-verse-number">21</span>And they asked him, "What then? Are you Elijah?" He said, "I am not." "Are you the Prophet?" And he answered, "No."</p>
-            <p class="bible-verse selectable" data-verse="22"><span class="bible-verse-number">22</span>So they said to him, "Who are you? We need to give an answer to those who sent us. What do you say about yourself?"</p>
-            <p class="bible-verse selectable" data-verse="23"><span class="bible-verse-number">23</span>He said, "I am the voice of one crying out in the wilderness, 'Make straight the way of the Lord,' as the prophet Isaiah said."</p>
-            <p class="bible-verse selectable" data-verse="24"><span class="bible-verse-number">24</span>(Now they had been sent from the Pharisees.)</p>
-            <p class="bible-verse selectable" data-verse="25"><span class="bible-verse-number">25</span>They asked him, "Then why are you baptizing, if you are neither the Christ, nor Elijah, nor the Prophet?"</p>
-            <p class="bible-verse selectable" data-verse="26"><span class="bible-verse-number">26</span>John answered them, "I baptize with water, but among you stands one you do not know,</p>
-            <p class="bible-verse selectable" data-verse="27"><span class="bible-verse-number">27</span>even he who comes after me, the strap of whose sandal I am not worthy to untie."</p>
-            <p class="bible-verse selectable" data-verse="28"><span class="bible-verse-number">28</span>These things took place in Bethany across the Jordan, where John was baptizing.</p>
-            <p class="bible-verse selectable" data-verse="29"><span class="bible-verse-number">29</span>The next day he saw Jesus coming toward him, and said, "Behold, the Lamb of God, who takes away the sin of the world!</p>
-            <p class="bible-verse selectable" data-verse="30"><span class="bible-verse-number">30</span>This is he of whom I said, 'After me comes a man who ranks before me, because he was before me.'</p>
-            <p class="bible-verse selectable" data-verse="31"><span class="bible-verse-number">31</span>I myself did not know him, but for this purpose I came baptizing with water, that he might be revealed to Israel."</p>
-            <p class="bible-verse selectable" data-verse="32"><span class="bible-verse-number">32</span>And John bore witness: "I saw the Spirit descend from heaven like a dove, and it remained on him.</p>
-            <p class="bible-verse selectable" data-verse="33"><span class="bible-verse-number">33</span>I myself did not know him, but he who sent me to baptize with water said to me, 'He on whom you see the Spirit descend and remain, this is he who baptizes with the Holy Spirit.'</p>
-            <p class="bible-verse selectable" data-verse="34"><span class="bible-verse-number">34</span>And I have seen and have borne witness that this is the Son of God."</p>
           </div>
         </div>
-        
-        <div class="bible-toolbar">
-          <div class="bible-chapter-selector">
-            <button class="bible-chapter-btn" id="prevChapterBtn" aria-label="Previous chapter">
-              <span class="material-icons-round">chevron_left</span>
-            </button>
-            <span>Chapter 1</span>
-            <button class="bible-chapter-btn" id="nextChapterBtn" aria-label="Next chapter">
-              <span class="material-icons-round">chevron_right</span>
-            </button>
-          </div>
-          <div>
-            <button class="bible-toolbar-btn" aria-label="Add bookmark">
-              <span class="material-icons-round">bookmark_add</span>
-            </button>
-            <button class="bible-toolbar-btn" aria-label="Share">
-              <span class="material-icons-round">share</span>
-            </button>
-            <button class="bible-toolbar-btn" aria-label="Settings">
-              <span class="material-icons-round">settings</span>
-            </button>
-          </div>
-        </div>
-      </div>
+      </a>
       
-      <!-- Bible Search Tab -->
-      <div class="bible-content-container" data-content="search">
-        <!-- Advanced Search Form -->
-        <div class="bible-advanced-search active">
-          <div class="bible-advanced-search-form">
-            <h3 class="bible-advanced-search-title">Search the Bible</h3>
-            <div class="bible-form-group">
-              <label class="bible-form-label" for="bibleSearchInput">Search for words or phrases</label>
-              <input type="text" class="bible-form-input" id="bibleSearchInput" placeholder="Enter search terms...">
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Prayer & Meditation" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Prayer & Meditation</h3>
+          <p class="card-text">Deepen your prayer life and learn practical meditation techniques for spiritual growth.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>6 weeks</span>
             </div>
-            <div class="bible-form-row">
-              <div class="bible-form-col">
-                <label class="bible-form-label">Search in</label>
-                <div class="bible-form-checkbox">
-                  <input type="checkbox" id="searchOldTestament" checked>
-                  <label for="searchOldTestament">Old Testament</label>
-                </div>
-                <div class="bible-form-checkbox">
-                  <input type="checkbox" id="searchNewTestament" checked>
-                  <label for="searchNewTestament">New Testament</label>
-                </div>
-              </div>
-              <div class="bible-form-col">
-                <label class="bible-form-label" for="bibleSearchVersion">Version</label>
-                <select class="bible-form-select" id="bibleSearchVersion">
-                  <option value="NIV">NIV</option>
-                  <option value="KJV">KJV</option>
-                  <option value="ESV">ESV</option>
-                  <option value="NLT">NLT</option>
-                  <option value="NASB">NASB</option>
-                  <option value="CSB">CSB</option>
-                  <option value="NKJV">NKJV</option>
-                  <option value="MSG">MSG</option>
-                  <option value="AMP">AMP</option>
-                  <option value="NRSV">NRSV</option>
-                  <option value="TPT">TPT</option>
-                  <option value="NCV">NCV</option>
-                </select>
-              </div>
-            </div>
-            <div class="bible-form-row">
-              <div class="bible-form-col">
-                <label class="bible-form-label" for="bibleSearchBook">Specific book (optional)</label>
-                <select class="bible-form-select" id="bibleSearchBook">
-                  <option value="">All Books</option>
-                  <option value="Genesis">Genesis</option>
-                  <option value="Exodus">Exodus</option>
-                  <option value="Leviticus">Leviticus</option>
-                  <option value="Numbers">Numbers</option>
-                  <option value="Deuteronomy">Deuteronomy</option>
-                  <option value="Joshua">Joshua</option>
-                  <option value="Judges">Judges</option>
-                  <option value="Ruth">Ruth</option>
-                  <option value="1 Samuel">1 Samuel</option>
-                  <option value="2 Samuel">2 Samuel</option>
-                  <option value="1 Kings">1 Kings</option>
-                  <option value="2 Kings">2 Kings</option>
-                  <option value="1 Chronicles">1 Chronicles</option>
-                  <option value="2 Chronicles">2 Chronicles</option>
-                  <option value="Ezra">Ezra</option>
-                  <option value="Nehemiah">Nehemiah</option>
-                  <option value="Esther">Esther</option>
-                  <option value="Job">Job</option>
-                  <option value="Psalms">Psalms</option>
-                  <option value="Proverbs">Proverbs</option>
-                  <option value="Ecclesiastes">Ecclesiastes</option>
-                  <option value="Song of Solomon">Song of Solomon</option>
-                  <option value="Isaiah">Isaiah</option>
-                  <option value="Jeremiah">Jeremiah</option>
-                  <option value="Lamentations">Lamentations</option>
-                  <option value="Ezekiel">Ezekiel</option>
-                  <option value="Daniel">Daniel</option>
-                  <option value="Hosea">Hosea</option>
-                  <option value="Joel">Joel</option>
-                  <option value="Amos">Amos</option>
-                  <option value="Obadiah">Obadiah</option>
-                  <option value="Jonah">Jonah</option>
-                  <option value="Micah">Micah</option>
-                  <option value="Nahum">Nahum</option>
-                  <option value="Habakkuk">Habakkuk</option>
-                  <option value="Zephaniah">Zephaniah</option>
-                  <option value="Haggai">Haggai</option>
-                  <option value="Zechariah">Zechariah</option>
-                  <option value="Malachi">Malachi</option>
-                  <option value="Matthew">Matthew</option>
-                  <option value="Mark">Mark</option>
-                  <option value="Luke">Luke</option>
-                  <option value="John">John</option>
-                  <option value="Acts">Acts</option>
-                  <option value="Romans">Romans</option>
-                  <option value="1 Corinthians">1 Corinthians</option>
-                  <option value="2 Corinthians">2 Corinthians</option>
-                  <option value="Galatians">Galatians</option>
-                  <option value="Ephesians">Ephesians</option>
-                  <option value="Philippians">Philippians</option>
-                  <option value="Colossians">Colossians</option>
-                  <option value="1 Thessalonians">1 Thessalonians</option>
-                  <option value="2 Thessalonians">2 Thessalonians</option>
-                  <option value="1 Timothy">1 Timothy</option>
-                  <option value="2 Timothy">2 Timothy</option>
-                  <option value="Titus">Titus</option>
-                  <option value="Philemon">Philemon</option>
-                  <option value="Hebrews">Hebrews</option>
-                  <option value="James">James</option>
-                  <option value="1 Peter">1 Peter</option>
-                  <option value="2 Peter">2 Peter</option>
-                  <option value="1 John">1 John</option>
-                  <option value="2 John">2 John</option>
-                  <option value="3 John">3 John</option>
-                  <option value="Jude">Jude</option>
-                  <option value="Revelation">Revelation</option>
-                </select>
-              </div>
-              <div class="bible-form-col">
-                <label class="bible-form-label" for="bibleSearchMatchType">Match type</label>
-                <select class="bible-form-select" id="bibleSearchMatchType">
-                  <option value="any">Any of these words</option>
-                  <option value="all">All of these words</option>
-                  <option value="exact">Exact phrase</option>
-                </select>
-              </div>
-            </div>
-            <button class="bible-search-submit" id="bibleSearchSubmit">Search</button>
-          </div>
-          
-          <!-- Recent Searches -->
-          <div class="bible-recent-searches">
-            <h4 class="bible-recent-searches-title">Recent Searches</h4>
-            <div class="bible-recent-search-list">
-              <div class="bible-recent-search-item">love one another</div>
-              <div class="bible-recent-search-item">faith hope love</div>
-              <div class="bible-recent-search-item">grace</div>
-              <div class="bible-recent-search-item">John 3:16</div>
-              <div class="bible-recent-search-item">fruit of the spirit</div>
-            </div>
-          </div>
-          
-          <!-- Popular Searches -->
-          <div class="bible-popular-searches">
-            <h4 class="bible-popular-searches-title">Popular Topics</h4>
-            <div class="bible-popular-search-list">
-              <div class="bible-popular-search-item">salvation</div>
-              <div class="bible-popular-search-item">forgiveness</div>
-              <div class="bible-popular-search-item">peace</div>
-              <div class="bible-popular-search-item">healing</div>
-              <div class="bible-popular-search-item">prayer</div>
-              <div class="bible-popular-search-item">wisdom</div>
-              <div class="bible-popular-search-item">hope</div>
-              <div class="bible-popular-search-item">faith</div>
-              <div class="bible-popular-search-item">love</div>
-              <div class="bible-popular-search-item">joy</div>
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>9 lessons</span>
             </div>
           </div>
         </div>
-        
-        <!-- Search Results (initially hidden, shown after search) -->
-        <div class="bible-search-results" style="display: none;">
-          <h3 class="bible-search-results-header">Search Results for "love one another"</h3>
-          <p class="bible-search-results-count">Found 13 results in NIV</p>
-          
-          <div class="bible-search-result-item">
-            <div class="bible-search-result-reference">
-              John 13:34
-              <span class="bible-search-result-version">NIV</span>
-            </div>
-            <p class="bible-search-result-text">"A new command I give you: <span class="search-highlight">Love one another</span>. As I have loved you, so you must <span class="search-highlight">love one another</span>."</p>
-          </div>
-          
-          <div class="bible-search-result-item">
-            <div class="bible-search-result-reference">
-              John 15:12
-              <span class="bible-search-result-version">NIV</span>
-            </div>
-            <p class="bible-search-result-text">"My command is this: <span class="search-highlight">Love one another</span> as I have loved you."</p>
-          </div>
-          
-          <div class="bible-search-result-item">
-            <div class="bible-search-result-reference">
-              Romans 13:8
-              <span class="bible-search-result-version">NIV</span>
-            </div>
-            <p class="bible-search-result-text">"Let no debt remain outstanding, except the continuing debt to <span class="search-highlight">love one another</span>, for whoever loves others has fulfilled the law."</p>
-          </div>
-          
-          <div class="bible-search-result-item">
-            <div class="bible-search-result-reference">
-              1 Peter 1:22
-              <span class="bible-search-result-version">NIV</span>
-            </div>
-            <p class="bible-search-result-text">"Now that you have purified yourselves by obeying the truth so that you have sincere love for each other, <span class="search-highlight">love one another</span> deeply, from the heart."</p>
-          </div>
-          
-          <div class="bible-search-result-item">
-            <div class="bible-search-result-reference">
-              1 John 3:11
-              <span class="bible-search-result-version">NIV</span>
-            </div>
-            <p class="bible-search-result-text">"For this is the message you heard from the beginning: We should <span class="search-highlight">love one another</span>."</p>
-          </div>
-        </div>
-      </div>
+      </a>
       
-      <!-- Bible Versions Tab -->
-      <div class="bible-versions-container" data-content="versions">
-        <div class="bible-version-list">
-          <div class="bible-version-item active" data-version="NIV">
-            <div class="bible-version-abbr">NIV</div>
-            <div class="bible-version-name">New International Version</div>
-          </div>
-          <div class="bible-version-item" data-version="KJV">
-            <div class="bible-version-abbr">KJV</div>
-            <div class="bible-version-name">King James Version</div>
-          </div>
-          <div class="bible-version-item" data-version="ESV">
-            <div class="bible-version-abbr">ESV</div>
-            <div class="bible-version-name">English Standard Version</div>
-          </div>
-          <div class="bible-version-item" data-version="NLT">
-            <div class="bible-version-abbr">NLT</div>
-            <div class="bible-version-name">New Living Translation</div>
-          </div>
-          <div class="bible-version-item" data-version="NASB">
-            <div class="bible-version-abbr">NASB</div>
-            <div class="bible-version-name">New American Standard Bible</div>
-          </div>
-          <div class="bible-version-item" data-version="CSB">
-            <div class="bible-version-abbr">CSB</div>
-            <div class="bible-version-name">Christian Standard Bible</div>
-          </div>
-          <div class="bible-version-item" data-version="NKJV">
-            <div class="bible-version-abbr">NKJV</div>
-            <div class="bible-version-name">New King James Version</div>
-          </div>
-          <div class="bible-version-item" data-version="MSG">
-            <div class="bible-version-abbr">MSG</div>
-            <div class="bible-version-name">The Message</div>
-          </div>
-          <div class="bible-version-item" data-version="AMP">
-            <div class="bible-version-abbr">AMP</div>
-            <div class="bible-version-name">Amplified Bible</div>
-          </div>
-          <div class="bible-version-item" data-version="NRSV">
-            <div class="bible-version-abbr">NRSV</div>
-            <div class="bible-version-name">New Revised Standard Version</div>
-          </div>
-          <div class="bible-version-item" data-version="TPT">
-            <div class="bible-version-abbr">TPT</div>
-            <div class="bible-version-name">The Passion Translation</div>
-          </div>
-          <div class="bible-version-item" data-version="NCV">
-            <div class="bible-version-abbr">NCV</div>
-            <div class="bible-version-name">New Century Version</div>
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Living with Purpose" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Living with Purpose</h3>
+          <p class="card-text">Discover God's purpose for your life and learn to live intentionally every day.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>10 weeks</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>15 lessons</span>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Start Here Section with Modern Cards -->
+  <section class="section">
+    <h3 class="section-title">Start Here</h3>
+    <div class="cards-grid">
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1468164016595-6108e4c60c8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Who is Jesus" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Who is Jesus</h3>
+          <p class="card-text">Discover the person, teachings, and significance of Jesus Christ in Christian faith.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>4 weeks</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>8 lessons</span>
+            </div>
+          </div>
+        </div>
+      </a>
       
-      <!-- Bible Bookmarks Tab -->
-      <div class="bible-bookmarks-container" data-content="bookmarks">
-        <div class="bible-bookmark-list">
-          <div class="bible-bookmark-item">
-            <div class="bible-bookmark-info">
-              <div class="bible-bookmark-reference">John 3:16</div>
-              <div class="bible-bookmark-text">For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.</div>
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1507692049790-de58290a4334?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Basics to Holy Living" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Basics to Holy Living</h3>
+          <p class="card-text">Learn the fundamental principles and practices for living a holy, God-centered life.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>6 weeks</span>
             </div>
-            <button class="bible-bookmark-remove" aria-label="Remove bookmark">
-              <span class="material-icons-round">close</span>
-            </button>
-          </div>
-          
-          <div class="bible-bookmark-item">
-            <div class="bible-bookmark-info">
-              <div class="bible-bookmark-reference">Philippians 4:13</div>
-              <div class="bible-bookmark-text">I can do all this through him who gives me strength.</div>
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>10 lessons</span>
             </div>
-            <button class="bible-bookmark-remove" aria-label="Remove bookmark">
-              <span class="material-icons-round">close</span>
-            </button>
-          </div>
-          
-          <div class="bible-bookmark-item">
-            <div class="bible-bookmark-info">
-              <div class="bible-bookmark-reference">Psalm 23:1-3</div>
-              <div class="bible-bookmark-text">The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul.</div>
-            </div>
-            <button class="bible-bookmark-remove" aria-label="Remove bookmark">
-              <span class="material-icons-round">close</span>
-            </button>
           </div>
         </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="The Feast Days" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">The Feast Days</h3>
+          <p class="card-text">Explore the biblical feast days, their significance, and relevance for believers today.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>5 weeks</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>7 lessons</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Why Choose Christ" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Why Choose Christ</h3>
+          <p class="card-text">Understand the compelling reasons for choosing to follow Jesus Christ in today's world.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>3 weeks</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>6 lessons</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Jesus 101" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Jesus 101</h3>
+          <p class="card-text">An introductory course on the life, ministry, and teachings of Jesus Christ.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>4 weeks</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>8 lessons</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="What is the Church" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">What is the Church</h3>
+          <p class="card-text">Explore the biblical concept of the Church, its purpose, and your place within it.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>5 weeks</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>9 lessons</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Recently Played Section with Modern Cards -->
+  <section class="section">
+    <h3 class="section-title">Recently Played</h3>
+    <div class="cards-grid">
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lesson One" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Lesson One</h3>
+          <p class="card-text">Continue your journey through this foundational teaching on Christian living.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">play_circle</span>
+              <span>Resume</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>45 min</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lesson Two" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Lesson Two</h3>
+          <p class="card-text">Continue exploring the practical applications of biblical principles in daily life.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">play_circle</span>
+              <span>Resume</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">access_time</span>
+              <span>38 min</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Topics Section with Modern Cards -->
+  <section class="section">
+    <h3 class="section-title">Topics</h3>
+    <div class="cards-grid">
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1507499739999-097f9693f797?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Biblical Studies" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Biblical Studies</h3>
+          <p class="card-text">In-depth exploration of biblical texts, contexts, and interpretations.</p>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Christian Life" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Christian Life</h3>
+          <p class="card-text">Practical guidance for living out your faith in everyday situations.</p>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Church" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Church</h3>
+          <p class="card-text">Understanding the role, structure, and mission of the Church.</p>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Family" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Family</h3>
+          <p class="card-text">Building strong, faith-centered families in today's challenging world.</p>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Salvation" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Salvation</h3>
+          <p class="card-text">Understanding God's plan of salvation through Jesus Christ.</p>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sin" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Sin</h3>
+          <p class="card-text">Biblical perspectives on sin, repentance, and restoration.</p>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Theology" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Theology</h3>
+          <p class="card-text">Exploring the nature of God and foundational Christian doctrines.</p>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1518183214770-9cffbec72538?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Worldview" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Worldview</h3>
+          <p class="card-text">Developing a biblical perspective on contemporary issues and culture.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Sermon/Lesson Series Section with Modern Cards -->
+  <section class="section">
+    <h3 class="section-title">Sermon / Lesson Series</h3>
+    <div class="cards-grid">
+      <a href="https://www.youtube.com/watch?v=iRvHy_MqihI" class="card">
+        <img src="https://img.youtube.com/vi/iRvHy_MqihI/0.jpg" alt="Sabbath School Lessons" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Sabbath School Lessons</h3>
+          <p class="card-text">Weekly lessons exploring Scripture and its application to daily life.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">video_library</span>
+              <span>52 episodes</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Journey Through Romans" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Journey Through Romans</h3>
+          <p class="card-text">A comprehensive study of Paul's letter to the Romans.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">video_library</span>
+              <span>16 episodes</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Steven Best Devotionals Section with Modern Cards -->
+  <section class="section">
+    <h3 class="section-title">Steven Best Devotionals</h3>
+    <div class="cards-grid">
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Encouragement" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Encouragement</h3>
+          <p class="card-text">Daily devotionals to uplift your spirit and strengthen your faith.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>30 devotionals</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Faithfulness" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Faithfulness</h3>
+          <p class="card-text">Reflections on remaining faithful to God through all seasons of life.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">menu_book</span>
+              <span>25 devotionals</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Blog Posts Section with Modern Cards -->
+  <section class="section">
+    <h3 class="section-title">Blog Posts</h3>
+    <div class="cards-grid">
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Spiritual Growth" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Spiritual Growth</h3>
+          <p class="card-text">Insights and practices for deepening your relationship with God.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">calendar_today</span>
+              <span>May 10, 2025</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      
+      <a href="#" class="card">
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Church Life" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Church Life</h3>
+          <p class="card-text">Reflections on community, worship, and service within the church.</p>
+          <div class="card-meta">
+            <div class="card-meta-item">
+              <span class="material-icons-round card-meta-icon">calendar_today</span>
+              <span>May 5, 2025</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Original Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="#"><span>calendar_today</span>Lessons</a>
+    <a href="#"><span>search</span>Search</a>
+    <a href="#"><span>bookmarks</span>My Library</a>
+    <a href="javascript:void(0);" id="bible-nav-item"><span>menu_book</span>Bible</a>
+    <a href="#"><span>explore</span>Explore</a>
+  </nav>
+  
+  <!-- Bible Modal -->
+  <div class="bible-modal-overlay" id="bible-modal-overlay"></div>
+  <div class="bible-modal" id="bible-modal">
+    <div class="bible-modal-pull-indicator"></div>
+    <div class="bible-modal-header">
+      <h3 class="bible-modal-title">Bible</h3>
+      <button class="bible-modal-close" id="bible-modal-close">close</button>
+    </div>
+    <div class="bible-modal-content">
+      <div class="bible-iframe-container">
+        <iframe src="https://www.bible.com/bible/111/JHN.1.NIV" class="bible-iframe" id="bible-iframe" allowfullscreen></iframe>
       </div>
     </div>
   </div>
-
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <a href="#" class="nav-item active" aria-label="Home">
-      <span class="material-icons-round">home</span>
-      Home
-    </a>
-    <a href="#" class="nav-item" aria-label="Search">
-      <span class="material-icons-round">search</span>
-      Search
-    </a>
-    <a href="#" class="nav-item" aria-label="My Library">
-      <span class="material-icons-round">bookmark</span>
-      Library
-    </a>
-    <a href="javascript:void(0);" id="bibleNavBtn" class="nav-item" aria-label="Bible">
-      <span class="material-icons-round">menu_book</span>
-      Bible
-    </a>
-    <a href="#" class="nav-item" aria-label="Profile">
-      <span class="material-icons-round">person</span>
-      Profile
-    </a>
-  </nav>
-
-  <!-- JavaScript -->
+  
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Bible drawer functionality
-      const bibleDrawer = document.getElementById('bibleDrawer');
-      const bibleNavBtn = document.getElementById('bibleNavBtn');
-      const closeBibleDrawerBtn = document.getElementById('closeBibleDrawer');
+      // Bible Modal Script
+      const bibleNavItem = document.getElementById('bible-nav-item');
+      const bibleModal = document.getElementById('bible-modal');
+      const bibleModalOverlay = document.getElementById('bible-modal-overlay');
+      const bibleModalClose = document.getElementById('bible-modal-close');
+      const bibleIframe = document.getElementById('bible-iframe');
       
-      // Open Bible drawer when Bible nav item is clicked
-      bibleNavBtn.addEventListener('click', function() {
-        bibleDrawer.classList.add('open');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling behind drawer
+      // Open Bible modal
+      bibleNavItem.addEventListener('click', function(e) {
+        e.preventDefault();
+        bibleModal.classList.add('open');
+        bibleModalOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        
+        // Show guidance message
+        setTimeout(() => {
+          guidanceMessage.style.opacity = '1';
+          setTimeout(() => {
+            guidanceMessage.style.opacity = '0';
+          }, 5000);
+        }, 1000);
       });
       
-      // Close Bible drawer when close button is clicked
-      closeBibleDrawerBtn.addEventListener('click', function() {
-        bibleDrawer.classList.remove('open');
-        document.body.style.overflow = ''; // Restore scrolling
+      // Close Bible modal
+      bibleModalClose.addEventListener('click', function() {
+        bibleModal.classList.remove('open');
+        bibleModalOverlay.classList.remove('open');
+        document.body.style.overflow = '';
       });
       
-      // Tab switching functionality
-      const bibleTabs = document.querySelectorAll('.bible-tab');
-      const bibleContents = document.querySelectorAll('[data-content]');
+      // Close modal when clicking overlay
+      bibleModalOverlay.addEventListener('click', function() {
+        bibleModal.classList.remove('open');
+        bibleModalOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      });
       
-      bibleTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-          const tabName = this.getAttribute('data-tab');
-          
-          // Update active tab
-          bibleTabs.forEach(t => t.classList.remove('active'));
-          this.classList.add('active');
-          
-          // Show corresponding content
-          bibleContents.forEach(content => {
-            if (content.getAttribute('data-content') === tabName) {
-              content.classList.add('active');
-            } else {
-              content.classList.remove('active');
-            }
-          });
+      // Handle Bible version selection
+      const preferredVersions = [
+        { name: 'NIV', url: 'https://www.bible.com/bible/111/JHN.1.NIV' },
+        { name: 'KJV', url: 'https://www.bible.com/bible/1/JHN.1.KJV' },
+        { name: 'NLT', url: 'https://www.bible.com/bible/116/JHN.1.NLT' },
+        { name: 'ESV', url: 'https://www.bible.com/bible/59/JHN.1.ESV' },
+        { name: 'The Passion', url: 'https://www.bible.com/bible/1849/JHN.1.TPT' },
+        { name: 'Message', url: 'https://www.bible.com/bible/97/JHN.1.MSG' }
+      ];
+      
+      // Create version selector UI
+      const versionButton = document.createElement('button');
+      versionButton.textContent = 'Change Version';
+      versionButton.className = 'version-button';
+      
+      const versionSelector = document.createElement('div');
+      versionSelector.className = 'version-selector';
+      
+      const versionList = document.createElement('div');
+      versionList.className = 'version-list';
+      
+      preferredVersions.forEach(version => {
+        const versionItem = document.createElement('button');
+        versionItem.textContent = version.name;
+        versionItem.className = 'version-item';
+        
+        versionItem.addEventListener('click', function() {
+          bibleIframe.src = version.url;
+          versionSelector.style.display = 'none';
+          versionButton.textContent = `Version: ${version.name}`;
         });
+        
+        versionList.appendChild(versionItem);
       });
       
-      // Bible version selection
-      const bibleVersionItems = document.querySelectorAll('.bible-version-item');
+      versionSelector.appendChild(versionList);
       
-      bibleVersionItems.forEach(item => {
-        item.addEventListener('click', function() {
-          const version = this.getAttribute('data-version');
-          
-          // Update active version in version tab
-          bibleVersionItems.forEach(v => v.classList.remove('active'));
-          this.classList.add('active');
-          
-          // Update version in selectors
-          document.getElementById('bibleVersionSelect').value = version;
-          document.getElementById('bibleSearchVersion').value = version;
-          
-          // Update chapter header with version
-          const currentBook = document.querySelector('.bible-book-title').textContent;
-          const currentChapter = document.querySelector('.bible-chapter-selector span').textContent.replace('Chapter ', '');
-          document.querySelector('.bible-chapter-number').textContent = `Chapter ${currentChapter} (${version})`;
-          
-          // Switch to scripture tab after selecting version
-          document.querySelector('.bible-tab[data-tab="scripture"]').click();
-          
-          // Simulate content change based on version
-          updateBibleContent(currentBook, currentChapter, version);
-        });
-      });
-      
-      // Bible lookup functionality
-      const bibleLookupBtn = document.getElementById('bibleLookupBtn');
-      
-      bibleLookupBtn.addEventListener('click', function() {
-        const book = document.getElementById('bibleBookSelect').value;
-        const chapter = document.getElementById('bibleChapterInput').value;
-        const verse = document.getElementById('bibleVerseInput').value;
-        const version = document.getElementById('bibleVersionSelect').value;
-        
-        // Update book title and chapter number
-        document.querySelector('.bible-book-title').textContent = book;
-        document.querySelector('.bible-chapter-number').textContent = `Chapter ${chapter} (${version})`;
-        
-        // Update toolbar chapter text
-        document.querySelector('.bible-chapter-selector span').textContent = `Chapter ${chapter}`;
-        
-        // Switch to scripture tab
-        document.querySelector('.bible-tab[data-tab="scripture"]').click();
-        
-        // Simulate content change
-        updateBibleContent(book, chapter, version);
-        
-        // If verse is specified, highlight that verse
-        if (verse && verse.trim() !== '') {
-          document.querySelectorAll('.bible-verse').forEach(v => {
-            if (v.getAttribute('data-verse') === verse) {
-              v.classList.add('selected');
-              v.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-              v.classList.remove('selected');
-            }
-          });
+      versionButton.addEventListener('click', function() {
+        if (versionSelector.style.display === 'none' || versionSelector.style.display === '') {
+          versionSelector.style.display = 'block';
         } else {
-          // Reset verse selection
-          document.querySelectorAll('.bible-verse').forEach(v => {
-            v.classList.remove('selected');
-          });
-          // Scroll to top of reading area
-          document.querySelector('.bible-reading-area').scrollTop = 0;
+          versionSelector.style.display = 'none';
         }
       });
       
-      // Previous and Next chapter buttons
-      const prevChapterBtn = document.getElementById('prevChapterBtn');
-      const nextChapterBtn = document.getElementById('nextChapterBtn');
+      document.querySelector('.bible-modal-content').appendChild(versionButton);
+      document.querySelector('.bible-modal-content').appendChild(versionSelector);
       
-      prevChapterBtn.addEventListener('click', function() {
-        const currentChapter = parseInt(document.querySelector('.bible-chapter-selector span').textContent.replace('Chapter ', ''));
-        if (currentChapter > 1) {
-          const newChapter = currentChapter - 1;
-          
-          // Update chapter input
-          document.getElementById('bibleChapterInput').value = newChapter;
-          
-          // Update chapter header
-          const book = document.querySelector('.bible-book-title').textContent;
-          const version = document.getElementById('bibleVersionSelect').value;
-          document.querySelector('.bible-chapter-number').textContent = `Chapter ${newChapter} (${version})`;
-          
-          // Update toolbar chapter text
-          document.querySelector('.bible-chapter-selector span').textContent = `Chapter ${newChapter}`;
-          
-          // Reset verse selection
-          document.querySelectorAll('.bible-verse').forEach(v => {
-            v.classList.remove('selected');
-          });
-          
-          // Simulate content change based on chapter
-          updateBibleContent(book, newChapter, version);
-        }
-      });
+      // Add guidance message
+      const guidanceMessage = document.createElement('div');
+      guidanceMessage.className = 'guidance-message';
+      guidanceMessage.innerHTML = 'Interact directly with the Bible.com content to navigate chapters and verses';
       
-      nextChapterBtn.addEventListener('click', function() {
-        const currentChapter = parseInt(document.querySelector('.bible-chapter-selector span').textContent.replace('Chapter ', ''));
-        const currentBook = document.querySelector('.bible-book-title').textContent;
-        const maxChapters = getMaxChapters(currentBook);
-        
-        if (currentChapter < maxChapters) {
-          const newChapter = currentChapter + 1;
-          
-          // Update chapter input
-          document.getElementById('bibleChapterInput').value = newChapter;
-          
-          // Update chapter header
-          const version = document.getElementById('bibleVersionSelect').value;
-          document.querySelector('.bible-chapter-number').textContent = `Chapter ${newChapter} (${version})`;
-          
-          // Update toolbar chapter text
-          document.querySelector('.bible-chapter-selector span').textContent = `Chapter ${newChapter}`;
-          
-          // Reset verse selection
-          document.querySelectorAll('.bible-verse').forEach(v => {
-            v.classList.remove('selected');
-          });
-          
-          // Simulate content change based on chapter
-          updateBibleContent(currentBook, newChapter, version);
-        }
-      });
-      
-      // Verse selection by clicking
-      const verses = document.querySelectorAll('.bible-verse.selectable');
-      verses.forEach(verse => {
-        verse.addEventListener('click', function() {
-          const verseNum = this.getAttribute('data-verse');
-          
-          // Toggle selection
-          if (this.classList.contains('selected')) {
-            this.classList.remove('selected');
-          } else {
-            verses.forEach(v => v.classList.remove('selected'));
-            this.classList.add('selected');
-          }
-        });
-      });
-      
-      // Bible search functionality
-      const bibleSearchSubmit = document.getElementById('bibleSearchSubmit');
-      const bibleSearchResults = document.querySelector('.bible-search-results');
-      const bibleAdvancedSearch = document.querySelector('.bible-advanced-search');
-      
-      bibleSearchSubmit.addEventListener('click', function() {
-        const searchTerm = document.getElementById('bibleSearchInput').value;
-        
-        if (searchTerm.trim() !== '') {
-          // Update search results header
-          document.querySelector('.bible-search-results-header').textContent = `Search Results for "${searchTerm}"`;
-          
-          // Show search results, hide search form
-          bibleSearchResults.style.display = 'block';
-          bibleAdvancedSearch.style.display = 'none';
-        }
-      });
-      
-      // Recent and popular search items
-      const recentSearchItems = document.querySelectorAll('.bible-recent-search-item');
-      const popularSearchItems = document.querySelectorAll('.bible-popular-search-item');
-      
-      recentSearchItems.forEach(item => {
-        item.addEventListener('click', function() {
-          const searchTerm = this.textContent;
-          document.getElementById('bibleSearchInput').value = searchTerm;
-          bibleSearchSubmit.click();
-        });
-      });
-      
-      popularSearchItems.forEach(item => {
-        item.addEventListener('click', function() {
-          const searchTerm = this.textContent;
-          document.getElementById('bibleSearchInput').value = searchTerm;
-          bibleSearchSubmit.click();
-        });
-      });
-      
-      // Search result items
-      const searchResultItems = document.querySelectorAll('.bible-search-result-item');
-      
-      searchResultItems.forEach(item => {
-        item.addEventListener('click', function() {
-          const reference = this.querySelector('.bible-search-result-reference').textContent.trim();
-          const parts = reference.split(' ');
-          
-          // Extract book, chapter, and verse
-          let book, chapter, verse;
-          
-          if (parts.length === 2) {
-            // Format: "John 3:16"
-            book = parts[0];
-            const chapterVerse = parts[1].split(':');
-            chapter = chapterVerse[0];
-            verse = chapterVerse[1];
-          } else if (parts.length === 3) {
-            // Format: "1 John 3:16"
-            book = parts[0] + ' ' + parts[1];
-            const chapterVerse = parts[2].split(':');
-            chapter = chapterVerse[0];
-            verse = chapterVerse[1];
-          }
-          
-          // Update selectors
-          document.getElementById('bibleBookSelect').value = book;
-          document.getElementById('bibleChapterInput').value = chapter;
-          document.getElementById('bibleVerseInput').value = verse;
-          
-          // Trigger lookup
-          bibleLookupBtn.click();
-        });
-      });
-      
-      // Helper function to update Bible content based on book, chapter, and version
-      function updateBibleContent(book, chapter, version) {
-        // In a real app, this would fetch the actual content from an API
-        // For demo purposes, we'll just update the version in the header
-        document.querySelector('.bible-book-title').textContent = book;
-        document.querySelector('.bible-chapter-number').textContent = `Chapter ${chapter} (${version})`;
-        
-        // Simulate different content for different versions
-        const verses = document.querySelectorAll('.bible-verse');
-        
-        // Example of how content would change based on version
-        // In a real app, this would be replaced with actual Bible text
-        if (version === 'KJV' && book === 'John' && chapter === '1') {
-          verses[0].innerHTML = '<span class="bible-verse-number">1</span>In the beginning was the Word, and the Word was with God, and the Word was God.';
-        } else if (version === 'NIV' && book === 'John' && chapter === '1') {
-          verses[0].innerHTML = '<span class="bible-verse-number">1</span>In the beginning was the Word, and the Word was with God, and the Word was God.';
-        } else if (version === 'ESV' && book === 'John' && chapter === '1') {
-          verses[0].innerHTML = '<span class="bible-verse-number">1</span>In the beginning was the Word, and the Word was with God, and the Word was God.';
-        } else if (version === 'NLT' && book === 'John' && chapter === '1') {
-          verses[0].innerHTML = '<span class="bible-verse-number">1</span>In the beginning the Word already existed. The Word was with God, and the Word was God.';
-        }
-        // Other versions would have their own text
-      }
-      
-      // Helper function to get max chapters for a book
-      function getMaxChapters(book) {
-        const chapterCounts = {
-          'Genesis': 50, 'Exodus': 40, 'Leviticus': 27, 'Numbers': 36, 'Deuteronomy': 34,
-          'Joshua': 24, 'Judges': 21, 'Ruth': 4, '1 Samuel': 31, '2 Samuel': 24,
-          '1 Kings': 22, '2 Kings': 25, '1 Chronicles': 29, '2 Chronicles': 36,
-          'Ezra': 10, 'Nehemiah': 13, 'Esther': 10, 'Job': 42, 'Psalms': 150,
-          'Proverbs': 31, 'Ecclesiastes': 12, 'Song of Solomon': 8, 'Isaiah': 66,
-          'Jeremiah': 52, 'Lamentations': 5, 'Ezekiel': 48, 'Daniel': 12,
-          'Hosea': 14, 'Joel': 3, 'Amos': 9, 'Obadiah': 1, 'Jonah': 4,
-          'Micah': 7, 'Nahum': 3, 'Habakkuk': 3, 'Zephaniah': 3, 'Haggai': 2,
-          'Zechariah': 14, 'Malachi': 4, 'Matthew': 28, 'Mark': 16, 'Luke': 24,
-          'John': 21, 'Acts': 28, 'Romans': 16, '1 Corinthians': 16, '2 Corinthians': 13,
-          'Galatians': 6, 'Ephesians': 6, 'Philippians': 4, 'Colossians': 4,
-          '1 Thessalonians': 5, '2 Thessalonians': 3, '1 Timothy': 6, '2 Timothy': 4,
-          'Titus': 3, 'Philemon': 1, 'Hebrews': 13, 'James': 5, '1 Peter': 5,
-          '2 Peter': 3, '1 John': 5, '2 John': 1, '3 John': 1, 'Jude': 1,
-          'Revelation': 22
-        };
-        
-        return chapterCounts[book] || 50; // Default to 50 if book not found
-      }
-      
-      // Add active class to current navigation item
-      const navItems = document.querySelectorAll('.nav-item');
-      navItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-          if (!this.id || this.id !== 'bibleNavBtn') {
-            navItems.forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
-          }
-        });
-      });
-
-      // Lazy load images for better performance
-      const lazyLoadImages = () => {
-        const images = document.querySelectorAll('img[data-src]');
-        images.forEach(img => {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-        });
-      };
-
-      // Initialize lazy loading
-      if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const img = entry.target;
-              img.src = img.dataset.src;
-              img.removeAttribute('data-src');
-              imageObserver.unobserve(img);
-            }
-          });
-        });
-
-        document.querySelectorAll('img[data-src]').forEach(img => {
-          imageObserver.observe(img);
-        });
-      } else {
-        // Fallback for browsers that don't support IntersectionObserver
-        lazyLoadImages();
-      }
+      document.querySelector('.bible-modal-content').appendChild(guidanceMessage);
     });
   </script>
 </body>
