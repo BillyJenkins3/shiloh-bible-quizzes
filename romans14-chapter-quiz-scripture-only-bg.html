@@ -223,7 +223,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.75rem;
       font-weight: 700;
-      color: var(--white);
+      color: white;
       display: flex;
       align-items: center;
     }
@@ -241,7 +241,7 @@
       font-size: 1.5rem;
       margin-left: var(--spacing-md);
       cursor: pointer;
-      color: var(--white);
+      color: white;
     }
 
     .notification-badge {
@@ -396,6 +396,29 @@
     .card-meta .material-icons-round {
       font-size: 0.875rem;
       margin-right: var(--spacing-xs);
+    }
+
+    /* YouTube Video Card */
+    .video-card {
+      flex: 0 0 480px;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      overflow: hidden;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     /* Bottom navigation */
@@ -698,11 +721,11 @@
     
     .search-modal-content {
       flex: 1;
-      overflow-y: auto;
       padding: var(--spacing-md);
+      overflow-y: auto;
     }
     
-    .search-form {
+    .search-input-container {
       position: relative;
       margin-bottom: var(--spacing-lg);
     }
@@ -717,55 +740,61 @@
       box-shadow: var(--shadow-sm);
     }
     
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+    
     .search-icon {
       position: absolute;
-      left: var(--spacing-md);
+      left: 15px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-tertiary);
     }
     
-    .search-results {
-      padding-top: var(--spacing-md);
-    }
-    
-    .search-results-header {
+    .search-results-info {
       margin-bottom: var(--spacing-md);
+      color: var(--text-secondary);
       font-size: 0.875rem;
-      color: var(--text-tertiary);
     }
     
     .search-results-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: var(--spacing-md);
+      gap: var(--spacing-lg);
     }
     
-    .no-results {
-      text-align: center;
-      padding: var(--spacing-xl) 0;
+    .search-empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-xxl) 0;
       color: var(--text-tertiary);
+      text-align: center;
     }
     
-    .no-results .material-icons-round {
-      font-size: 3rem;
+    .search-empty-state .material-icons-round {
+      font-size: 4rem;
       margin-bottom: var(--spacing-md);
       opacity: 0.5;
     }
     
-    .no-results-title {
+    .search-empty-title {
       font-size: 1.25rem;
       margin-bottom: var(--spacing-sm);
       color: var(--text-primary);
     }
     
-    .no-results-message {
+    .search-empty-message {
       font-size: 0.875rem;
       max-width: 400px;
       margin: 0 auto;
     }
     
-    /* Notes Modal Styles - Apple Notes Style */
+    /* Notes Modal Styles */
     .notes-modal {
       position: fixed;
       top: 0;
@@ -825,50 +854,20 @@
       width: 300px;
       border-right: 1px solid var(--divider);
       overflow-y: auto;
-      background-color: var(--surface-variant);
-    }
-    
-    .notes-sidebar-header {
-      padding: var(--spacing-md);
-      border-bottom: 1px solid var(--divider);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .notes-count {
-      font-size: 0.875rem;
-      color: var(--text-tertiary);
-    }
-    
-    .notes-new-button {
-      background: none;
-      border: none;
-      color: var(--primary);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      font-size: 0.875rem;
-    }
-    
-    .notes-new-button .material-icons-round {
-      font-size: 1.25rem;
-      margin-right: var(--spacing-xs);
     }
     
     .notes-search {
-      padding: var(--spacing-sm);
+      padding: var(--spacing-md);
       border-bottom: 1px solid var(--divider);
     }
     
-    .notes-search input {
+    .notes-search-input {
       width: 100%;
       padding: var(--spacing-sm) var(--spacing-md);
       border: 1px solid var(--divider);
       border-radius: var(--radius-sm);
       font-family: 'Poppins', sans-serif;
       font-size: 0.875rem;
-      background-color: var(--surface);
     }
     
     .notes-list {
@@ -883,7 +882,7 @@
     }
     
     .note-item:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: var(--surface-variant);
     }
     
     .note-item.active {
@@ -895,9 +894,6 @@
       font-weight: 600;
       font-size: 0.9rem;
       margin-bottom: var(--spacing-xs);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     
     .note-preview {
@@ -906,71 +902,52 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-bottom: var(--spacing-xs);
     }
     
     .note-date {
       font-size: 0.7rem;
       color: var(--text-tertiary);
+      margin-top: var(--spacing-xs);
     }
     
-    .notes-editor {
+    .notes-content {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    
-    .notes-editor-header {
-      padding: var(--spacing-md);
-      border-bottom: 1px solid var(--divider);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .notes-editor-actions {
-      display: flex;
-      gap: var(--spacing-md);
-    }
-    
-    .notes-editor-button {
-      background: none;
-      border: none;
-      color: var(--text-tertiary);
-      cursor: pointer;
-    }
-    
-    .notes-editor-button:hover {
-      color: var(--text-primary);
-    }
-    
-    .notes-editor-content {
-      flex: 1;
-      padding: var(--spacing-md);
+      padding: var(--spacing-lg);
       overflow-y: auto;
     }
     
-    .notes-editor-title {
-      width: 100%;
-      border: none;
-      font-size: 1.5rem;
-      font-weight: 600;
-      font-family: 'Poppins', sans-serif;
-      margin-bottom: var(--spacing-md);
-      background: transparent;
-      outline: none;
+    .note-editor {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
     
-    .notes-editor-body {
-      width: 100%;
-      height: calc(100% - 60px);
+    .note-editor-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: var(--spacing-sm) 0;
+      margin-bottom: var(--spacing-md);
       border: none;
-      font-size: 1rem;
+      border-bottom: 1px solid var(--divider);
       font-family: 'Poppins', sans-serif;
-      line-height: 1.6;
+    }
+    
+    .note-editor-title:focus {
+      outline: none;
+      border-bottom-color: var(--primary);
+    }
+    
+    .note-editor-body {
+      flex: 1;
+      padding: var(--spacing-sm) 0;
+      border: none;
       resize: none;
-      background: transparent;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    
+    .note-editor-body:focus {
       outline: none;
     }
     
@@ -1201,6 +1178,10 @@
       
       .sabbath-sidebar {
         width: 250px;
+      }
+      
+      .video-card {
+        flex: 0 0 100%;
       }
     }
     
@@ -1459,7 +1440,7 @@
           </div>
           <div class="card-content">
             <h5 class="card-title">Gospel Foundations</h5>
-            <p class="card-description">Understanding the core message of Christianity and its implications.</p>
+            <p class="card-description">Understanding the core message of the gospel and its implications for life.</p>
             <div class="card-meta">
               <span class="material-icons-round">people</span>
               1,129 enrolled
@@ -1482,21 +1463,21 @@
       <div class="card-scroll">
         <div class="card">
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1518542331925-4e91e9aa0074?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Biblical Studies" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>'">
+            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Biblical Studies" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Biblical Studies</h5>
-            <p class="card-description">In-depth exploration of biblical texts, contexts, and interpretations.</p>
+            <p class="card-description">In-depth exploration of biblical books, themes, and interpretation.</p>
             <div class="card-meta">
               <span class="material-icons-round">folder</span>
-              24 courses
+              25 courses
             </div>
           </div>
         </div>
         
         <div class="card">
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Christian Life" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>favorite</span>'">
+            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Christian Life" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>person</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Christian Life</h5>
@@ -1605,6 +1586,21 @@
       </div>
       
       <div class="card-scroll">
+        <!-- YouTube Video Card -->
+        <div class="card video-card">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/iRvHy_MqihI?list=PL8TR2V6jBVJ3wihHuBIlpbIz2CGiSe_Uq" title="Sermon Series" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="card-content">
+            <h5 class="card-title">Sermon Series Playlist</h5>
+            <p class="card-description">Watch our complete sermon series with powerful biblical teachings.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">video_library</span>
+              Full Playlist
+            </div>
+          </div>
+        </div>
+        
         <div class="card">
           <div class="card-image">
             <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="The Beatitudes" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>format_list_numbered</span>'">
@@ -1738,7 +1734,7 @@
             <p class="card-description">Foundational Bible stories and character lessons for children.</p>
             <div class="card-meta">
               <span class="material-icons-round">people</span>
-              Ages 5-8
+              Ages 5-7
             </div>
           </div>
         </div>
@@ -1752,7 +1748,7 @@
             <p class="card-description">Bible exploration and application for elementary-aged children.</p>
             <div class="card-meta">
               <span class="material-icons-round">people</span>
-              Ages 9-12
+              Ages 8-11
             </div>
           </div>
         </div>
@@ -1766,7 +1762,7 @@
             <p class="card-description">Deeper biblical study and discipleship for pre-teens and teens.</p>
             <div class="card-meta">
               <span class="material-icons-round">people</span>
-              Ages 13-18
+              Ages 12-16
             </div>
           </div>
         </div>
@@ -1780,7 +1776,7 @@
             <p class="card-description">Faith formation and life application for young adults.</p>
             <div class="card-meta">
               <span class="material-icons-round">people</span>
-              Ages 18-21
+              Ages 17-22
             </div>
           </div>
         </div>
@@ -1794,7 +1790,7 @@
             <p class="card-description">Advanced biblical teaching and spiritual growth for adults.</p>
             <div class="card-meta">
               <span class="material-icons-round">people</span>
-              Ages 22 and up
+              Ages 23 and up
             </div>
           </div>
         </div>
@@ -1836,7 +1832,7 @@
     </div>
     <div class="bible-modal-content">
       <div class="bible-iframe-container">
-        <iframe src="https://www.bible.com/bible/111/JHN.1.NIV" class="bible-iframe" id="bibleIframe"></iframe>
+        <iframe id="bibleIframe" class="bible-iframe" src="https://www.bible.com/bible/111/JHN.1.NIV"></iframe>
       </div>
     </div>
   </div>
@@ -1850,25 +1846,23 @@
       </button>
     </div>
     <div class="search-modal-content">
-      <div class="search-form">
+      <div class="search-input-container">
         <span class="material-icons-round search-icon">search</span>
-        <input type="text" class="search-input" id="searchInput" placeholder="Search by title...">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search for courses, topics, or devotionals...">
       </div>
       
-      <div class="search-results">
-        <div class="search-results-header" id="resultsCount">
-          Showing all content
-        </div>
-        
-        <div class="search-results-grid" id="searchResultsGrid">
-          <!-- Search results will be dynamically populated here -->
-        </div>
-        
-        <div class="no-results" id="noResults" style="display: none;">
-          <span class="material-icons-round">search_off</span>
-          <h4 class="no-results-title">No results found</h4>
-          <p class="no-results-message">Try using different keywords or check your spelling.</p>
-        </div>
+      <div class="search-results-info">
+        <span id="resultsCount">0</span> results found
+      </div>
+      
+      <div class="search-results-grid" id="searchResultsGrid">
+        <!-- Search results will be populated here -->
+      </div>
+      
+      <div class="search-empty-state" id="noResults">
+        <span class="material-icons-round">search_off</span>
+        <h4 class="search-empty-title">No results found</h4>
+        <p class="search-empty-message">Try different keywords or browse our categories to find what you're looking for.</p>
       </div>
     </div>
   </div>
@@ -1883,63 +1877,56 @@
     </div>
     <div class="notes-modal-content">
       <div class="notes-sidebar">
-        <div class="notes-sidebar-header">
-          <span class="notes-count">3 Notes</span>
-          <button class="notes-new-button">
-            <span class="material-icons-round">add</span>
-            New
-          </button>
-        </div>
         <div class="notes-search">
-          <input type="text" placeholder="Search notes...">
+          <input type="text" class="notes-search-input" placeholder="Search notes...">
         </div>
         <div class="notes-list">
-          <div class="note-item active" data-id="1">
-            <div class="note-title">Bible Study Notes</div>
-            <div class="note-preview">Key points from today's study on the book of John...</div>
-            <div class="note-date">Today, 10:30 AM</div>
+          <div class="note-item active">
+            <div class="note-title">Sermon Reflections</div>
+            <div class="note-preview">Today's sermon on the prodigal son really spoke to me...</div>
+            <div class="note-date">May 15, 2023</div>
           </div>
-          <div class="note-item" data-id="2">
+          <div class="note-item">
             <div class="note-title">Prayer Requests</div>
-            <div class="note-preview">List of prayer requests from the small group...</div>
-            <div class="note-date">Yesterday, 7:15 PM</div>
+            <div class="note-preview">1. Healing for Mom's surgery 2. Wisdom for career decision...</div>
+            <div class="note-date">May 10, 2023</div>
           </div>
-          <div class="note-item" data-id="3">
-            <div class="note-title">Sermon Notes - Faith</div>
-            <div class="note-preview">Main points from Pastor's sermon on faith...</div>
-            <div class="note-date">May 15, 2025</div>
+          <div class="note-item">
+            <div class="note-title">Bible Study - Romans</div>
+            <div class="note-preview">Key themes in Romans: righteousness, justification, sanctification...</div>
+            <div class="note-date">May 5, 2023</div>
+          </div>
+          <div class="note-item">
+            <div class="note-title">Worship Song Ideas</div>
+            <div class="note-preview">Songs for next Sunday: 1. How Great Thou Art 2. Amazing Grace...</div>
+            <div class="note-date">April 28, 2023</div>
           </div>
         </div>
       </div>
-      <div class="notes-editor">
-        <div class="notes-editor-header">
-          <span>Edited: Today, 10:30 AM</span>
-          <div class="notes-editor-actions">
-            <button class="notes-editor-button">
-              <span class="material-icons-round">share</span>
-            </button>
-            <button class="notes-editor-button">
-              <span class="material-icons-round">delete</span>
-            </button>
-          </div>
-        </div>
-        <div class="notes-editor-content">
-          <input type="text" class="notes-editor-title" value="Bible Study Notes" placeholder="Title">
-          <textarea class="notes-editor-body" placeholder="Start typing...">Key points from today's study on the book of John:
+      <div class="notes-content">
+        <div class="note-editor">
+          <input type="text" class="note-editor-title" value="Sermon Reflections">
+          <textarea class="note-editor-body">Today's sermon on the prodigal son really spoke to me. The pastor highlighted how the father's unconditional love mirrors God's love for us.
 
-1. John's gospel focuses on the deity of Christ
-2. Seven "I am" statements throughout the book
-3. Written by the apostle John, "the disciple whom Jesus loved"
-4. Purpose statement in John 20:31 - "these are written that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name."
+Key points:
+- The son's rebellion represents our turning away from God
+- The father's waiting represents God's patience
+- The celebration represents God's joy when we return
 
-Questions for further study:
-- How does John's portrayal of Jesus differ from the synoptic gospels?
-- What significance do the seven miracles in John have?
-- How does the "Logos" concept in John 1 relate to Greek philosophy of the time?
+Questions to reflect on:
+1. In what ways have I been like the prodigal son?
+2. How can I better appreciate God's unconditional love?
+3. Am I ever like the older brother, resentful of God's grace to others?
 
-Follow-up reading:
-- Commentary on John by D.A. Carson
-- "The Gospel According to John" by Leon Morris</textarea>
+Scripture references:
+- Luke 15:11-32
+- Ephesians 2:4-5
+- Romans 5:8
+
+Action steps:
+- Meditate on God's unconditional love this week
+- Reach out to someone who might feel distant from God
+- Practice gratitude for God's patience with me</textarea>
         </div>
       </div>
     </div>
@@ -1957,47 +1944,43 @@ Follow-up reading:
       <div class="sabbath-sidebar">
         <div class="sabbath-quarters">
           <select class="sabbath-quarter-select">
-            <option>Q2 2025: The Book of Romans</option>
-            <option>Q1 2025: The Gospel of Mark</option>
-            <option>Q4 2024: The Minor Prophets</option>
-            <option>Q3 2024: Christian Stewardship</option>
+            <option>Q2 2023: Romans - Justified by Faith</option>
+            <option>Q1 2023: Managing for the Master</option>
+            <option>Q4 2022: On Death, Dying, and the Future Hope</option>
           </select>
         </div>
         <div class="sabbath-lessons">
           <div class="sabbath-lesson active">
-            <div class="sabbath-lesson-title">Lesson 1: The Gospel of God</div>
-            <div class="sabbath-lesson-date">April 1-7, 2025</div>
+            <div class="sabbath-lesson-title">Lesson 1: The Apostle Paul in Rome</div>
+            <div class="sabbath-lesson-date">April 1-7, 2023</div>
           </div>
           <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 2: Faith and Righteousness</div>
-            <div class="sabbath-lesson-date">April 8-14, 2025</div>
+            <div class="sabbath-lesson-title">Lesson 2: The Law of God</div>
+            <div class="sabbath-lesson-date">April 8-14, 2023</div>
           </div>
           <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 3: Justification by Faith</div>
-            <div class="sabbath-lesson-date">April 15-21, 2025</div>
+            <div class="sabbath-lesson-title">Lesson 3: The Human Condition</div>
+            <div class="sabbath-lesson-date">April 15-21, 2023</div>
           </div>
           <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 4: Dead to Sin, Alive in Christ</div>
-            <div class="sabbath-lesson-date">April 22-28, 2025</div>
+            <div class="sabbath-lesson-title">Lesson 4: Justification by Faith</div>
+            <div class="sabbath-lesson-date">April 22-28, 2023</div>
           </div>
           <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 5: The Law and Grace</div>
-            <div class="sabbath-lesson-date">April 29 - May 5, 2025</div>
+            <div class="sabbath-lesson-title">Lesson 5: Justification and the Law</div>
+            <div class="sabbath-lesson-date">April 29 - May 5, 2023</div>
           </div>
           <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 6: Life in the Spirit</div>
-            <div class="sabbath-lesson-date">May 6-12, 2025</div>
+            <div class="sabbath-lesson-title">Lesson 6: Adam and Jesus</div>
+            <div class="sabbath-lesson-date">May 6-12, 2023</div>
           </div>
           <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 7: God's Sovereign Choice</div>
-            <div class="sabbath-lesson-date">May 13-19, 2025</div>
+            <div class="sabbath-lesson-title">Lesson 7: Victory Over Sin</div>
+            <div class="sabbath-lesson-date">May 13-19, 2023</div>
           </div>
         </div>
       </div>
       <div class="sabbath-content">
-        <h2>Lesson 1: The Gospel of God</h2>
-        <p class="sabbath-lesson-date">April 1-7, 2025</p>
-        
         <div class="sabbath-day">
           <h3 class="sabbath-day-title">Sunday: Introduction to Romans</h3>
           <div class="sabbath-day-content">
@@ -2327,222 +2310,105 @@ Follow-up reading:
         });
       });
       
-      // Search functionality
-      const searchBox = versionSearch.querySelector('input');
-      searchBox.addEventListener('input', function() {
-        const searchTerm = searchBox.value.toLowerCase();
-        
-        // Determine which list to search based on active tab
-        let versionsToSearch;
-        if (preferredTab.classList.contains('active')) {
-          versionsToSearch = preferredVersions;
-        } else if (englishTab.classList.contains('active')) {
-          versionsToSearch = englishVersions;
-        } else {
-          versionsToSearch = allVersions;
-        }
-        
-        // Filter versions
-        const filteredVersions = versionsToSearch.filter(version => 
-          version.abbr.toLowerCase().includes(searchTerm) || 
-          version.name.toLowerCase().includes(searchTerm)
-        );
-        
-        // Clear and repopulate version list
-        versionList.innerHTML = '';
-        filteredVersions.forEach(version => {
-          const versionItem = document.createElement('button');
-          versionItem.className = 'version-item';
-          if (preferredVersions.some(v => v.abbr === version.abbr)) {
-            versionItem.classList.add('preferred');
-          }
-          
-          versionItem.innerHTML = `
-            <span class="version-abbr">${version.abbr}</span>
-            <span class="version-name">${version.name}</span>
-          `;
-          
-          versionItem.addEventListener('click', function() {
-            bibleIframe.src = version.url;
-            versionSelector.style.display = 'none';
-            versionButton.innerHTML = `Version: ${version.abbr} <span class="material-icons-round">arrow_drop_down</span>`;
-          });
-          
-          versionList.appendChild(versionItem);
-        });
-      });
-      
-      document.querySelector('.bible-modal-content').appendChild(versionButton);
+      // Add version button and selector to the Bible modal
+      document.querySelector('.bible-modal-header').appendChild(versionButton);
       document.querySelector('.bible-modal-content').appendChild(versionSelector);
       
-      // Add guidance message
+      // Guidance message
       const guidanceMessage = document.createElement('div');
       guidanceMessage.className = 'guidance-message';
-      guidanceMessage.innerHTML = 'Interact directly with the Bible.com content to navigate chapters and verses';
-      
+      guidanceMessage.textContent = 'Tap anywhere to navigate or use the version selector in the top-right';
       document.querySelector('.bible-modal-content').appendChild(guidanceMessage);
       
+      // Show guidance message briefly when Bible modal is opened
+      navBible.addEventListener('click', function() {
+        setTimeout(() => {
+          guidanceMessage.style.opacity = '1';
+          setTimeout(() => {
+            guidanceMessage.style.opacity = '0';
+          }, 3000);
+        }, 500);
+      });
+      
       // Search functionality
-      const allCards = document.querySelectorAll('.card');
-      
       searchInput.addEventListener('input', function() {
-        const searchTerm = searchInput.value.toLowerCase();
+        const query = this.value.toLowerCase();
         
-        // Clone all cards for search results
+        // Sample data - in a real app, this would be fetched from a database
+        const allContent = [
+          { title: 'Understanding the Bible', type: 'course', description: 'A comprehensive guide to biblical interpretation and study methods.' },
+          { title: 'The Holy Spirit', type: 'course', description: 'Explore the person and work of the Holy Spirit in the life of believers.' },
+          { title: 'Resurrection Power', type: 'course', description: 'Understanding the significance and power of Christ\'s resurrection.' },
+          { title: 'Prayer Fundamentals', type: 'course', description: 'Learn the basics of effective prayer and developing a prayer life.' },
+          { title: 'Foundations of Faith', type: 'course', description: 'Essential teachings for new believers and those seeking to strengthen their faith.' },
+          { title: 'Spiritual Disciplines', type: 'course', description: 'Practices that promote spiritual growth and a deeper relationship with God.' },
+          { title: 'Biblical Leadership', type: 'course', description: 'Principles and practices of effective leadership based on biblical examples.' },
+          { title: 'Gospel Foundations', type: 'course', description: 'Understanding the core message of the gospel and its implications for life.' },
+          { title: 'Biblical Studies', type: 'topic', description: 'In-depth exploration of biblical books, themes, and interpretation.' },
+          { title: 'Christian Life', type: 'topic', description: 'Practical guidance for living out faith in everyday situations.' },
+          { title: 'Church', type: 'topic', description: 'Understanding the nature, purpose, and practices of the church.' },
+          { title: 'Family', type: 'topic', description: 'Biblical principles for marriage, parenting, and family relationships.' },
+          { title: 'Theology', type: 'topic', description: 'Systematic study of God and religious beliefs and practices.' },
+          { title: 'Spiritual Growth', type: 'topic', description: 'Resources for developing spiritual maturity and Christ-like character.' },
+          { title: 'Ministry', type: 'topic', description: 'Training and resources for various areas of Christian service.' },
+          { title: 'Apologetics', type: 'topic', description: 'Reasoned arguments and evidence for the truth of Christianity.' },
+          { title: 'The Beatitudes', type: 'series', description: 'Exploring Jesus\' teachings on true happiness and kingdom living.' },
+          { title: 'Fruit of the Spirit', type: 'series', description: 'Understanding and cultivating the character qualities produced by the Holy Spirit.' },
+          { title: 'Heroes of Faith', type: 'series', description: 'Lessons from the lives of biblical characters who demonstrated extraordinary faith.' },
+          { title: 'Daily Bread', type: 'devotional', description: 'Short, daily reflections on Scripture for spiritual nourishment.' },
+          { title: 'Quiet Moments', type: 'devotional', description: 'Meditative devotionals for deepening your personal prayer life.' },
+          { title: 'Promises of God', type: 'devotional', description: 'Exploring the faithful promises of God throughout Scripture.' }
+        ];
+        
+        // Filter content based on search query
+        const filteredContent = allContent.filter(item => 
+          item.title.toLowerCase().includes(query) || 
+          item.description.toLowerCase().includes(query)
+        );
+        
+        // Update results count
+        resultsCount.textContent = filteredContent.length;
+        
+        // Clear previous results
         searchResultsGrid.innerHTML = '';
-        let matchCount = 0;
         
-        if (searchTerm.length > 0) {
-          allCards.forEach(card => {
-            const title = card.querySelector('.card-title').textContent.toLowerCase();
-            const description = card.querySelector('.card-description').textContent.toLowerCase();
-            
-            if (title.includes(searchTerm) || description.includes(searchTerm)) {
-              const cardClone = card.cloneNode(true);
-              searchResultsGrid.appendChild(cardClone);
-              matchCount++;
-            }
-          });
-          
-          if (matchCount > 0) {
-            resultsCount.textContent = `Found ${matchCount} result${matchCount === 1 ? '' : 's'} for "${searchTerm}"`;
-            noResults.style.display = 'none';
-            searchResultsGrid.style.display = 'grid';
-          } else {
-            resultsCount.textContent = `No results for "${searchTerm}"`;
-            noResults.style.display = 'block';
-            searchResultsGrid.style.display = 'none';
-          }
+        // Show/hide no results message
+        if (filteredContent.length === 0) {
+          noResults.style.display = 'flex';
         } else {
-          // Show all content when search is empty
-          allCards.forEach(card => {
-            const cardClone = card.cloneNode(true);
-            searchResultsGrid.appendChild(cardClone);
-            matchCount++;
-          });
-          
-          resultsCount.textContent = 'Showing all content';
           noResults.style.display = 'none';
-          searchResultsGrid.style.display = 'grid';
+          
+          // Populate search results
+          filteredContent.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            let iconName = 'menu_book';
+            if (item.type === 'topic') iconName = 'category';
+            if (item.type === 'series') iconName = 'video_library';
+            if (item.type === 'devotional') iconName = 'auto_stories';
+            
+            card.innerHTML = `
+              <div class="card-image">
+                <span class="material-icons-round placeholder-icon">${iconName}</span>
+              </div>
+              <div class="card-content">
+                <h5 class="card-title">${item.title}</h5>
+                <p class="card-description">${item.description}</p>
+                <div class="card-meta">
+                  <span class="material-icons-round">label</span>
+                  ${item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                </div>
+              </div>
+            `;
+            
+            searchResultsGrid.appendChild(card);
+          });
         }
       });
       
-      // Initialize search results with all content
-      allCards.forEach(card => {
-        const cardClone = card.cloneNode(true);
-        searchResultsGrid.appendChild(cardClone);
-      });
-      
-      // Notes functionality
-      const noteItems = document.querySelectorAll('.note-item');
-      const notesEditorTitle = document.querySelector('.notes-editor-title');
-      const notesEditorBody = document.querySelector('.notes-editor-body');
-      const notesNewButton = document.querySelector('.notes-new-button');
-      
-      // Sample notes data
-      const notesData = [
-        {
-          id: 1,
-          title: 'Bible Study Notes',
-          content: `Key points from today's study on the book of John:
-
-1. John's gospel focuses on the deity of Christ
-2. Seven "I am" statements throughout the book
-3. Written by the apostle John, "the disciple whom Jesus loved"
-4. Purpose statement in John 20:31 - "these are written that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name."
-
-Questions for further study:
-- How does John's portrayal of Jesus differ from the synoptic gospels?
-- What significance do the seven miracles in John have?
-- How does the "Logos" concept in John 1 relate to Greek philosophy of the time?
-
-Follow-up reading:
-- Commentary on John by D.A. Carson
-- "The Gospel According to John" by Leon Morris`,
-          date: 'Today, 10:30 AM'
-        },
-        {
-          id: 2,
-          title: 'Prayer Requests',
-          content: `List of prayer requests from the small group:
-
-- Sarah's mother's health issues
-- John's job interview next week
-- The Johnson family's move to a new city
-- Our church's upcoming mission trip to Guatemala
-- Pastor David's sermon preparation
-
-Remember to follow up with everyone next week about these requests.`,
-          date: 'Yesterday, 7:15 PM'
-        },
-        {
-          id: 3,
-          title: 'Sermon Notes - Faith',
-          content: `Main points from Pastor's sermon on faith:
-
-Scripture: Hebrews 11:1-6
-
-1. Faith is confidence in what we hope for and assurance about what we do not see
-2. Faith is not blind belief but trust based on God's character and promises
-3. Without faith it is impossible to please God
-4. Faith requires both believing that God exists and that He rewards those who seek Him
-
-Examples of faith from the sermon:
-- Abraham leaving his homeland
-- Moses choosing to be mistreated with God's people
-- The Israelites crossing the Red Sea
-
-Application:
-- Identify areas where I need to trust God more
-- Remember past instances of God's faithfulness
-- Take one step of faith this week in an area I've been hesitant`,
-          date: 'May 15, 2025'
-        }
-      ];
-      
-      // Load note content
-      function loadNote(id) {
-        const note = notesData.find(note => note.id === id);
-        if (note) {
-          notesEditorTitle.value = note.title;
-          notesEditorBody.value = note.content;
-        }
-      }
-      
-      // Set active note
-      noteItems.forEach(item => {
-        item.addEventListener('click', function() {
-          // Remove active class from all items
-          noteItems.forEach(i => i.classList.remove('active'));
-          // Add active class to clicked item
-          this.classList.add('active');
-          // Load note content
-          loadNote(parseInt(this.dataset.id));
-        });
-      });
-      
-      // New note functionality
-      notesNewButton.addEventListener('click', function() {
-        // Remove active class from all items
-        noteItems.forEach(i => i.classList.remove('active'));
-        // Clear editor
-        notesEditorTitle.value = '';
-        notesEditorBody.value = '';
-        notesEditorTitle.focus();
-      });
-      
-      // Sabbath School Book functionality
-      const sabbathLessons = document.querySelectorAll('.sabbath-lesson');
-      
-      sabbathLessons.forEach(lesson => {
-        lesson.addEventListener('click', function() {
-          // Remove active class from all lessons
-          sabbathLessons.forEach(l => l.classList.remove('active'));
-          // Add active class to clicked lesson
-          this.classList.add('active');
-          // In a real implementation, this would load the lesson content
-        });
-      });
+      // Initialize search results as empty
+      noResults.style.display = 'flex';
     });
   </script>
 </body>
