@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <style>
     :root {
-      /* Color Variables - Restored Blue Theme */
+      /* Color Variables - Blue Theme */
       --primary: #2d5282;
       --primary-light: #4a69a7;
       --primary-dark: #1a365d;
@@ -88,6 +88,12 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       padding-bottom: 70px; /* Space for bottom nav */
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    body.loaded {
+      opacity: 1;
     }
     
     h1, h2, h3, h4, h5, h6 {
@@ -156,6 +162,105 @@
     
     .section {
       padding: var(--spacing-xl) 0;
+    }
+    
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--header-gradient);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .loading-logo {
+      margin-bottom: var(--spacing-xl);
+      text-align: center;
+      color: var(--white);
+    }
+    
+    .loading-logo h1 {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .loading-logo p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    
+    .loading-spinner {
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    
+    .loading-spinner:before,
+    .loading-spinner:after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+    }
+    
+    .loading-spinner:before {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, var(--primary-light), var(--secondary));
+      animation: spin 2s linear infinite;
+    }
+    
+    .loading-spinner:after {
+      width: 80%;
+      height: 80%;
+      background: var(--primary-dark);
+      top: 10%;
+      left: 10%;
+      animation: spin 3s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .loading-graphic {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .loading-graphic .vine {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50,10 C30,10 15,25 15,45 C15,65 30,80 50,80 C70,80 85,65 85,45' fill='none' stroke='%235cbbf6' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M50,20 C35,20 25,30 25,45 C25,60 35,70 50,70 C65,70 75,60 75,45' fill='none' stroke='%235cbbf6' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='85' cy='45' r='5' fill='%235cbbf6'/%3E%3Ccircle cx='75' cy='25' r='4' fill='%235cbbf6'/%3E%3Ccircle cx='60' cy='15' r='3' fill='%235cbbf6'/%3E%3C/svg%3E") no-repeat center;
+      animation: grow 3s ease-in-out infinite;
+    }
+    
+    @keyframes grow {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
     }
     
     /* Header */
@@ -500,61 +605,62 @@
       overflow: hidden;
     }
     
-    .version-selector-header {
-      padding: var(--spacing-md);
+    .version-selector.open {
+      display: block;
+    }
+    
+    .version-tabs {
+      display: flex;
       border-bottom: 1px solid var(--divider);
     }
     
+    .version-tab {
+      flex: 1;
+      padding: var(--spacing-sm) var(--spacing-md);
+      text-align: center;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .version-tab.active {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+    
     .version-search {
+      padding: var(--spacing-sm);
+      border-bottom: 1px solid var(--divider);
+    }
+    
+    .version-search input {
       width: 100%;
       padding: var(--spacing-sm) var(--spacing-md);
       border: 1px solid var(--divider);
-      border-radius: var(--radius-full);
+      border-radius: var(--radius-sm);
       font-family: 'Poppins', sans-serif;
       font-size: 0.875rem;
     }
     
-    .version-categories {
-      display: flex;
-      padding: var(--spacing-sm) var(--spacing-md);
-      border-bottom: 1px solid var(--divider);
-    }
-    
-    .version-category {
-      padding: var(--spacing-xs) var(--spacing-sm);
-      margin-right: var(--spacing-sm);
-      border-radius: var(--radius-full);
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--transition-standard);
-      background-color: transparent;
-      border: none;
-    }
-    
-    .version-category.active {
-      background-color: var(--primary);
-      color: var(--text-on-primary);
-    }
-    
     .version-list {
-      max-height: 400px;
+      max-height: 300px;
       overflow-y: auto;
-      padding: var(--spacing-sm);
+      padding: var(--spacing-sm) 0;
     }
     
     .version-item {
       display: flex;
-      flex-direction: column;
-      padding: var(--spacing-sm);
-      border-radius: var(--radius-md);
-      margin-bottom: var(--spacing-xs);
-      cursor: pointer;
-      transition: var(--transition-standard);
-      text-align: left;
-      background: none;
+      align-items: center;
+      padding: var(--spacing-sm) var(--spacing-md);
       border: none;
+      background: none;
       width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition-fast);
     }
     
     .version-item:hover {
@@ -562,35 +668,24 @@
     }
     
     .version-item.preferred {
-      border-left: 3px solid var(--primary);
+      color: var(--primary);
+      font-weight: 500;
     }
     
-    .version-abbr {
+    .version-item .version-abbr {
       font-weight: 600;
-      font-size: 0.875rem;
-      color: var(--text-primary);
+      margin-right: var(--spacing-sm);
+      min-width: 50px;
     }
     
-    .version-full-name {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-    }
-    
-    .version-publisher {
-      font-size: 0.7rem;
-      color: var(--text-tertiary);
-    }
-    
-    .no-results {
-      padding: var(--spacing-md);
-      text-align: center;
-      color: var(--text-tertiary);
+    .version-item .version-name {
+      flex: 1;
       font-size: 0.875rem;
     }
     
     .guidance-message {
       position: absolute;
-      bottom: var(--spacing-lg);
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       background-color: rgba(0, 0, 0, 0.7);
@@ -598,9 +693,11 @@
       padding: var(--spacing-sm) var(--spacing-md);
       border-radius: var(--radius-full);
       font-size: 0.875rem;
-      z-index: 2200;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      text-align: center;
+      max-width: 80%;
     }
     
     /* Search Modal Styles */
@@ -619,7 +716,6 @@
       box-shadow: var(--shadow-xl);
       display: flex;
       flex-direction: column;
-      border-radius: 0;
     }
     
     .search-modal.open {
@@ -656,7 +752,7 @@
       padding: var(--spacing-md);
     }
     
-    .search-input-container {
+    .search-form {
       position: relative;
       margin-bottom: var(--spacing-lg);
     }
@@ -671,12 +767,6 @@
       box-shadow: var(--shadow-sm);
     }
     
-    .search-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: var(--shadow-md);
-    }
-    
     .search-icon {
       position: absolute;
       left: var(--spacing-md);
@@ -685,13 +775,14 @@
       color: var(--text-tertiary);
     }
     
-    .search-results-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .search-results {
+      padding-top: var(--spacing-md);
+    }
+    
+    .search-results-header {
       margin-bottom: var(--spacing-md);
-      color: var(--text-tertiary);
       font-size: 0.875rem;
+      color: var(--text-tertiary);
     }
     
     .search-results-grid {
@@ -700,85 +791,520 @@
       gap: var(--spacing-md);
     }
     
-    .search-no-results {
+    .no-results {
       text-align: center;
-      padding: var(--spacing-xxl) 0;
+      padding: var(--spacing-xl) 0;
       color: var(--text-tertiary);
-      display: none;
     }
     
-    .search-no-results h3 {
+    .no-results .material-icons-round {
+      font-size: 3rem;
       margin-bottom: var(--spacing-md);
+      opacity: 0.5;
+    }
+    
+    .no-results-title {
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-sm);
+      color: var(--text-primary);
+    }
+    
+    .no-results-message {
+      font-size: 0.875rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    /* Notes Modal Styles - Apple Notes Style */
+    .notes-modal {
+      position: fixed;
+      top: 0;
+      bottom: 70px; /* Leave space for bottom nav */
+      left: 0;
+      right: 0;
+      height: 0;
+      width: 100%;
+      background-color: var(--white);
+      z-index: 2000;
+      overflow: hidden;
+      transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .notes-modal.open {
+      height: calc(100vh - 70px); /* Full viewport height minus bottom nav */
+    }
+    
+    .notes-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--divider);
+      background-color: var(--surface-variant);
+    }
+    
+    .notes-modal-title {
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    
+    .notes-modal-close {
+      background: none;
+      border: none;
+      color: var(--text-tertiary);
+      cursor: pointer;
+    }
+    
+    .notes-modal-close:hover {
+      color: var(--text-primary);
+    }
+    
+    .notes-modal-content {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    
+    .notes-sidebar {
+      width: 300px;
+      border-right: 1px solid var(--divider);
+      overflow-y: auto;
+      background-color: var(--surface-variant);
+    }
+    
+    .notes-sidebar-header {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--divider);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .notes-count {
+      font-size: 0.875rem;
+      color: var(--text-tertiary);
+    }
+    
+    .notes-new-button {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+    
+    .notes-new-button .material-icons-round {
+      font-size: 1.25rem;
+      margin-right: var(--spacing-xs);
+    }
+    
+    .notes-search {
+      padding: var(--spacing-sm);
+      border-bottom: 1px solid var(--divider);
+    }
+    
+    .notes-search input {
+      width: 100%;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 1px solid var(--divider);
+      border-radius: var(--radius-sm);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.875rem;
+      background-color: var(--white);
+    }
+    
+    .notes-list {
+      padding: var(--spacing-sm) 0;
+    }
+    
+    .note-item {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--divider);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    
+    .note-item:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    .note-item.active {
+      background-color: rgba(92, 187, 246, 0.1);
+      border-left: 3px solid var(--primary);
+    }
+    
+    .note-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-xs);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .note-preview {
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .note-date {
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+    }
+    
+    .notes-editor {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .notes-editor-header {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--divider);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .notes-editor-actions {
+      display: flex;
+      gap: var(--spacing-md);
+    }
+    
+    .notes-editor-button {
+      background: none;
+      border: none;
+      color: var(--text-tertiary);
+      cursor: pointer;
+    }
+    
+    .notes-editor-button:hover {
+      color: var(--text-primary);
+    }
+    
+    .notes-editor-content {
+      flex: 1;
+      padding: var(--spacing-md);
+      overflow-y: auto;
+    }
+    
+    .notes-editor-title {
+      width: 100%;
+      border: none;
+      font-size: 1.5rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: var(--spacing-md);
+      background: transparent;
+      outline: none;
+    }
+    
+    .notes-editor-body {
+      width: 100%;
+      height: calc(100% - 60px);
+      border: none;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      resize: none;
+      background: transparent;
+      outline: none;
+    }
+    
+    .notes-empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-tertiary);
+      text-align: center;
+      padding: var(--spacing-xl);
+    }
+    
+    .notes-empty-state .material-icons-round {
+      font-size: 4rem;
+      margin-bottom: var(--spacing-md);
+      opacity: 0.5;
+    }
+    
+    .notes-empty-title {
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-sm);
+      color: var(--text-primary);
+    }
+    
+    .notes-empty-message {
+      font-size: 0.875rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    /* Sabbath School Book Modal Styles */
+    .sabbath-modal {
+      position: fixed;
+      top: 0;
+      bottom: 70px; /* Leave space for bottom nav */
+      left: 0;
+      right: 0;
+      height: 0;
+      width: 100%;
+      background-color: var(--white);
+      z-index: 2000;
+      overflow: hidden;
+      transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .sabbath-modal.open {
+      height: calc(100vh - 70px); /* Full viewport height minus bottom nav */
+    }
+    
+    .sabbath-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--divider);
+    }
+    
+    .sabbath-modal-title {
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+    
+    .sabbath-modal-close {
+      background: none;
+      border: none;
+      color: var(--text-tertiary);
+      cursor: pointer;
+    }
+    
+    .sabbath-modal-close:hover {
+      color: var(--text-primary);
+    }
+    
+    .sabbath-modal-content {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    
+    .sabbath-sidebar {
+      width: 300px;
+      border-right: 1px solid var(--divider);
+      overflow-y: auto;
+    }
+    
+    .sabbath-quarters {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--divider);
+    }
+    
+    .sabbath-quarter-select {
+      width: 100%;
+      padding: var(--spacing-sm);
+      border: 1px solid var(--divider);
+      border-radius: var(--radius-sm);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.875rem;
+    }
+    
+    .sabbath-lessons {
+      padding: var(--spacing-sm) 0;
+    }
+    
+    .sabbath-lesson {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--divider);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    
+    .sabbath-lesson:hover {
+      background-color: var(--surface-variant);
+    }
+    
+    .sabbath-lesson.active {
+      background-color: rgba(92, 187, 246, 0.1);
+      border-left: 3px solid var(--primary);
+    }
+    
+    .sabbath-lesson-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .sabbath-lesson-date {
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+    }
+    
+    .sabbath-content {
+      flex: 1;
+      padding: var(--spacing-lg);
+      overflow-y: auto;
+    }
+    
+    .sabbath-day {
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .sabbath-day-title {
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-xs);
+      border-bottom: 1px solid var(--divider);
+    }
+    
+    .sabbath-day-content {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    
+    .sabbath-day-content p {
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .sabbath-day-content h4 {
+      margin-top: var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+      font-size: 1.1rem;
+    }
+    
+    .sabbath-day-content blockquote {
+      border-left: 3px solid var(--primary);
+      padding-left: var(--spacing-md);
+      margin: var(--spacing-md) 0;
+      font-style: italic;
       color: var(--text-secondary);
     }
     
-    .search-no-results p {
-      max-width: 500px;
-      margin: 0 auto var(--spacing-md);
+    .sabbath-empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-tertiary);
+      text-align: center;
+      padding: var(--spacing-xl);
     }
     
-    /* Responsive Styles */
+    .sabbath-empty-state .material-icons-round {
+      font-size: 4rem;
+      margin-bottom: var(--spacing-md);
+      opacity: 0.5;
+    }
+    
+    .sabbath-empty-title {
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-sm);
+      color: var(--text-primary);
+    }
+    
+    .sabbath-empty-message {
+      font-size: 0.875rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    /* Responsive Adjustments */
     @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
       }
       
-      h2 {
-        font-size: 1.75rem;
-      }
-      
-      h3 {
-        font-size: 1.5rem;
-      }
-      
-      .section {
-        padding: var(--spacing-lg) 0;
+      .section-action {
+        margin-top: var(--spacing-xs);
+        margin-left: var(--spacing-sm);
       }
       
       .card-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       }
       
-      .card-scroll .card {
-        flex: 0 0 240px;
+      .notes-sidebar {
+        width: 250px;
       }
       
-      .version-selector {
-        width: 280px;
+      .sabbath-sidebar {
+        width: 250px;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .notes-modal-content {
+        flex-direction: column;
+      }
+      
+      .notes-sidebar {
+        width: 100%;
+        height: 200px;
+        border-right: none;
+        border-bottom: 1px solid var(--divider);
+      }
+      
+      .sabbath-modal-content {
+        flex-direction: column;
+      }
+      
+      .sabbath-sidebar {
+        width: 100%;
+        height: 200px;
+        border-right: none;
+        border-bottom: 1px solid var(--divider);
       }
     }
     
     @media (max-width: 480px) {
-      h1 {
-        font-size: 1.75rem;
-      }
-      
-      h2 {
-        font-size: 1.5rem;
-      }
-      
       .card-grid {
         grid-template-columns: 1fr;
       }
       
-      .card-scroll .card {
-        flex: 0 0 220px;
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
       }
       
-      .version-selector {
-        width: 90vw;
-        right: 5vw;
+      .header-actions {
+        margin-top: var(--spacing-sm);
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-graphic">
+      <div class="vine"></div>
+    </div>
+    <div class="loading-logo">
+      <h1>The Vine</h1>
+      <p>Shiloh Temple House of God Education Department</p>
+    </div>
+    <div class="loading-spinner"></div>
+  </div>
+  
   <header class="header">
     <div class="container">
       <div class="header-content">
         <div class="logo">
-          <span class="material-icons-round">spa</span>
+          <span class="material-icons-round">eco</span>
           The Vine
         </div>
         <div class="header-actions">
@@ -786,86 +1312,144 @@
             <span class="material-icons-round">notifications</span>
             <span class="badge">3</span>
           </div>
-          <span class="material-icons-round">account_circle</span>
         </div>
       </div>
     </div>
   </header>
   
-  <!-- Main Content -->
   <main class="container">
-    <!-- Featured Courses Section -->
+    <!-- Recent Additions Section -->
     <section class="section">
       <div class="section-header">
-        <h2 class="section-title">Featured Courses</h2>
+        <h3 class="section-title">Recent Additions</h3>
         <a href="#" class="section-action">
           View All
           <span class="material-icons-round">arrow_forward</span>
         </a>
       </div>
+      
       <div class="card-scroll">
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?bible,study" alt="Course" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Understanding the Bible" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Foundations of Faith</h3>
-            <p class="card-description">Explore the core principles of Christian faith and practice.</p>
+            <h5 class="card-title">Understanding the Bible</h5>
+            <p class="card-description">A comprehensive guide to biblical interpretation and study methods.</p>
             <div class="card-meta">
               <span class="material-icons-round">access_time</span>
-              8 weeks
+              8 lessons
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?prayer" alt="Course" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>';">
+            <img src="/home/ubuntu/biblical_images/holy_spirit_dove.jpeg" alt="The Holy Spirit" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>local_fire_department</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Prayer Essentials</h3>
-            <p class="card-description">Develop a deeper prayer life through biblical principles.</p>
+            <h5 class="card-title">The Holy Spirit</h5>
+            <p class="card-description">Explore the person and work of the Holy Spirit in the life of believers.</p>
             <div class="card-meta">
               <span class="material-icons-round">access_time</span>
-              6 weeks
+              6 lessons
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?gospel" alt="Course" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>';">
+            <img src="/home/ubuntu/biblical_images/empty_tomb.jpeg" alt="Resurrection Power" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>brightness_7</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Understanding the Gospels</h3>
-            <p class="card-description">A comprehensive study of Matthew, Mark, Luke, and John.</p>
+            <h5 class="card-title">Resurrection Power</h5>
+            <p class="card-description">Understanding the significance and power of Christ's resurrection.</p>
             <div class="card-meta">
               <span class="material-icons-round">access_time</span>
-              10 weeks
+              5 lessons
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?worship" alt="Course" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Prayer Fundamentals" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>volunteer_activism</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Worship in Spirit & Truth</h3>
-            <p class="card-description">Discover biblical principles for authentic worship.</p>
+            <h5 class="card-title">Prayer Fundamentals</h5>
+            <p class="card-description">Learn the basics of effective prayer and developing a prayer life.</p>
             <div class="card-meta">
               <span class="material-icons-round">access_time</span>
-              4 weeks
+              7 lessons
             </div>
           </div>
         </div>
+      </div>
+    </section>
+    
+    <!-- Popular Courses Section -->
+    <section class="section">
+      <div class="section-header">
+        <h3 class="section-title">Popular Courses</h3>
+        <a href="#" class="section-action">
+          View All
+          <span class="material-icons-round">arrow_forward</span>
+        </a>
+      </div>
+      
+      <div class="card-scroll">
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?leadership" alt="Course" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Foundations of Faith" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>foundation</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Christian Leadership</h3>
-            <p class="card-description">Biblical principles for effective servant leadership.</p>
+            <h5 class="card-title">Foundations of Faith</h5>
+            <p class="card-description">Essential teachings for new believers and those seeking to strengthen their faith.</p>
             <div class="card-meta">
-              <span class="material-icons-round">access_time</span>
-              8 weeks
+              <span class="material-icons-round">people</span>
+              2,456 enrolled
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-image">
+            <img src="/home/ubuntu/biblical_images/holy_spirit_dove.jpeg" alt="Spiritual Disciplines" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>self_improvement</span>'">
+          </div>
+          <div class="card-content">
+            <h5 class="card-title">Spiritual Disciplines</h5>
+            <p class="card-description">Practices that promote spiritual growth and a deeper relationship with God.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">people</span>
+              1,892 enrolled
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-image">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Biblical Leadership" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>groups</span>'">
+          </div>
+          <div class="card-content">
+            <h5 class="card-title">Biblical Leadership</h5>
+            <p class="card-description">Principles and practices of effective leadership based on biblical examples.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">people</span>
+              1,345 enrolled
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-image">
+            <img src="/home/ubuntu/biblical_images/empty_tomb.jpeg" alt="Gospel Foundations" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>favorite</span>'">
+          </div>
+          <div class="card-content">
+            <h5 class="card-title">Gospel Foundations</h5>
+            <p class="card-description">Understanding the core message of Christianity and its implications.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">people</span>
+              1,129 enrolled
             </div>
           </div>
         </div>
@@ -875,160 +1459,122 @@
     <!-- Topics Section -->
     <section class="section">
       <div class="section-header">
-        <h2 class="section-title">Topics</h2>
+        <h3 class="section-title">Topics</h3>
         <a href="#" class="section-action">
           View All
           <span class="material-icons-round">arrow_forward</span>
         </a>
       </div>
+      
       <div class="card-scroll">
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?bible,study" alt="Topic" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>category</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Biblical Studies" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Biblical Studies</h3>
-            <p class="card-description">In-depth exploration of Scripture and its context.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?christian,life" alt="Topic" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>category</span>';">
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Christian Life</h3>
-            <p class="card-description">Practical guidance for living out your faith daily.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?church" alt="Topic" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>category</span>';">
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Church</h3>
-            <p class="card-description">Understanding the body of Christ and its mission.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?family" alt="Topic" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>category</span>';">
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Family</h3>
-            <p class="card-description">Biblical principles for marriage, parenting, and relationships.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?theology" alt="Topic" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>category</span>';">
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Theology</h3>
-            <p class="card-description">Exploring the nature of God and Christian doctrine.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?ministry" alt="Topic" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>category</span>';">
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Ministry</h3>
-            <p class="card-description">Resources for serving others in various contexts.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?apologetics" alt="Topic" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>category</span>';">
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Apologetics</h3>
-            <p class="card-description">Defending the faith with reason and evidence.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?missions" alt="Topic" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>category</span>';">
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">Missions</h3>
-            <p class="card-description">Spreading the gospel locally and globally.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Popular Series Section -->
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">Popular Series</h2>
-        <a href="#" class="section-action">
-          View All
-          <span class="material-icons-round">arrow_forward</span>
-        </a>
-      </div>
-      <div class="card-scroll">
-        <div class="card">
-          <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?sermon" alt="Series" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>video_library</span>';">
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">The Beatitudes</h3>
-            <p class="card-description">Jesus' teachings on true happiness and blessing.</p>
+            <h5 class="card-title">Biblical Studies</h5>
+            <p class="card-description">In-depth exploration of biblical texts, contexts, and interpretations.</p>
             <div class="card-meta">
-              <span class="material-icons-round">video_library</span>
-              8 episodes
+              <span class="material-icons-round">folder</span>
+              24 courses
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?fruit,spirit" alt="Series" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>video_library</span>';">
+            <img src="/home/ubuntu/biblical_images/holy_spirit_dove.jpeg" alt="Christian Life" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>favorite</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Fruit of the Spirit</h3>
-            <p class="card-description">Cultivating godly character in everyday life.</p>
+            <h5 class="card-title">Christian Life</h5>
+            <p class="card-description">Practical guidance for living out faith in everyday situations.</p>
             <div class="card-meta">
-              <span class="material-icons-round">video_library</span>
-              9 episodes
+              <span class="material-icons-round">folder</span>
+              18 courses
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?armor,god" alt="Series" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>video_library</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Church" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>church</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Armor of God</h3>
-            <p class="card-description">Standing firm against spiritual warfare.</p>
+            <h5 class="card-title">Church</h5>
+            <p class="card-description">Understanding the nature, purpose, and practices of the church.</p>
             <div class="card-meta">
-              <span class="material-icons-round">video_library</span>
-              6 episodes
+              <span class="material-icons-round">folder</span>
+              15 courses
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?prayer,power" alt="Series" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>video_library</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Family" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>family_restroom</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Power of Prayer</h3>
-            <p class="card-description">Transforming your prayer life for greater impact.</p>
+            <h5 class="card-title">Family</h5>
+            <p class="card-description">Biblical principles for marriage, parenting, and family relationships.</p>
             <div class="card-meta">
-              <span class="material-icons-round">video_library</span>
-              5 episodes
+              <span class="material-icons-round">folder</span>
+              12 courses
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?faith,action" alt="Series" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>video_library</span>';">
+            <img src="/home/ubuntu/biblical_images/empty_tomb.jpeg" alt="Theology" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Faith in Action</h3>
-            <p class="card-description">Living out your beliefs through practical service.</p>
+            <h5 class="card-title">Theology</h5>
+            <p class="card-description">Systematic study of God and religious beliefs and practices.</p>
             <div class="card-meta">
-              <span class="material-icons-round">video_library</span>
-              7 episodes
+              <span class="material-icons-round">folder</span>
+              20 courses
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-image">
+            <img src="/home/ubuntu/biblical_images/holy_spirit_dove.jpeg" alt="Spiritual Growth" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>trending_up</span>'">
+          </div>
+          <div class="card-content">
+            <h5 class="card-title">Spiritual Growth</h5>
+            <p class="card-description">Resources for developing spiritual maturity and Christ-like character.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">folder</span>
+              16 courses
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-image">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Ministry" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>volunteer_activism</span>'">
+          </div>
+          <div class="card-content">
+            <h5 class="card-title">Ministry</h5>
+            <p class="card-description">Training and resources for various areas of Christian service.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">folder</span>
+              14 courses
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-image">
+            <img src="/home/ubuntu/biblical_images/empty_tomb.jpeg" alt="Apologetics" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>psychology</span>'">
+          </div>
+          <div class="card-content">
+            <h5 class="card-title">Apologetics</h5>
+            <p class="card-description">Reasoned arguments and evidence for the truth of Christianity.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">folder</span>
+              10 courses
             </div>
           </div>
         </div>
@@ -1038,49 +1584,52 @@
     <!-- Sermon/Lesson Series Section -->
     <section class="section">
       <div class="section-header">
-        <h2 class="section-title">Sermon/Lesson Series</h2>
+        <h3 class="section-title">Sermon/Lesson Series</h3>
         <a href="#" class="section-action">
           View All
           <span class="material-icons-round">arrow_forward</span>
         </a>
       </div>
+      
       <div class="card-scroll">
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?sermon,series" alt="Sermon Series" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>video_library</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="The Beatitudes" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>format_list_numbered</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Kingdom Principles</h3>
-            <p class="card-description">Understanding how God's kingdom operates in our lives.</p>
+            <h5 class="card-title">The Beatitudes</h5>
+            <p class="card-description">Exploring Jesus' teachings on true happiness and kingdom living.</p>
             <div class="card-meta">
               <span class="material-icons-round">video_library</span>
-              12 lessons
+              8 episodes
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?gospel,truth" alt="Sermon Series" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>video_library</span>';">
+            <img src="/home/ubuntu/biblical_images/holy_spirit_dove.jpeg" alt="Fruit of the Spirit" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>eco</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Gospel Foundations</h3>
-            <p class="card-description">Exploring the core truths of the Christian faith.</p>
+            <h5 class="card-title">Fruit of the Spirit</h5>
+            <p class="card-description">Understanding and cultivating the character qualities produced by the Holy Spirit.</p>
             <div class="card-meta">
               <span class="material-icons-round">video_library</span>
-              8 lessons
+              9 episodes
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?spiritual,growth" alt="Sermon Series" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>video_library</span>';">
+            <img src="/home/ubuntu/biblical_images/empty_tomb.jpeg" alt="Heroes of Faith" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>military_tech</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Spiritual Disciplines</h3>
-            <p class="card-description">Practices that foster growth and maturity in Christ.</p>
+            <h5 class="card-title">Heroes of Faith</h5>
+            <p class="card-description">Lessons from the lives of biblical characters who demonstrated extraordinary faith.</p>
             <div class="card-meta">
               <span class="material-icons-round">video_library</span>
-              10 lessons
+              12 episodes
             </div>
           </div>
         </div>
@@ -1090,114 +1639,149 @@
     <!-- Steven Best Devotionals Section -->
     <section class="section">
       <div class="section-header">
-        <h2 class="section-title">Steven Best Devotionals</h2>
+        <h3 class="section-title">Steven Best Devotionals</h3>
         <a href="#" class="section-action">
           View All
           <span class="material-icons-round">arrow_forward</span>
         </a>
       </div>
+      
       <div class="card-scroll">
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?devotional,morning" alt="Devotional" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Daily Bread" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>breakfast_dining</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Daily Strength</h3>
-            <p class="card-description">Finding God's power for everyday challenges.</p>
+            <h5 class="card-title">Daily Bread</h5>
+            <p class="card-description">Short, daily reflections on Scripture for spiritual nourishment.</p>
             <div class="card-meta">
-              <span class="material-icons-round">menu_book</span>
-              30 days
+              <span class="material-icons-round">auto_stories</span>
+              30 devotionals
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?prayer,journal" alt="Devotional" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>';">
+            <img src="/home/ubuntu/biblical_images/holy_spirit_dove.jpeg" alt="Quiet Moments" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>nightlight</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Quiet Moments</h3>
-            <p class="card-description">Reflections for deeper communion with God.</p>
+            <h5 class="card-title">Quiet Moments</h5>
+            <p class="card-description">Meditative devotionals for deepening your personal prayer life.</p>
             <div class="card-meta">
-              <span class="material-icons-round">menu_book</span>
-              21 days
+              <span class="material-icons-round">auto_stories</span>
+              25 devotionals
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?psalms" alt="Devotional" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>';">
+            <img src="/home/ubuntu/biblical_images/empty_tomb.jpeg" alt="Promises of God" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>verified</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Psalms of Hope</h3>
-            <p class="card-description">Finding comfort and inspiration in the Psalms.</p>
+            <h5 class="card-title">Promises of God</h5>
+            <p class="card-description">Exploring the faithful promises of God throughout Scripture.</p>
             <div class="card-meta">
-              <span class="material-icons-round">menu_book</span>
-              15 days
+              <span class="material-icons-round">auto_stories</span>
+              20 devotionals
             </div>
           </div>
         </div>
       </div>
     </section>
     
-    <!-- Recent Additions Section -->
+    <!-- Classes Section -->
     <section class="section">
       <div class="section-header">
-        <h2 class="section-title">Recent Additions</h2>
+        <h3 class="section-title">Classes</h3>
         <a href="#" class="section-action">
           View All
           <span class="material-icons-round">arrow_forward</span>
         </a>
       </div>
+      
       <div class="card-scroll">
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?bible,new" alt="Recent" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>new_releases</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Tots" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Revelation Unveiled</h3>
-            <p class="card-description">Understanding the book of Revelation in context.</p>
+            <h5 class="card-title">Tots</h5>
+            <p class="card-description">Fun, interactive Bible lessons for young children.</p>
             <div class="card-meta">
-              <span class="material-icons-round">access_time</span>
-              Added 2 days ago
+              <span class="material-icons-round">people</span>
+              Ages 3-4
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?worship,music" alt="Recent" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>new_releases</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Class 1" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Worship Workshop</h3>
-            <p class="card-description">Practical training for worship leaders and teams.</p>
+            <h5 class="card-title">Class 1</h5>
+            <p class="card-description">Foundational Bible stories and character lessons for children.</p>
             <div class="card-meta">
-              <span class="material-icons-round">access_time</span>
-              Added 5 days ago
+              <span class="material-icons-round">people</span>
+              Ages 5-7
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?marriage" alt="Recent" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>new_releases</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Class 2" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Marriage Matters</h3>
-            <p class="card-description">Building a Christ-centered marriage that lasts.</p>
+            <h5 class="card-title">Class 2</h5>
+            <p class="card-description">Bible exploration and application for elementary-aged children.</p>
             <div class="card-meta">
-              <span class="material-icons-round">access_time</span>
-              Added 1 week ago
+              <span class="material-icons-round">people</span>
+              Ages 8-11
             </div>
           </div>
         </div>
+        
         <div class="card">
           <div class="card-image">
-            <img src="https://source.unsplash.com/random/600x400/?discipleship" alt="Recent" onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML += '<span class=\'material-icons-round placeholder-icon\'>new_releases</span>';">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Class 3" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
-            <h3 class="card-title">Discipleship Essentials</h3>
-            <p class="card-description">Core practices for following Jesus faithfully.</p>
+            <h5 class="card-title">Class 3</h5>
+            <p class="card-description">Deeper biblical study and discipleship for pre-teens and teens.</p>
             <div class="card-meta">
-              <span class="material-icons-round">access_time</span>
-              Added 2 weeks ago
+              <span class="material-icons-round">people</span>
+              Ages 12-16
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-image">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Class 4" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
+          </div>
+          <div class="card-content">
+            <h5 class="card-title">Class 4</h5>
+            <p class="card-description">Faith formation and life application for young adults.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">people</span>
+              Ages 17-22
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-image">
+            <img src="/home/ubuntu/biblical_images/open_bible.jpeg" alt="Class 5" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
+          </div>
+          <div class="card-content">
+            <h5 class="card-title">Class 5</h5>
+            <p class="card-description">Advanced biblical teaching and spiritual growth for adults.</p>
+            <div class="card-meta">
+              <span class="material-icons-round">people</span>
+              Ages 23 and up
             </div>
           </div>
         </div>
@@ -1207,559 +1791,755 @@
   
   <!-- Bottom Navigation -->
   <nav class="bottom-nav">
-    <a href="#" class="nav-item active" id="explore-nav-item">
+    <a href="#" class="nav-item active" id="nav-explore">
       <span class="material-icons-round">explore</span>
       Explore
     </a>
-    <a href="#" class="nav-item" id="search-nav-item">
+    <a href="#" class="nav-item" id="nav-search">
       <span class="material-icons-round">search</span>
       Search
     </a>
-    <a href="#" class="nav-item" id="bible-nav-item">
+    <a href="#" class="nav-item" id="nav-bible">
       <span class="material-icons-round">menu_book</span>
       Bible
     </a>
-    <a href="#" class="nav-item">
-      <span class="material-icons-round">bookmark</span>
-      Saved
+    <a href="#" class="nav-item" id="nav-sabbath">
+      <span class="material-icons-round">book</span>
+      Sabbath
+    </a>
+    <a href="#" class="nav-item" id="nav-notes">
+      <span class="material-icons-round">note</span>
+      Notes
     </a>
   </nav>
   
   <!-- Bible Modal -->
-  <div class="bible-modal" id="bible-modal">
+  <div class="bible-modal" id="bibleModal">
     <div class="bible-modal-header">
-      <h3 class="bible-modal-title">Bible</h3>
-      <div style="display: flex; align-items: center;">
-        <button class="version-button" id="version-button">
-          <span id="current-version">NIV</span>
-          <span class="material-icons-round">arrow_drop_down</span>
-        </button>
-        <button class="bible-modal-close" id="bible-modal-close">
-          <span class="material-icons-round">close</span>
-        </button>
-      </div>
+      <h4 class="bible-modal-title">Bible</h4>
+      <button class="bible-modal-close">
+        <span class="material-icons-round">close</span>
+      </button>
     </div>
     <div class="bible-modal-content">
       <div class="bible-iframe-container">
-        <iframe src="https://www.bible.com/bible/111/GEN.1.NIV" class="bible-iframe" id="bible-iframe" allowfullscreen></iframe>
+        <iframe src="https://www.bible.com/bible/111/JHN.1.NIV" class="bible-iframe" id="bibleIframe"></iframe>
       </div>
-      <div class="guidance-message" id="guidance-message">
-        Tap the version button to change translations
-      </div>
-    </div>
-  </div>
-  <div class="bible-modal-overlay" id="bible-modal-overlay"></div>
-  
-  <!-- Version Selector -->
-  <div class="version-selector" id="version-selector">
-    <div class="version-selector-header">
-      <input type="text" class="version-search" id="version-search" placeholder="Search versions...">
-    </div>
-    <div class="version-categories">
-      <button class="version-category active" data-category="preferred">Preferred</button>
-      <button class="version-category" data-category="english">English</button>
-      <button class="version-category" data-category="all">All Versions</button>
-    </div>
-    <div class="version-list" id="version-list">
-      <!-- Version items will be populated here -->
     </div>
   </div>
   
   <!-- Search Modal -->
-  <div class="search-modal" id="search-modal">
+  <div class="search-modal" id="searchModal">
     <div class="search-modal-header">
-      <h3 class="search-modal-title">Search</h3>
-      <button class="search-modal-close" id="search-modal-close">
+      <h4 class="search-modal-title">Search</h4>
+      <button class="search-modal-close">
         <span class="material-icons-round">close</span>
       </button>
     </div>
     <div class="search-modal-content">
-      <div class="search-input-container">
+      <div class="search-form">
         <span class="material-icons-round search-icon">search</span>
-        <input type="text" class="search-input" id="search-input" placeholder="Search by title...">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search by title...">
       </div>
-      <div class="search-results-info">
-        <span id="search-result-count">0 results</span>
-      </div>
-      <div class="search-results-grid" id="search-results">
-        <!-- Search results will be populated here -->
-      </div>
-      <div class="search-no-results" id="search-no-results">
-        <h3>No results found</h3>
-        <p>Try adjusting your search terms or browse our categories to find what you're looking for.</p>
+      
+      <div class="search-results">
+        <div class="search-results-header" id="resultsCount">
+          Showing all content
+        </div>
+        
+        <div class="search-results-grid" id="searchResultsGrid">
+          <!-- Search results will be dynamically populated here -->
+        </div>
+        
+        <div class="no-results" id="noResults" style="display: none;">
+          <span class="material-icons-round">search_off</span>
+          <h4 class="no-results-title">No results found</h4>
+          <p class="no-results-message">Try using different keywords or check your spelling.</p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="search-modal-overlay" id="search-modal-overlay"></div>
   
-  <!-- Bible Versions Data -->
-  <script>
-    // Preferred Bible Versions
-    const preferredBibleVersions = [
-      { name: 'NIV', fullName: 'New International Version', publisher: 'Biblica', id: '111-niv' },
-      { name: 'KJV', fullName: 'King James Version', publisher: 'Public Domain', id: '1-kjv' },
-      { name: 'NLT', fullName: 'New Living Translation', publisher: 'Tyndale House', id: '116-nlt' },
-      { name: 'ESV', fullName: 'English Standard Version', publisher: 'Crossway', id: '59-esv' },
-      { name: 'TPT', fullName: 'The Passion Translation', publisher: 'BroadStreet Publishing', id: '1849-tpt' },
-      { name: 'MSG', fullName: 'The Message', publisher: 'NavPress Publishing', id: '97-msg' },
-      { name: 'AMPC', fullName: 'Amplified Bible, Classic Edition', publisher: 'The Lockman Foundation', id: '8-ampc' }
-    ];
-    
-    // English Bible Versions (sample)
-    const englishBibleVersions = [
-      { name: 'NIV', fullName: 'New International Version', publisher: 'Biblica', id: '111-niv' },
-      { name: 'KJV', fullName: 'King James Version', publisher: 'Public Domain', id: '1-kjv' },
-      { name: 'NLT', fullName: 'New Living Translation', publisher: 'Tyndale House', id: '116-nlt' },
-      { name: 'ESV', fullName: 'English Standard Version', publisher: 'Crossway', id: '59-esv' },
-      { name: 'TPT', fullName: 'The Passion Translation', publisher: 'BroadStreet Publishing', id: '1849-tpt' },
-      { name: 'MSG', fullName: 'The Message', publisher: 'NavPress Publishing', id: '97-msg' },
-      { name: 'AMPC', fullName: 'Amplified Bible, Classic Edition', publisher: 'The Lockman Foundation', id: '8-ampc' },
-      { name: 'NASB', fullName: 'New American Standard Bible', publisher: 'The Lockman Foundation', id: '100-nasb' },
-      { name: 'NKJV', fullName: 'New King James Version', publisher: 'Thomas Nelson', id: '114-nkjv' },
-      { name: 'CSB', fullName: 'Christian Standard Bible', publisher: 'Holman Bible Publishers', id: '1713-csb' },
-      { name: 'NRSV', fullName: 'New Revised Standard Version', publisher: 'National Council of Churches', id: '2016-nrsv' },
-      { name: 'AMP', fullName: 'Amplified Bible', publisher: 'The Lockman Foundation', id: '1588-amp' },
-      { name: 'CEV', fullName: 'Contemporary English Version', publisher: 'American Bible Society', id: '392-cev' },
-      { name: 'GNT', fullName: 'Good News Translation', publisher: 'American Bible Society', id: '416-gnb' },
-      { name: 'ICB', fullName: 'International Children\'s Bible', publisher: 'Thomas Nelson', id: '1359-icb' },
-      { name: 'ISV', fullName: 'International Standard Version', publisher: 'ISV Foundation', id: '1421-isv' },
-      { name: 'PHILLIPS', fullName: 'Phillips New Testament', publisher: 'Public Domain', id: '1223-phillips' },
-      { name: 'TLB', fullName: 'The Living Bible', publisher: 'Tyndale House', id: '133-tlb' },
-      { name: 'VOICE', fullName: 'The Voice', publisher: 'Thomas Nelson', id: '2079-voice' },
-      { name: 'WEB', fullName: 'World English Bible', publisher: 'Public Domain', id: '206-web' }
-    ];
-    
-    // All Bible Versions (this would be a much larger list in reality)
-    const allBibleVersions = [
-      ...englishBibleVersions,
-      { name: 'RVR1960', fullName: 'Reina-Valera 1960', publisher: 'Sociedades Bíblicas Unidas', id: '149-rvr1960' },
-      { name: 'NVI', fullName: 'Nueva Versión Internacional', publisher: 'Biblica', id: '128-nvi' },
-      { name: 'LSG', fullName: 'Louis Segond', publisher: 'Public Domain', id: '93-lsg' },
-      { name: 'CUV', fullName: 'Chinese Union Version', publisher: 'Public Domain', id: '36-cuv' },
-      { name: 'JLB', fullName: 'Japanese Living Bible', publisher: 'Tyndale House', id: '83-jlb' },
-      { name: 'KSV', fullName: 'Korean Standard Version', publisher: 'Korean Bible Society', id: '88-ksv' },
-      { name: 'NOG', fullName: 'Names of God Bible', publisher: 'Baker Publishing Group', id: '2017-nog' },
-      { name: 'VULGATE', fullName: 'Biblia Sacra Vulgata', publisher: 'Public Domain', id: '823-vulgate' },
-      { name: 'LXX', fullName: 'Septuagint', publisher: 'Public Domain', id: '817-lxx' },
-      { name: 'SBLGNT', fullName: 'SBL Greek New Testament', publisher: 'Society of Biblical Literature', id: '156-sblgnt' },
-      { name: 'WLC', fullName: 'Westminster Leningrad Codex', publisher: 'Public Domain', id: '446-wlc' },
-      { name: 'LBLA', fullName: 'La Biblia de las Américas', publisher: 'The Lockman Foundation', id: '1540-lbla' },
-      { name: 'NLV', fullName: 'Neues Leben', publisher: 'SCM R. Brockhaus', id: '2079-nlv' },
-      { name: 'BDS', fullName: 'Bible du Semeur', publisher: 'Biblica', id: '21-bds' },
-      { name: 'ERV-RU', fullName: 'Russian Easy-to-Read Version', publisher: 'Bible League International', id: '2329-erv-ru' },
-      { name: 'SZ', fullName: 'Słowo Życia', publisher: 'Biblica', id: '1540-sz' },
-      { name: 'NR06', fullName: 'Nuova Riveduta 2006', publisher: 'Società Biblica di Ginevra', id: '105-nr06' },
-      { name: 'HTB', fullName: 'Het Boek', publisher: 'Biblica', id: '75-htb' },
-      { name: 'DNB1930', fullName: 'Det Norsk Bibelselskap 1930', publisher: 'Public Domain', id: '44-dnb1930' },
-      { name: 'BPH', fullName: 'Bíblia Português Hoje', publisher: 'Sociedade Bíblica do Brasil', id: '1715-bph' },
-      { name: 'SVL', fullName: 'Nya Levande Bibeln', publisher: 'Semnos Förlag', id: '156-svl' },
-      { name: 'YLT', fullName: 'Young\'s Literal Translation', publisher: 'Public Domain', id: '821-ylt' },
-      { name: 'DARBY', fullName: 'Darby Translation', publisher: 'Public Domain', id: '478-darby' },
-      { name: 'ASV', fullName: 'American Standard Version', publisher: 'Public Domain', id: '12-asv' },
-      { name: 'WYC', fullName: 'Wycliffe Bible', publisher: 'Public Domain', id: '2407-wyc' }
-    ];
-  </script>
+  <!-- Notes Modal -->
+  <div class="notes-modal" id="notesModal">
+    <div class="notes-modal-header">
+      <h4 class="notes-modal-title">Notes</h4>
+      <button class="notes-modal-close">
+        <span class="material-icons-round">close</span>
+      </button>
+    </div>
+    <div class="notes-modal-content">
+      <div class="notes-sidebar">
+        <div class="notes-sidebar-header">
+          <span class="notes-count">3 Notes</span>
+          <button class="notes-new-button">
+            <span class="material-icons-round">add</span>
+            New
+          </button>
+        </div>
+        <div class="notes-search">
+          <input type="text" placeholder="Search notes...">
+        </div>
+        <div class="notes-list">
+          <div class="note-item active" data-id="1">
+            <div class="note-title">Bible Study Notes</div>
+            <div class="note-preview">Key points from today's study on the book of John...</div>
+            <div class="note-date">Today, 10:30 AM</div>
+          </div>
+          <div class="note-item" data-id="2">
+            <div class="note-title">Prayer Requests</div>
+            <div class="note-preview">List of prayer requests from the small group...</div>
+            <div class="note-date">Yesterday, 7:15 PM</div>
+          </div>
+          <div class="note-item" data-id="3">
+            <div class="note-title">Sermon Notes - Faith</div>
+            <div class="note-preview">Main points from Pastor's sermon on faith...</div>
+            <div class="note-date">May 15, 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="notes-editor">
+        <div class="notes-editor-header">
+          <span>Edited: Today, 10:30 AM</span>
+          <div class="notes-editor-actions">
+            <button class="notes-editor-button">
+              <span class="material-icons-round">share</span>
+            </button>
+            <button class="notes-editor-button">
+              <span class="material-icons-round">delete</span>
+            </button>
+          </div>
+        </div>
+        <div class="notes-editor-content">
+          <input type="text" class="notes-editor-title" value="Bible Study Notes" placeholder="Title">
+          <textarea class="notes-editor-body" placeholder="Start typing...">Key points from today's study on the book of John:
+
+1. John's gospel focuses on the deity of Christ
+2. Seven "I am" statements throughout the book
+3. Written by the apostle John, "the disciple whom Jesus loved"
+4. Purpose statement in John 20:31 - "these are written that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name."
+
+Questions for further study:
+- How does John's portrayal of Jesus differ from the synoptic gospels?
+- What significance do the seven miracles in John have?
+- How does the "Logos" concept in John 1 relate to Greek philosophy of the time?
+
+Follow-up reading:
+- Commentary on John by D.A. Carson
+- "The Gospel According to John" by Leon Morris</textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sabbath School Book Modal -->
+  <div class="sabbath-modal" id="sabbathModal">
+    <div class="sabbath-modal-header">
+      <h4 class="sabbath-modal-title">Sabbath School Book</h4>
+      <button class="sabbath-modal-close">
+        <span class="material-icons-round">close</span>
+      </button>
+    </div>
+    <div class="sabbath-modal-content">
+      <div class="sabbath-sidebar">
+        <div class="sabbath-quarters">
+          <select class="sabbath-quarter-select">
+            <option>Q2 2025: The Book of Romans</option>
+            <option>Q1 2025: The Gospel of Mark</option>
+            <option>Q4 2024: The Minor Prophets</option>
+            <option>Q3 2024: Christian Stewardship</option>
+          </select>
+        </div>
+        <div class="sabbath-lessons">
+          <div class="sabbath-lesson active">
+            <div class="sabbath-lesson-title">Lesson 1: The Gospel of God</div>
+            <div class="sabbath-lesson-date">April 1-7, 2025</div>
+          </div>
+          <div class="sabbath-lesson">
+            <div class="sabbath-lesson-title">Lesson 2: Faith and Righteousness</div>
+            <div class="sabbath-lesson-date">April 8-14, 2025</div>
+          </div>
+          <div class="sabbath-lesson">
+            <div class="sabbath-lesson-title">Lesson 3: Justification by Faith</div>
+            <div class="sabbath-lesson-date">April 15-21, 2025</div>
+          </div>
+          <div class="sabbath-lesson">
+            <div class="sabbath-lesson-title">Lesson 4: Dead to Sin, Alive in Christ</div>
+            <div class="sabbath-lesson-date">April 22-28, 2025</div>
+          </div>
+          <div class="sabbath-lesson">
+            <div class="sabbath-lesson-title">Lesson 5: The Law and Grace</div>
+            <div class="sabbath-lesson-date">April 29 - May 5, 2025</div>
+          </div>
+          <div class="sabbath-lesson">
+            <div class="sabbath-lesson-title">Lesson 6: Life in the Spirit</div>
+            <div class="sabbath-lesson-date">May 6-12, 2025</div>
+          </div>
+          <div class="sabbath-lesson">
+            <div class="sabbath-lesson-title">Lesson 7: God's Sovereign Choice</div>
+            <div class="sabbath-lesson-date">May 13-19, 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="sabbath-content">
+        <h2>Lesson 1: The Gospel of God</h2>
+        <p class="sabbath-lesson-date">April 1-7, 2025</p>
+        
+        <div class="sabbath-day">
+          <h3 class="sabbath-day-title">Sunday: Introduction to Romans</h3>
+          <div class="sabbath-day-content">
+            <p>The book of Romans, written by the apostle Paul around A.D. 57, is considered by many to be the most systematic presentation of Christian doctrine in all of Scripture. While Paul wrote this letter to address specific issues in the Roman church, God providentially designed it to unfold the great truths of salvation for all believers throughout the ages.</p>
+            
+            <p>Paul wrote Romans from Corinth during his third missionary journey, just before returning to Jerusalem with the collection for the poor saints. At this point in his ministry, Paul had not yet visited Rome, though he expressed his desire to do so (Romans 1:10-13). The letter served as an introduction of Paul to the Roman believers and a clear presentation of the gospel he preached.</p>
+            
+            <h4>Key Verse for the Week:</h4>
+            <blockquote>"For I am not ashamed of the gospel, because it is the power of God that brings salvation to everyone who believes: first to the Jew, then to the Gentile." (Romans 1:16, NIV)</blockquote>
+            
+            <p>As we begin our study of Romans, we should approach it with both intellectual rigor and spiritual openness, recognizing that these truths are not merely theological concepts but life-transforming realities that shape our understanding of God, ourselves, and our salvation.</p>
+          </div>
+        </div>
+        
+        <div class="sabbath-day">
+          <h3 class="sabbath-day-title">Monday: Paul's Greeting and Theme</h3>
+          <div class="sabbath-day-content">
+            <p>In Romans 1:1-7, Paul introduces himself and summarizes the gospel message. He identifies himself as "a servant of Christ Jesus, called to be an apostle and set apart for the gospel of God" (Romans 1:1). This threefold description—servant, apostle, and set apart—establishes Paul's authority while emphasizing his submission to Christ.</p>
+            
+            <p>The gospel Paul proclaims is not a human invention but "the gospel of God" (v. 1). It was "promised beforehand through his prophets in the Holy Scriptures" (v. 2), showing continuity between the Old Testament and the revelation of Jesus Christ. The gospel centers on God's Son, who was both fully human ("descended from David," v. 3) and fully divine ("declared to be the Son of God with power," v. 4).</p>
+            
+            <p>Paul addresses his letter to "all in Rome who are loved by God and called to be his holy people" (v. 7). This inclusive greeting embraces both Jewish and Gentile believers, foreshadowing a major theme of the letter: the gospel is for everyone who believes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   
   <!-- Main JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Bible Modal Elements
-      const bibleNavItem = document.getElementById('bible-nav-item');
-      const bibleModal = document.getElementById('bible-modal');
-      const bibleModalClose = document.getElementById('bible-modal-close');
-      const bibleModalOverlay = document.getElementById('bible-modal-overlay');
-      const bibleIframe = document.getElementById('bible-iframe');
-      const versionButton = document.getElementById('version-button');
-      const versionSelector = document.getElementById('version-selector');
-      const versionList = document.getElementById('version-list');
-      const versionSearch = document.getElementById('version-search');
-      const currentVersionSpan = document.getElementById('current-version');
-      const guidanceMessage = document.getElementById('guidance-message');
-      const versionCategories = document.querySelectorAll('.version-category');
+      // Loading Screen
+      const loadingScreen = document.getElementById('loadingScreen');
+      const body = document.body;
+      
+      // Simulate loading time (2 seconds)
+      setTimeout(function() {
+        loadingScreen.classList.add('hidden');
+        body.classList.add('loaded');
+      }, 2000);
+      
+      // Elements
+      const bibleModal = document.getElementById('bibleModal');
+      const bibleModalClose = document.querySelector('.bible-modal-close');
+      const bibleIframe = document.getElementById('bibleIframe');
+      
+      const searchModal = document.getElementById('searchModal');
+      const searchModalClose = document.querySelector('.search-modal-close');
+      const searchInput = document.getElementById('searchInput');
+      const searchResultsGrid = document.getElementById('searchResultsGrid');
+      const resultsCount = document.getElementById('resultsCount');
+      const noResults = document.getElementById('noResults');
+      
+      const notesModal = document.getElementById('notesModal');
+      const notesModalClose = document.querySelector('.notes-modal-close');
+      
+      const sabbathModal = document.getElementById('sabbathModal');
+      const sabbathModalClose = document.querySelector('.sabbath-modal-close');
       
       // Navigation Elements
-      const exploreNavItem = document.getElementById('explore-nav-item');
-      const savedNavItem = document.querySelector('.nav-item:nth-child(4)'); // Saved nav item
+      const navExplore = document.getElementById('nav-explore');
+      const navSearch = document.getElementById('nav-search');
+      const navBible = document.getElementById('nav-bible');
+      const navNotes = document.getElementById('nav-notes');
+      const navSabbath = document.getElementById('nav-sabbath');
       
-      // Search Modal Elements
-      const searchNavItem = document.getElementById('search-nav-item');
-      const searchModal = document.getElementById('search-modal');
-      const searchModalClose = document.getElementById('search-modal-close');
-      const searchModalOverlay = document.getElementById('search-modal-overlay');
-      const searchInput = document.getElementById('search-input');
-      const searchResults = document.getElementById('search-results');
-      const searchNoResults = document.getElementById('search-no-results');
-      const searchResultCount = document.getElementById('search-result-count');
-      
-      // Current state
-      let currentVersion = 'NIV';
-      let currentVersionId = '111';
-      let currentCategory = 'preferred';
-      let searchTerm = '';
-      
-      // Function to close all modals and reset UI state
+      // Function to close all modals
       function closeAllModals() {
-        // Close Bible modal
         bibleModal.classList.remove('open');
-        bibleModalOverlay.classList.remove('open');
-        versionSelector.style.display = 'none';
-        
-        // Close Search modal
         searchModal.classList.remove('open');
-        searchModalOverlay.classList.remove('open');
-      }
-      
-      // Function to set active nav item
-      function setActiveNavItem(activeItem) {
-        document.querySelectorAll('.nav-item').forEach(item => {
-          item.classList.remove('active');
-        });
-        activeItem.classList.add('active');
+        notesModal.classList.remove('open');
+        sabbathModal.classList.remove('open');
+        
+        // Reset active state in navigation
+        navExplore.classList.add('active');
+        navSearch.classList.remove('active');
+        navBible.classList.remove('active');
+        navNotes.classList.remove('active');
+        navSabbath.classList.remove('active');
       }
       
       // Explore navigation - always routes to main screen
-      exploreNavItem.addEventListener('click', function(e) {
+      navExplore.addEventListener('click', function(e) {
         e.preventDefault();
-        
-        // Close any open modals
         closeAllModals();
-        
-        // Scroll to top of main content
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-        
-        // Set active state on explore nav item
-        setActiveNavItem(this);
+        window.scrollTo(0, 0);
       });
       
-      // Show guidance message briefly when Bible modal is opened
-      function showGuidanceMessage() {
-        guidanceMessage.style.opacity = '1';
-        setTimeout(() => {
-          guidanceMessage.style.opacity = '0';
-        }, 5000);
-      }
-      
-      // Open Bible Modal
-      bibleNavItem.addEventListener('click', function(e) {
+      // Search navigation
+      navSearch.addEventListener('click', function(e) {
         e.preventDefault();
-        
-        // Close any open modals first
         closeAllModals();
-        
-        // Open Bible modal
+        searchModal.classList.add('open');
+        navExplore.classList.remove('active');
+        navSearch.classList.add('active');
+        searchInput.focus();
+      });
+      
+      // Bible navigation
+      navBible.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeAllModals();
         bibleModal.classList.add('open');
-        bibleModalOverlay.classList.add('open');
-        showGuidanceMessage();
-        
-        // Set active state on bible nav item
-        setActiveNavItem(this);
+        navExplore.classList.remove('active');
+        navBible.classList.add('active');
       });
       
-      // Close Bible Modal
+      // Notes navigation
+      navNotes.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeAllModals();
+        notesModal.classList.add('open');
+        navExplore.classList.remove('active');
+        navNotes.classList.add('active');
+      });
+      
+      // Sabbath School Book navigation
+      navSabbath.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeAllModals();
+        sabbathModal.classList.add('open');
+        navExplore.classList.remove('active');
+        navSabbath.classList.add('active');
+      });
+      
+      // Close Bible modal
       bibleModalClose.addEventListener('click', function() {
         bibleModal.classList.remove('open');
-        bibleModalOverlay.classList.remove('open');
-        versionSelector.style.display = 'none';
+        navBible.classList.remove('active');
+        navExplore.classList.add('active');
+      });
+      
+      // Close Search modal
+      searchModalClose.addEventListener('click', function() {
+        searchModal.classList.remove('open');
+        navSearch.classList.remove('active');
+        navExplore.classList.add('active');
+      });
+      
+      // Close Notes modal
+      notesModalClose.addEventListener('click', function() {
+        notesModal.classList.remove('open');
+        navNotes.classList.remove('active');
+        navExplore.classList.add('active');
+      });
+      
+      // Close Sabbath School Book modal
+      sabbathModalClose.addEventListener('click', function() {
+        sabbathModal.classList.remove('open');
+        navSabbath.classList.remove('active');
+        navExplore.classList.add('active');
+      });
+      
+      // Bible version selection
+      const versionButton = document.createElement('button');
+      versionButton.className = 'version-button';
+      versionButton.innerHTML = 'Version: NIV <span class="material-icons-round">arrow_drop_down</span>';
+      
+      const versionSelector = document.createElement('div');
+      versionSelector.className = 'version-selector';
+      
+      // Create tabs
+      const versionTabs = document.createElement('div');
+      versionTabs.className = 'version-tabs';
+      
+      const preferredTab = document.createElement('button');
+      preferredTab.className = 'version-tab active';
+      preferredTab.textContent = 'Preferred';
+      
+      const englishTab = document.createElement('button');
+      englishTab.className = 'version-tab';
+      englishTab.textContent = 'English';
+      
+      const allTab = document.createElement('button');
+      allTab.className = 'version-tab';
+      allTab.textContent = 'All Versions';
+      
+      versionTabs.appendChild(preferredTab);
+      versionTabs.appendChild(englishTab);
+      versionTabs.appendChild(allTab);
+      
+      // Create search
+      const versionSearch = document.createElement('div');
+      versionSearch.className = 'version-search';
+      versionSearch.innerHTML = '<input type="text" placeholder="Search versions...">';
+      
+      // Create version list
+      const versionList = document.createElement('div');
+      versionList.className = 'version-list';
+      
+      // Preferred versions
+      const preferredVersions = [
+        { abbr: 'NIV', name: 'New International Version', url: 'https://www.bible.com/bible/111/JHN.1.NIV' },
+        { abbr: 'KJV', name: 'King James Version', url: 'https://www.bible.com/bible/1/JHN.1.KJV' },
+        { abbr: 'NLT', name: 'New Living Translation', url: 'https://www.bible.com/bible/116/JHN.1.NLT' },
+        { abbr: 'ESV', name: 'English Standard Version', url: 'https://www.bible.com/bible/59/JHN.1.ESV' },
+        { abbr: 'TPT', name: 'The Passion Translation', url: 'https://www.bible.com/bible/1849/JHN.1.TPT' },
+        { abbr: 'MSG', name: 'The Message', url: 'https://www.bible.com/bible/97/JHN.1.MSG' },
+        { abbr: 'AMPC', name: 'Amplified Bible, Classic Edition', url: 'https://www.bible.com/bible/8/JHN.1.AMPC' },
+        { abbr: 'CEV', name: 'Holy Name Bible', url: 'https://www.bible.com/bible/46/JHN.1.CEV' }
+      ];
+      
+      // English versions (would be expanded in a real implementation)
+      const englishVersions = [
+        { abbr: 'NIV', name: 'New International Version', url: 'https://www.bible.com/bible/111/JHN.1.NIV' },
+        { abbr: 'KJV', name: 'King James Version', url: 'https://www.bible.com/bible/1/JHN.1.KJV' },
+        { abbr: 'NKJV', name: 'New King James Version', url: 'https://www.bible.com/bible/114/JHN.1.NKJV' },
+        { abbr: 'NLT', name: 'New Living Translation', url: 'https://www.bible.com/bible/116/JHN.1.NLT' },
+        { abbr: 'ESV', name: 'English Standard Version', url: 'https://www.bible.com/bible/59/JHN.1.ESV' },
+        { abbr: 'CSB', name: 'Christian Standard Bible', url: 'https://www.bible.com/bible/1713/JHN.1.CSB' },
+        { abbr: 'NASB', name: 'New American Standard Bible', url: 'https://www.bible.com/bible/100/JHN.1.NASB' },
+        { abbr: 'TPT', name: 'The Passion Translation', url: 'https://www.bible.com/bible/1849/JHN.1.TPT' },
+        { abbr: 'MSG', name: 'The Message', url: 'https://www.bible.com/bible/97/JHN.1.MSG' },
+        { abbr: 'AMPC', name: 'Amplified Bible, Classic Edition', url: 'https://www.bible.com/bible/8/JHN.1.AMPC' },
+        { abbr: 'AMP', name: 'Amplified Bible', url: 'https://www.bible.com/bible/1588/JHN.1.AMP' },
+        { abbr: 'NRSV', name: 'New Revised Standard Version', url: 'https://www.bible.com/bible/2016/JHN.1.NRSV' }
+      ];
+      
+      // All versions (this would be a much larger list in a real implementation)
+      const allVersions = [
+        // English versions
+        ...englishVersions,
+        // Spanish versions
+        { abbr: 'RVR1960', name: 'Reina-Valera 1960', url: 'https://www.bible.com/bible/149/JHN.1.RVR1960' },
+        { abbr: 'NVI', name: 'Nueva Versión Internacional', url: 'https://www.bible.com/bible/128/JHN.1.NVI' },
+        // French versions
+        { abbr: 'LSG', name: 'Louis Segond', url: 'https://www.bible.com/bible/93/JHN.1.LSG' },
+        { abbr: 'BDS', name: 'Bible du Semeur', url: 'https://www.bible.com/bible/15/JHN.1.BDS' },
+        // German versions
+        { abbr: 'LUTH1545', name: 'Luther Bibel 1545', url: 'https://www.bible.com/bible/51/JHN.1.LUTH1545' },
+        { abbr: 'HOF', name: 'Hoffnung für Alle', url: 'https://www.bible.com/bible/73/JHN.1.HOF' }
+      ];
+      
+      // Populate preferred versions
+      preferredVersions.forEach(version => {
+        const versionItem = document.createElement('button');
+        versionItem.className = 'version-item preferred';
+        versionItem.innerHTML = `
+          <span class="version-abbr">${version.abbr}</span>
+          <span class="version-name">${version.name}</span>
+        `;
         
-        // Set active state back to explore
-        setActiveNavItem(exploreNavItem);
-      });
-      
-      bibleModalOverlay.addEventListener('click', function() {
-        bibleModal.classList.remove('open');
-        bibleModalOverlay.classList.remove('open');
-        versionSelector.style.display = 'none';
-        
-        // Set active state back to explore
-        setActiveNavItem(exploreNavItem);
-      });
-      
-      // Toggle Version Selector
-      versionButton.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (versionSelector.style.display === 'block') {
+        versionItem.addEventListener('click', function() {
+          bibleIframe.src = version.url;
           versionSelector.style.display = 'none';
-        } else {
-          versionSelector.style.display = 'block';
-          renderVersionList();
-        }
-      });
-      
-      // Close version selector when clicking outside
-      document.addEventListener('click', function(e) {
-        if (versionSelector.style.display === 'block' && 
-            !versionSelector.contains(e.target) && 
-            e.target !== versionButton) {
-          versionSelector.style.display = 'none';
-        }
-      });
-      
-      // Prevent clicks inside version selector from closing it
-      versionSelector.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
-      
-      // Handle version search
-      versionSearch.addEventListener('input', function() {
-        searchTerm = this.value.toLowerCase();
-        renderVersionList();
-      });
-      
-      // Handle category selection
-      versionCategories.forEach(category => {
-        category.addEventListener('click', function() {
-          versionCategories.forEach(c => c.classList.remove('active'));
-          this.classList.add('active');
-          currentCategory = this.dataset.category;
-          renderVersionList();
+          versionButton.innerHTML = `Version: ${version.abbr} <span class="material-icons-round">arrow_drop_down</span>`;
         });
+        
+        versionList.appendChild(versionItem);
       });
       
-      // Render the version list based on current filters
-      function renderVersionList() {
-        versionList.innerHTML = '';
-        
-        let versionsToShow;
-        if (currentCategory === 'preferred') {
-          versionsToShow = preferredBibleVersions;
-        } else if (currentCategory === 'english') {
-          versionsToShow = englishBibleVersions;
+      versionSelector.appendChild(versionTabs);
+      versionSelector.appendChild(versionSearch);
+      versionSelector.appendChild(versionList);
+      
+      versionButton.addEventListener('click', function() {
+        if (versionSelector.style.display === 'none' || versionSelector.style.display === '') {
+          versionSelector.style.display = 'block';
         } else {
-          versionsToShow = allBibleVersions;
+          versionSelector.style.display = 'none';
         }
+      });
+      
+      // Tab switching functionality
+      preferredTab.addEventListener('click', function() {
+        preferredTab.classList.add('active');
+        englishTab.classList.remove('active');
+        allTab.classList.remove('active');
         
-        // Apply search filter if there's a search term
-        if (searchTerm) {
-          versionsToShow = versionsToShow.filter(version => 
-            version.name.toLowerCase().includes(searchTerm) || 
-            version.fullName.toLowerCase().includes(searchTerm) ||
-            version.publisher.toLowerCase().includes(searchTerm)
-          );
-        }
-        
-        // Show message if no results
-        if (versionsToShow.length === 0) {
-          const noResults = document.createElement('div');
-          noResults.className = 'no-results';
-          noResults.textContent = 'No versions found matching your search.';
-          versionList.appendChild(noResults);
-          return;
-        }
-        
-        // Create version items
-        versionsToShow.forEach(version => {
+        // Clear and repopulate version list
+        versionList.innerHTML = '';
+        preferredVersions.forEach(version => {
           const versionItem = document.createElement('button');
-          versionItem.className = 'version-item';
-          if (isPreferredVersion(version.name)) {
-            versionItem.classList.add('preferred');
-          }
-          
-          const versionAbbr = document.createElement('span');
-          versionAbbr.className = 'version-abbr';
-          versionAbbr.textContent = version.name;
-          
-          const versionFullName = document.createElement('span');
-          versionFullName.className = 'version-full-name';
-          versionFullName.textContent = version.fullName;
-          
-          const versionPublisher = document.createElement('span');
-          versionPublisher.className = 'version-publisher';
-          versionPublisher.textContent = version.publisher;
-          
-          versionItem.appendChild(versionAbbr);
-          versionItem.appendChild(versionFullName);
-          versionItem.appendChild(versionPublisher);
+          versionItem.className = 'version-item preferred';
+          versionItem.innerHTML = `
+            <span class="version-abbr">${version.abbr}</span>
+            <span class="version-name">${version.name}</span>
+          `;
           
           versionItem.addEventListener('click', function() {
-            selectVersion(version);
+            bibleIframe.src = version.url;
+            versionSelector.style.display = 'none';
+            versionButton.innerHTML = `Version: ${version.abbr} <span class="material-icons-round">arrow_drop_down</span>`;
           });
           
           versionList.appendChild(versionItem);
         });
-      }
-      
-      // Check if a version is in the preferred list
-      function isPreferredVersion(abbr) {
-        return preferredBibleVersions.some(v => v.name === abbr);
-      }
-      
-      // Select a version
-      function selectVersion(version) {
-        currentVersion = version.name;
-        currentVersionId = version.id.split('-')[0];
-        currentVersionSpan.textContent = currentVersion;
-        versionSelector.style.display = 'none';
-        
-        // Update iframe URL
-        const currentUrl = bibleIframe.src;
-        const urlParts = currentUrl.split('/');
-        // Find the version ID part (usually after /bible/)
-        for (let i = 0; i < urlParts.length; i++) {
-          if (urlParts[i] === 'bible' && i + 1 < urlParts.length) {
-            // Replace the version ID
-            urlParts[i + 1] = currentVersionId;
-            break;
-          }
-        }
-        bibleIframe.src = urlParts.join('/');
-      }
-      
-      // Open Search Modal
-      searchNavItem.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Close any open modals first
-        closeAllModals();
-        
-        // Open Search modal
-        searchModal.classList.add('open');
-        searchModalOverlay.classList.add('open');
-        searchInput.focus();
-        
-        // Set active state on search nav item
-        setActiveNavItem(this);
       });
       
-      // Close Search Modal
-      searchModalClose.addEventListener('click', function() {
-        searchModal.classList.remove('open');
-        searchModalOverlay.classList.remove('open');
+      englishTab.addEventListener('click', function() {
+        preferredTab.classList.remove('active');
+        englishTab.classList.add('active');
+        allTab.classList.remove('active');
         
-        // Set active state back to explore
-        setActiveNavItem(exploreNavItem);
-      });
-      
-      searchModalOverlay.addEventListener('click', function() {
-        searchModal.classList.remove('open');
-        searchModalOverlay.classList.remove('open');
-        
-        // Set active state back to explore
-        setActiveNavItem(exploreNavItem);
-      });
-      
-      // Saved navigation
-      savedNavItem.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Close any open modals
-        closeAllModals();
-        
-        // Set active state on saved nav item
-        setActiveNavItem(this);
-        
-        // Future implementation for saved content
-        // For now, just scroll to top
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
-      
-      // Collect all content items for search
-      function collectSearchableContent() {
-        const searchableItems = [];
-        
-        // Get all cards from the page
-        document.querySelectorAll('.card').forEach(card => {
-          const title = card.querySelector('.card-title')?.textContent || '';
-          const description = card.querySelector('.card-description')?.textContent || '';
-          const image = card.querySelector('.card-image img')?.src || '';
-          const meta = card.querySelector('.card-meta')?.textContent || '';
+        // Clear and repopulate version list
+        versionList.innerHTML = '';
+        englishVersions.forEach(version => {
+          const versionItem = document.createElement('button');
+          versionItem.className = 'version-item';
+          versionItem.innerHTML = `
+            <span class="version-abbr">${version.abbr}</span>
+            <span class="version-name">${version.name}</span>
+          `;
           
-          searchableItems.push({
-            title,
-            description,
-            image,
-            meta
+          versionItem.addEventListener('click', function() {
+            bibleIframe.src = version.url;
+            versionSelector.style.display = 'none';
+            versionButton.innerHTML = `Version: ${version.abbr} <span class="material-icons-round">arrow_drop_down</span>`;
           });
+          
+          versionList.appendChild(versionItem);
         });
-        
-        return searchableItems;
-      }
-      
-      // Search content based on input
-      function searchContent(term) {
-        if (!term) {
-          return [];
-        }
-        
-        const items = collectSearchableContent();
-        return items.filter(item => 
-          item.title.toLowerCase().includes(term.toLowerCase())
-        );
-      }
-      
-      // Render search results
-      function renderSearchResults(results) {
-        searchResults.innerHTML = '';
-        
-        if (results.length === 0) {
-          searchNoResults.style.display = 'block';
-          searchResultCount.textContent = '0 results';
-          return;
-        }
-        
-        searchNoResults.style.display = 'none';
-        searchResultCount.textContent = `${results.length} results`;
-        
-        results.forEach(result => {
-          const resultCard = document.createElement('div');
-          resultCard.className = 'card';
-          
-          const resultImageContainer = document.createElement('div');
-          resultImageContainer.className = 'card-image';
-          
-          const resultImage = document.createElement('img');
-          resultImage.src = result.image;
-          resultImage.alt = result.title;
-          resultImage.onerror = function() {
-            this.onerror = null;
-            this.style.display = 'none';
-            resultImageContainer.innerHTML += '<span class="material-icons-round placeholder-icon">search</span>';
-          };
-          
-          resultImageContainer.appendChild(resultImage);
-          
-          const resultContent = document.createElement('div');
-          resultContent.className = 'card-content';
-          
-          const resultTitle = document.createElement('h3');
-          resultTitle.className = 'card-title';
-          resultTitle.textContent = result.title;
-          
-          const resultDescription = document.createElement('p');
-          resultDescription.className = 'card-description';
-          resultDescription.textContent = result.description;
-          
-          resultContent.appendChild(resultTitle);
-          resultContent.appendChild(resultDescription);
-          
-          if (result.meta) {
-            const resultMeta = document.createElement('div');
-            resultMeta.className = 'card-meta';
-            resultMeta.textContent = result.meta;
-            resultContent.appendChild(resultMeta);
-          }
-          
-          resultCard.appendChild(resultImageContainer);
-          resultCard.appendChild(resultContent);
-          
-          searchResults.appendChild(resultCard);
-        });
-      }
-      
-      // Handle search input
-      searchInput.addEventListener('input', function() {
-        const term = this.value.trim();
-        const results = searchContent(term);
-        renderSearchResults(results);
       });
       
-      // Initialize with empty search results
-      renderSearchResults([]);
+      allTab.addEventListener('click', function() {
+        preferredTab.classList.remove('active');
+        englishTab.classList.remove('active');
+        allTab.classList.add('active');
+        
+        // Clear and repopulate version list
+        versionList.innerHTML = '';
+        allVersions.forEach(version => {
+          const versionItem = document.createElement('button');
+          versionItem.className = 'version-item';
+          versionItem.innerHTML = `
+            <span class="version-abbr">${version.abbr}</span>
+            <span class="version-name">${version.name}</span>
+          `;
+          
+          versionItem.addEventListener('click', function() {
+            bibleIframe.src = version.url;
+            versionSelector.style.display = 'none';
+            versionButton.innerHTML = `Version: ${version.abbr} <span class="material-icons-round">arrow_drop_down</span>`;
+          });
+          
+          versionList.appendChild(versionItem);
+        });
+      });
+      
+      // Search functionality
+      const searchBox = versionSearch.querySelector('input');
+      searchBox.addEventListener('input', function() {
+        const searchTerm = searchBox.value.toLowerCase();
+        
+        // Determine which list to search based on active tab
+        let versionsToSearch;
+        if (preferredTab.classList.contains('active')) {
+          versionsToSearch = preferredVersions;
+        } else if (englishTab.classList.contains('active')) {
+          versionsToSearch = englishVersions;
+        } else {
+          versionsToSearch = allVersions;
+        }
+        
+        // Filter versions
+        const filteredVersions = versionsToSearch.filter(version => 
+          version.abbr.toLowerCase().includes(searchTerm) || 
+          version.name.toLowerCase().includes(searchTerm)
+        );
+        
+        // Clear and repopulate version list
+        versionList.innerHTML = '';
+        filteredVersions.forEach(version => {
+          const versionItem = document.createElement('button');
+          versionItem.className = 'version-item';
+          if (preferredVersions.some(v => v.abbr === version.abbr)) {
+            versionItem.classList.add('preferred');
+          }
+          
+          versionItem.innerHTML = `
+            <span class="version-abbr">${version.abbr}</span>
+            <span class="version-name">${version.name}</span>
+          `;
+          
+          versionItem.addEventListener('click', function() {
+            bibleIframe.src = version.url;
+            versionSelector.style.display = 'none';
+            versionButton.innerHTML = `Version: ${version.abbr} <span class="material-icons-round">arrow_drop_down</span>`;
+          });
+          
+          versionList.appendChild(versionItem);
+        });
+      });
+      
+      document.querySelector('.bible-modal-content').appendChild(versionButton);
+      document.querySelector('.bible-modal-content').appendChild(versionSelector);
+      
+      // Add guidance message
+      const guidanceMessage = document.createElement('div');
+      guidanceMessage.className = 'guidance-message';
+      guidanceMessage.innerHTML = 'Interact directly with the Bible.com content to navigate chapters and verses';
+      
+      document.querySelector('.bible-modal-content').appendChild(guidanceMessage);
+      
+      // Search functionality
+      const allCards = document.querySelectorAll('.card');
+      
+      searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.toLowerCase();
+        
+        // Clone all cards for search results
+        searchResultsGrid.innerHTML = '';
+        let matchCount = 0;
+        
+        if (searchTerm.length > 0) {
+          allCards.forEach(card => {
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            const description = card.querySelector('.card-description').textContent.toLowerCase();
+            
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
+              const cardClone = card.cloneNode(true);
+              searchResultsGrid.appendChild(cardClone);
+              matchCount++;
+            }
+          });
+          
+          if (matchCount > 0) {
+            resultsCount.textContent = `Found ${matchCount} result${matchCount === 1 ? '' : 's'} for "${searchTerm}"`;
+            noResults.style.display = 'none';
+            searchResultsGrid.style.display = 'grid';
+          } else {
+            resultsCount.textContent = `No results for "${searchTerm}"`;
+            noResults.style.display = 'block';
+            searchResultsGrid.style.display = 'none';
+          }
+        } else {
+          // Show all content when search is empty
+          allCards.forEach(card => {
+            const cardClone = card.cloneNode(true);
+            searchResultsGrid.appendChild(cardClone);
+            matchCount++;
+          });
+          
+          resultsCount.textContent = 'Showing all content';
+          noResults.style.display = 'none';
+          searchResultsGrid.style.display = 'grid';
+        }
+      });
+      
+      // Initialize search results with all content
+      allCards.forEach(card => {
+        const cardClone = card.cloneNode(true);
+        searchResultsGrid.appendChild(cardClone);
+      });
+      
+      // Notes functionality
+      const noteItems = document.querySelectorAll('.note-item');
+      const notesEditorTitle = document.querySelector('.notes-editor-title');
+      const notesEditorBody = document.querySelector('.notes-editor-body');
+      const notesNewButton = document.querySelector('.notes-new-button');
+      
+      // Sample notes data
+      const notesData = [
+        {
+          id: 1,
+          title: 'Bible Study Notes',
+          content: `Key points from today's study on the book of John:
+
+1. John's gospel focuses on the deity of Christ
+2. Seven "I am" statements throughout the book
+3. Written by the apostle John, "the disciple whom Jesus loved"
+4. Purpose statement in John 20:31 - "these are written that you may believe that Jesus is the Christ, the Son of God, and that by believing you may have life in his name."
+
+Questions for further study:
+- How does John's portrayal of Jesus differ from the synoptic gospels?
+- What significance do the seven miracles in John have?
+- How does the "Logos" concept in John 1 relate to Greek philosophy of the time?
+
+Follow-up reading:
+- Commentary on John by D.A. Carson
+- "The Gospel According to John" by Leon Morris`,
+          date: 'Today, 10:30 AM'
+        },
+        {
+          id: 2,
+          title: 'Prayer Requests',
+          content: `List of prayer requests from the small group:
+
+- Sarah's mother's health issues
+- John's job interview next week
+- The Johnson family's move to a new city
+- Our church's upcoming mission trip to Guatemala
+- Pastor David's sermon preparation
+
+Remember to follow up with everyone next week about these requests.`,
+          date: 'Yesterday, 7:15 PM'
+        },
+        {
+          id: 3,
+          title: 'Sermon Notes - Faith',
+          content: `Main points from Pastor's sermon on faith:
+
+Scripture: Hebrews 11:1-6
+
+1. Faith is confidence in what we hope for and assurance about what we do not see
+2. Faith is not blind belief but trust based on God's character and promises
+3. Without faith it is impossible to please God
+4. Faith requires both believing that God exists and that He rewards those who seek Him
+
+Examples of faith from the sermon:
+- Abraham leaving his homeland
+- Moses choosing to be mistreated with God's people
+- The Israelites crossing the Red Sea
+
+Application:
+- Identify areas where I need to trust God more
+- Remember past instances of God's faithfulness
+- Take one step of faith this week in an area I've been hesitant`,
+          date: 'May 15, 2025'
+        }
+      ];
+      
+      // Load note content
+      function loadNote(id) {
+        const note = notesData.find(note => note.id === id);
+        if (note) {
+          notesEditorTitle.value = note.title;
+          notesEditorBody.value = note.content;
+        }
+      }
+      
+      // Set active note
+      noteItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // Remove active class from all items
+          noteItems.forEach(i => i.classList.remove('active'));
+          // Add active class to clicked item
+          this.classList.add('active');
+          // Load note content
+          loadNote(parseInt(this.dataset.id));
+        });
+      });
+      
+      // New note functionality
+      notesNewButton.addEventListener('click', function() {
+        // Remove active class from all items
+        noteItems.forEach(i => i.classList.remove('active'));
+        // Clear editor
+        notesEditorTitle.value = '';
+        notesEditorBody.value = '';
+        notesEditorTitle.focus();
+      });
+      
+      // Sabbath School Book functionality
+      const sabbathLessons = document.querySelectorAll('.sabbath-lesson');
+      
+      sabbathLessons.forEach(lesson => {
+        lesson.addEventListener('click', function() {
+          // Remove active class from all lessons
+          sabbathLessons.forEach(l => l.classList.remove('active'));
+          // Add active class to clicked lesson
+          this.classList.add('active');
+          // In a real implementation, this would load the lesson content
+        });
+      });
     });
   </script>
 </body>
