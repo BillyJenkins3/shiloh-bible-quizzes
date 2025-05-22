@@ -606,14 +606,22 @@
     .nav-item .material-icons-round {
       font-size: 1.5rem;
       margin-bottom: var(--spacing-xs);
+      transition: color var(--transition-fast); /* Added for smooth icon color change */
     }
 
     .nav-item.active {
       color: var(--primary);
     }
+    .nav-item.active .material-icons-round {
+      color: var(--primary); /* Ensure icon color also changes */
+    }
+
 
     .nav-item:hover {
       color: var(--primary-light);
+    }
+    .nav-item:hover .material-icons-round {
+      color: var(--primary-light); /* Ensure icon color also changes on hover */
     }
     
     /* Modal Styles Base */
@@ -2115,107 +2123,127 @@ Action steps:
 
       // --- START: All other element declarations ---
       const bibleModal = document.getElementById('bibleModal');
-      const bibleModalClose = document.querySelector('.bible-modal-close');
+      // const bibleModalClose = document.querySelector('.bible-modal-close'); // Handled in new logic
       const bibleIframe = document.getElementById('bibleIframe');
       
       const searchModal = document.getElementById('searchModal');
-      const searchModalClose = document.querySelector('.search-modal-close');
+      // const searchModalClose = document.querySelector('.search-modal-close'); // Handled in new logic
       const searchInput = document.getElementById('searchInput');
       const searchResultsGrid = document.getElementById('searchResultsGrid');
       const resultsCount = document.getElementById('resultsCount');
       const noResults = document.getElementById('noResults');
       
       const notesModal = document.getElementById('notesModal');
-      const notesModalClose = document.querySelector('.notes-modal-close');
+      // const notesModalClose = document.querySelector('.notes-modal-close'); // Handled in new logic
       
       const sabbathModal = document.getElementById('sabbathModal');
-      const sabbathModalClose = document.querySelector('.sabbath-modal-close');
+      // const sabbathModalClose = document.querySelector('.sabbath-modal-close'); // Handled in new logic
       
       const navExplore = document.getElementById('nav-explore');
       const navSearch = document.getElementById('nav-search');
       const navBible = document.getElementById('nav-bible');
       const navNotes = document.getElementById('nav-notes');
       const navSabbath = document.getElementById('nav-sabbath');
+
+      // Icon Elements for bottom navigation
+      const navExploreIcon = navExplore.querySelector('.material-icons-round');
+      const navSearchIcon = navSearch.querySelector('.material-icons-round');
+      const navBibleIcon = navBible.querySelector('.material-icons-round');
+      const navSabbathIcon = navSabbath.querySelector('.material-icons-round');
+      const navNotesIcon = navNotes.querySelector('.material-icons-round');
       // --- END: All other element declarations ---
 
+      // --- START: Icon Management ---
+      const iconStates = {
+          explore: { selfActive: 'explore', selfInactiveDueToOtherModal: 'explore_off' },
+          search:  { active: 'manage_search', inactive: 'search' },
+          bible:   { active: 'auto_stories', inactive: 'menu_book' },
+          sabbath: { active: 'class', inactive: 'book' },
+          notes:   { active: 'edit_note', inactive: 'note' }
+      };
 
-      // --- START: Modal and Navigation Logic ---
-      function closeAllModals() {
-        bibleModal.classList.remove('open');
-        searchModal.classList.remove('open');
-        notesModal.classList.remove('open');
-        sabbathModal.classList.remove('open');
-        
-        navExplore.classList.add('active');
-        navSearch.classList.remove('active');
-        navBible.classList.remove('active');
-        navNotes.classList.remove('active');
-        navSabbath.classList.remove('active');
+      function updateNavIcons(activeNavItemId) {
+          navExploreIcon.textContent = (activeNavItemId === 'nav-explore') ? iconStates.explore.selfActive : iconStates.explore.selfInactiveDueToOtherModal;
+          navSearchIcon.textContent =  (activeNavItemId === 'nav-search')  ? iconStates.search.active  : iconStates.search.inactive;
+          navBibleIcon.textContent =   (activeNavItemId === 'nav-bible')   ? iconStates.bible.active   : iconStates.bible.inactive;
+          navSabbathIcon.textContent = (activeNavItemId === 'nav-sabbath') ? iconStates.sabbath.active : iconStates.sabbath.inactive;
+          navNotesIcon.textContent =   (activeNavItemId === 'nav-notes')   ? iconStates.notes.active   : iconStates.notes.inactive;
       }
-      
+      // --- END: Icon Management ---
+
+
+      // --- START: Modal and Navigation Logic (NEW AND IMPROVED) ---
+      const allNavItems = [navExplore, navSearch, navBible, navNotes, navSabbath];
+      const allModalsMap = {
+          'nav-search': { navItem: navSearch, modal: searchModal, inputToFocus: searchInput },
+          'nav-bible':  { navItem: navBible, modal: bibleModal },
+          'nav-notes':  { navItem: navNotes, modal: notesModal },
+          'nav-sabbath':{ navItem: navSabbath, modal: sabbathModal }
+      };
+
+      function setActiveNav(activeItem) {
+          allNavItems.forEach(item => item.classList.remove('active'));
+          activeItem.classList.add('active');
+          updateNavIcons(activeItem.id);
+      }
+
+      function openModal(modalToOpen, navItemForModal, inputToFocus = null) {
+          // Close all other modals
+          Object.values(allModalsMap).forEach(mInfo => {
+              if (mInfo.modal !== modalToOpen) {
+                  mInfo.modal.classList.remove('open');
+              }
+          });
+          // Open the target modal
+          modalToOpen.classList.add('open');
+          setActiveNav(navItemForModal);
+          if (inputToFocus) {
+              inputToFocus.focus();
+          }
+      }
+
+      function closeSpecificModal(modalToClose) {
+          modalToClose.classList.remove('open');
+          // After closing a specific modal, revert to explore view
+          setActiveNav(navExplore);
+          // Optionally scroll to top if main content is shown
+          // window.scrollTo(0, 0); 
+      }
+
+      // Event listener for the Explore navigation item
       navExplore.addEventListener('click', function(e) {
-        e.preventDefault();
-        closeAllModals();
-        window.scrollTo(0, 0);
+          e.preventDefault();
+          Object.values(allModalsMap).forEach(mInfo => mInfo.modal.classList.remove('open'));
+          setActiveNav(navExplore);
+          window.scrollTo(0, 0);
+      });
+
+      // Event listeners for other navigation items and their modals
+      Object.values(allModalsMap).forEach(itemInfo => {
+          itemInfo.navItem.addEventListener('click', function(e) {
+              e.preventDefault();
+              if (itemInfo.modal.classList.contains('open')) {
+                  // If its modal is already open, close it and revert to Explore
+                  itemInfo.modal.classList.remove('open');
+                  setActiveNav(navExplore);
+              } else {
+                  // If its modal is closed, open it
+                  openModal(itemInfo.modal, itemInfo.navItem, itemInfo.inputToFocus);
+              }
+          });
+
+          // Add event listener for the modal's close button
+          const closeButton = itemInfo.modal.querySelector('.bible-modal-close, .search-modal-close, .notes-modal-close, .sabbath-modal-close');
+          if (closeButton) {
+              closeButton.addEventListener('click', function() {
+                  closeSpecificModal(itemInfo.modal);
+              });
+          }
       });
       
-      navSearch.addEventListener('click', function(e) {
-        e.preventDefault();
-        closeAllModals();
-        searchModal.classList.add('open');
-        navExplore.classList.remove('active');
-        navSearch.classList.add('active');
-        searchInput.focus();
-      });
-      
-      navBible.addEventListener('click', function(e) {
-        e.preventDefault();
-        closeAllModals();
-        bibleModal.classList.add('open');
-        navExplore.classList.remove('active');
-        navBible.classList.add('active');
-      });
-      
-      navNotes.addEventListener('click', function(e) {
-        e.preventDefault();
-        closeAllModals();
-        notesModal.classList.add('open');
-        navExplore.classList.remove('active');
-        navNotes.classList.add('active');
-      });
-      
-      navSabbath.addEventListener('click', function(e) {
-        e.preventDefault();
-        closeAllModals();
-        sabbathModal.classList.add('open');
-        navExplore.classList.remove('active');
-        navSabbath.classList.add('active');
-      });
-      
-      bibleModalClose.addEventListener('click', function() {
-        bibleModal.classList.remove('open');
-        navBible.classList.remove('active');
-        navExplore.classList.add('active');
-      });
-      
-      searchModalClose.addEventListener('click', function() {
-        searchModal.classList.remove('open');
-        navSearch.classList.remove('active');
-        navExplore.classList.add('active');
-      });
-      
-      notesModalClose.addEventListener('click', function() {
-        notesModal.classList.remove('open');
-        navNotes.classList.remove('active');
-        navExplore.classList.add('active');
-      });
-      
-      sabbathModalClose.addEventListener('click', function() {
-        sabbathModal.classList.remove('open');
-        navSabbath.classList.remove('active');
-        navExplore.classList.add('active');
-      });
-      // --- END: Modal and Navigation Logic ---
+      // Set initial state (Explore active)
+      setActiveNav(navExplore);
+      // --- END: Modal and Navigation Logic (NEW AND IMPROVED) ---
       
 
       // --- START: Bible Version Selection Logic ---
@@ -2258,8 +2286,10 @@ Action steps:
         { abbr: 'AMPC', name: 'Amplified Bible, Classic Edition', url: 'https://www.bible.com/bible/8/JHN.1.AMPC' },
         { abbr: 'CEV', name: 'Holy Name Bible', url: 'https://www.bible.com/bible/46/JHN.1.CEV' }
       ];
-      const englishVersions = [ /* ... same as before ... */ ];
-      const allVersions = [ /* ... same as before ... */ ]; // (Shortened for brevity, ensure full arrays are present)
+      // For brevity, assuming englishVersions and allVersions are populated as in original if needed.
+      // For this example, we'll reuse preferredVersions for other tabs if they are not defined.
+      const englishVersions = preferredVersions; 
+      const allVersions = preferredVersions; 
       
       function populateVersionList(versionsToShow, isPreferred = false) {
         versionList.innerHTML = '';
@@ -2295,11 +2325,11 @@ Action steps:
       });
       englishTab.addEventListener('click', function() {
         englishTab.classList.add('active'); preferredTab.classList.remove('active'); allTab.classList.remove('active');
-        populateVersionList(englishVersions); // Assuming englishVersions is defined as before
+        populateVersionList(englishVersions); 
       });
       allTab.addEventListener('click', function() {
         allTab.classList.add('active'); preferredTab.classList.remove('active'); englishTab.classList.remove('active');
-        populateVersionList(allVersions); // Assuming allVersions is defined as before
+        populateVersionList(allVersions); 
       });
       
       document.querySelector('.bible-modal-header').appendChild(versionButton);
@@ -2310,13 +2340,17 @@ Action steps:
       guidanceMessage.textContent = 'Tap anywhere to navigate or use the version selector in the top-right';
       document.querySelector('.bible-modal-content').appendChild(guidanceMessage);
       
-      navBible.addEventListener('click', function() { // When Bible nav is clicked
-        setTimeout(() => {
-          guidanceMessage.style.opacity = '1';
-          setTimeout(() => {
-            guidanceMessage.style.opacity = '0';
-          }, 3000);
-        }, 500);
+      navBible.addEventListener('click', function(e) { 
+        // This click is now handled by the general modal logic. 
+        // If guidance needs to show when Bible modal is opened, it should be tied to that.
+        if (bibleModal.classList.contains('open')) { // Check if modal was just opened
+            setTimeout(() => {
+                guidanceMessage.style.opacity = '1';
+                setTimeout(() => {
+                    guidanceMessage.style.opacity = '0';
+                }, 3000);
+            }, 500); // Delay to ensure modal is visible
+        }
       });
       // --- END: Bible Version Selection Logic ---
 
@@ -2324,7 +2358,13 @@ Action steps:
       // --- START: Search Functionality ---
       searchInput.addEventListener('input', function() {
         const query = this.value.toLowerCase();
-        const allContent = [ /* ... same as before ... */ ]; // (Shortened for brevity)
+        // Dummy content for example. Replace with your actual content source.
+        const allContent = [
+            { title: "Understanding the Bible", description: "A comprehensive guide...", type: "course" },
+            { title: "The Holy Spirit", description: "Explore the person and work...", type: "course" },
+            { title: "Biblical Studies", description: "In-depth exploration...", type: "topic" },
+            { title: "Daily Bread", description: "Short, daily reflections...", type: "devotional" }
+        ];
         
         const filteredContent = allContent.filter(item => 
           item.title.toLowerCase().includes(query) || 
@@ -2334,7 +2374,7 @@ Action steps:
         resultsCount.textContent = filteredContent.length;
         searchResultsGrid.innerHTML = '';
         
-        if (filteredContent.length === 0) {
+        if (filteredContent.length === 0 && query.length > 0) {
           noResults.style.display = 'flex';
         } else {
           noResults.style.display = 'none';
@@ -2358,8 +2398,14 @@ Action steps:
             searchResultsGrid.appendChild(card);
           });
         }
+        if (query.length === 0) { // If search is empty, show no results initially
+            searchResultsGrid.innerHTML = '';
+            resultsCount.textContent = 0;
+            noResults.style.display = 'flex';
+        }
       });
       noResults.style.display = 'flex'; // Initialize as empty
+      resultsCount.textContent = 0;
       // --- END: Search Functionality ---
 
       
@@ -2379,7 +2425,6 @@ Action steps:
 
 
       // --- START: Hide Loading Screen (Must be last or near last in DOMContentLoaded) ---
-      // This uses the 'load' event on window, which fires after all resources (images etc.) are loaded
       window.addEventListener('load', () => {
           if (loadingScreen) {
               loadingScreen.classList.add('hidden');
