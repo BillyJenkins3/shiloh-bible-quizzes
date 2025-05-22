@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en"> <!-- data-theme attribute will be added here by JS -->
 <head>
@@ -165,17 +166,10 @@
       line-height: 1.6;
       font-size: 16px;
       font-weight: 400;
-      padding-bottom: 80px;
+      padding-bottom: 80px; /* Space for bottom nav */
       overflow-x: hidden;
-      /* animation: fadeInBody 0.8s ease-in;  Consider removing if loading screen is present */
       transition: background-color var(--transition-standard), color var(--transition-standard);
     }
-
-    /* @keyframes fadeInBody {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    } */ /* You might not need this if the loading screen handles the initial reveal */
-
 
     /* Typography */
     h1, h2, h3, h4, h5, h6 {
@@ -183,7 +177,7 @@
       font-weight: 600;
       line-height: 1.3;
       margin-bottom: var(--spacing-md);
-      color: var(--text-primary); /* Ensure headings also transition color */
+      color: var(--text-primary); 
       transition: color var(--transition-standard);
     }
 
@@ -205,7 +199,7 @@
     h5 { font-size: 1.25rem; }
     h6 { font-size: 1rem; }
 
-    p { /* General p tag style - check against loading screen p if needed */
+    p { 
       margin-bottom: var(--spacing-md);
       color: var(--text-secondary); 
       transition: color var(--transition-standard);
@@ -225,14 +219,18 @@
       max-width: 100%;
       height: auto;
     }
+    
+    button, .nav-item {
+      transition: color var(--transition-standard), background-color var(--transition-standard), border-color var(--transition-standard), opacity var(--transition-standard), transform 0.1s ease-out, box-shadow var(--transition-fast);
+    }
 
-    button {
-      cursor: pointer;
-      font-family: 'Poppins', sans-serif;
-      transition: var(--transition-standard);
+    button:active, .nav-item:active {
+      transform: scale(0.95); 
+    }
+    .theme-toggle-button { 
+        transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease-out;
     }
     
-    /* Input, Textarea, Select base styles */
     input, textarea, select {
       background-color: var(--surface);
       color: var(--text-primary);
@@ -240,7 +238,7 @@
       font-family: 'Poppins', sans-serif;
       padding: var(--spacing-sm);
       border-radius: var(--radius-sm);
-      transition: background-color var(--transition-standard), color var(--transition-standard), border-color var(--transition-standard);
+      transition: background-color var(--transition-standard), color var(--transition-standard), border-color var(--transition-standard), box-shadow var(--transition-fast);
     }
     input::placeholder, textarea::placeholder {
       color: var(--text-tertiary);
@@ -252,13 +250,12 @@
       opacity: 0.7;
     }
 
-    input:focus, textarea:focus, select:focus {
+    input:focus-visible, textarea:focus-visible, select:focus-visible {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 30%, transparent);
     }
     
-    /* Autofill styles for dark mode */
     html[data-theme="dark"] input:-webkit-autofill,
     html[data-theme="dark"] input:-webkit-autofill:hover,
     html[data-theme="dark"] input:-webkit-autofill:focus,
@@ -273,8 +270,50 @@
       caret-color: var(--text-primary);
     }
 
+    /* Enhanced Focus Styles */
+    button:focus-visible,
+    .nav-item:focus-visible,
+    .version-tab:focus-visible,
+    .version-item:focus-visible,
+    .note-item:focus-visible,
+    .sabbath-lesson:focus-visible,
+    .tag-pill:focus-visible, /* For tag pills */
+    .card:focus-visible { /* If cards become interactive */
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent);
+      border-radius: var(--radius-sm); /* Ensure radius matches element for cleaner outline */
+    }
+    .card .favorite-button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -3px; /* Adjust to be inside or around the icon */
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent);
+      border-radius: var(--radius-full);
+    }
 
-    /* Layout */
+
+    .modal-close:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 50%, transparent);
+        border-radius: var(--radius-full); /* Match button's border radius */
+    }
+    html[data-theme="dark"] .modal-close:focus-visible {
+        outline-color: var(--primary-light); 
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-light) 30%, transparent);
+    }
+     /* Ensure theme toggle button gets specific styling if needed, though covered by general button */
+    .theme-toggle-button:focus-visible {
+        outline: 2px solid var(--text-on-primary); /* High contrast on header */
+        outline-offset: 2px;
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--text-on-primary) 30%, transparent);
+    }
+    html[data-theme="dark"] .theme-toggle-button:focus-visible {
+        outline-color: var(--primary-light); /* High contrast on dark header */
+         box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-light) 30%, transparent);
+    }
+
+
     .container {
       width: 100%;
       max-width: 1200px;
@@ -293,7 +332,6 @@
       border-bottom: none;
     }
 
-    /* Header */
     .header {
       background: var(--header-gradient);
       color: var(--text-on-primary);
@@ -304,14 +342,8 @@
       border-bottom-left-radius: var(--radius-lg);
       border-bottom-right-radius: var(--radius-lg);
       z-index: 10;
-      /* animation: fadeSlideDown 1s ease-out; */ /* May conflict with loading screen, ensure content visibility after loading */
       transition: background var(--transition-standard), box-shadow var(--transition-standard), color var(--transition-standard);
     }
-
-    /* @keyframes fadeSlideDown {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    } */
 
     .header::after {
       content: '';
@@ -320,14 +352,13 @@
       left: 0;
       width: 100%;
       height: 20px;
-      background: var(--surface); /* Changed from --background to --surface for better dark mode distinction */
+      background: var(--surface); 
       border-radius: 50% 50% 0 0 / 100% 100% 0 0;
       transition: background-color var(--transition-standard);
     }
     html[data-theme="dark"] .header::after {
-        background: var(--background); /* Match body background in dark mode for seamless curve */
+        background: var(--background); 
     }
-
 
     .header-content {
       display: flex;
@@ -339,7 +370,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.75rem;
       font-weight: 700;
-      color: var(--text-on-primary); /* Use variable */
+      color: var(--text-on-primary); 
       display: flex;
       align-items: center;
     }
@@ -353,7 +384,7 @@
       align-items: center;
     }
     
-    .theme-toggle-button {
+    .theme-toggle-button { /* Also applies to profile and favorites button in header */
       background: none;
       border: none;
       color: var(--text-on-primary);
@@ -363,10 +394,10 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-left: var(--spacing-sm); /* Adjusted to make space if needed */
-      margin-right: var(--spacing-xs); /* Space before notification */
-      transition: background-color 0.2s ease, color 0.2s ease;
+      margin-left: var(--spacing-sm); 
     }
+    #theme-toggle { margin-right: var(--spacing-xs); } /* Specific for theme toggle */
+
     .theme-toggle-button:hover {
       background-color: rgba(255,255,255,0.1);
     }
@@ -374,34 +405,30 @@
       font-size: 1.5rem;
     }
     html[data-theme="dark"] .theme-toggle-button {
-        color: var(--text-on-primary); /* Will be dark text on light blue primary */
+        color: var(--text-on-primary); 
     }
     html[data-theme="dark"] .theme-toggle-button:hover {
-      background-color: rgba(0,0,0,0.1); /* Darker hover on dark mode */
+      background-color: rgba(0,0,0,0.1); 
     }
 
-
-    .header-actions .material-icons-round { /* General for other icons */
-      font-size: 1.5rem;
-      margin-left: var(--spacing-md);
-      cursor: pointer;
-      color: var(--text-on-primary); /* Use variable */
-    }
+    /* .header-actions .material-icons-round no longer needed as buttons wrap icons */
 
     .notification-badge {
       position: relative;
       display: inline-flex;
+      color: var(--text-on-primary);
+      padding: var(--spacing-xs); /* To match other buttons if it were one */
+      margin-left: var(--spacing-sm);
     }
-    .notification-badge .material-icons-round { /* Specific for notification icon positioning */
-        margin-left: 0; /* Reset margin if it's part of the general rule */
+    .notification-badge .material-icons-round { 
+        font-size: 1.5rem;
     }
-
 
     .notification-badge .badge {
       position: absolute;
       top: -5px;
       right: -5px;
-      background-color: #ff5252; /* This can stay as a strong alert color */
+      background-color: var(--error); 
       color: white;
       border-radius: 50%;
       width: 16px;
@@ -412,7 +439,6 @@
       justify-content: center;
     }
 
-    /* Section Headers */
     .section-header {
       display: flex;
       justify-content: space-between;
@@ -452,8 +478,7 @@
       margin-left: var(--spacing-xs);
     }
 
-    /* Card Styles */
-    .card-grid {
+    .card-grid, .favorites-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: var(--spacing-lg);
@@ -464,13 +489,13 @@
       overflow-x: auto;
       padding: var(--spacing-md) 0;
       scroll-snap-type: x mandatory;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; 
+      -ms-overflow-style: none; 
       gap: var(--spacing-md);
     }
 
     .card-scroll::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
+      display: none; 
     }
 
     .card {
@@ -478,10 +503,10 @@
       border-radius: var(--radius-md);
       overflow: hidden;
       box-shadow: var(--card-shadow);
-      transition: var(--transition-standard); /* Covers transform, box-shadow, background-color */
+      transition: var(--transition-standard); 
       scroll-snap-align: start;
       flex: 0 0 280px;
-      position: relative;
+      position: relative; /* For favorite button positioning */
     }
 
     .card:hover {
@@ -493,7 +518,7 @@
       width: 100%;
       height: 160px;
       object-fit: cover;
-      background-color: var(--divider); /* Fallback changed to divider for better theme adaptation */
+      background-color: var(--divider); 
       display: flex;
       align-items: center;
       justify-content: center;
@@ -550,7 +575,38 @@
       margin-right: var(--spacing-xs);
     }
 
-    /* YouTube Video Card */
+    /* Favorite Button on Card */
+    .favorite-button {
+        position: absolute;
+        top: var(--spacing-sm);
+        right: var(--spacing-sm);
+        background-color: rgba(0,0,0,0.3);
+        color: white;
+        border: none;
+        border-radius: var(--radius-full);
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1;
+        transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+    .favorite-button:hover {
+        background-color: rgba(0,0,0,0.5);
+        transform: scale(1.1);
+    }
+    .favorite-button .material-icons-round {
+        font-size: 20px;
+    }
+    .favorite-button.favorited {
+        background-color: var(--error); /* Or --accent */
+        color: white;
+    }
+    /* Icon change for .favorited is handled by JS by changing textContent */
+
+
     .video-card {
       flex: 0 0 480px;
     }
@@ -559,7 +615,7 @@
       position: relative;
       width: 100%;
       height: 0;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      padding-bottom: 56.25%; 
       overflow: hidden;
       border-radius: var(--radius-md) var(--radius-md) 0 0;
     }
@@ -573,7 +629,6 @@
       border: none;
     }
 
-    /* Bottom navigation */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -599,116 +654,110 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: var(--transition-standard);
       padding: var(--spacing-xs);
+      border-radius: var(--radius-sm); /* For focus indicator */
     }
 
     .nav-item .material-icons-round {
       font-size: 1.5rem;
       margin-bottom: var(--spacing-xs);
-      transition: color var(--transition-fast); /* Added for smooth icon color change */
+      transition: color var(--transition-fast); 
     }
 
     .nav-item.active {
       color: var(--primary);
     }
     .nav-item.active .material-icons-round {
-      color: var(--primary); /* Ensure icon color also changes */
+      color: var(--primary); 
     }
-
 
     .nav-item:hover {
       color: var(--primary-light);
     }
     .nav-item:hover .material-icons-round {
-      color: var(--primary-light); /* Ensure icon color also changes on hover */
+      color: var(--primary-light); 
     }
     
-    /* Modal Styles Base */
-    .bible-modal, .search-modal, .notes-modal, .sabbath-modal {
-      background-color: var(--surface);
-      transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color var(--transition-standard), color var(--transition-standard);
-    }
-
-    .bible-modal-header, .search-modal-header, .notes-modal-header, .sabbath-modal-header {
-      background-color: var(--primary-dark);
-      color: var(--text-on-primary); /* Use variable for text color */
-      border-bottom: 1px solid var(--divider);
-      transition: background-color var(--transition-standard), color var(--transition-standard), border-color var(--transition-standard);
-    }
-    
-    /* Close buttons in modals */
-    .bible-modal-close, .search-modal-close, .notes-modal-close, .sabbath-modal-close {
-      color: var(--accent); /* Uses accent color */
-    }
-    html[data-theme="dark"] .bible-modal-close,
-    html[data-theme="dark"] .search-modal-close,
-    html[data-theme="dark"] .notes-modal-close,
-    html[data-theme="dark"] .sabbath-modal-close {
-      color: var(--accent); /* Will be dark blue */
-    }
-
-    .bible-modal-close:hover, .search-modal-close:hover, .notes-modal-close:hover, .sabbath-modal-close:hover {
-      color: var(--text-on-primary); /* Hover to text on primary color */
-    }
-    html[data-theme="dark"] .bible-modal-close:hover,
-    html[data-theme="dark"] .search-modal-close:hover,
-    html[data-theme="dark"] .notes-modal-close:hover,
-    html[data-theme="dark"] .sabbath-modal-close:hover {
-       color: color-mix(in srgb, var(--text-on-primary) 80%, var(--accent)); /* Slightly tinted hover */
-    }
-    
-
-    /* Bible Modal Styles - UPDATED FOR FULL SCREEN */
-    .bible-modal {
+    .bible-modal, .search-modal, .notes-modal, .sabbath-modal, .profile-modal, .favorites-modal {
       position: fixed;
       top: 0;
-      bottom: 70px; /* Leave space for bottom nav */
+      bottom: 70px; 
       left: 0;
       right: 0;
-      height: 0;
       width: 100%;
+      background-color: var(--surface);
       z-index: 2000;
-      overflow: hidden;
+      overflow: hidden; 
       box-shadow: var(--shadow-xl);
       display: flex;
       flex-direction: column;
-      border-radius: 0;
+      border-radius: 0; 
+      opacity: 0;
+      transform: translateY(30px); 
+      pointer-events: none; 
+      height: calc(100vh - 70px); 
+      transition: opacity var(--transition-standard), transform var(--transition-standard) cubic-bezier(0.25, 0.8, 0.25, 1), 
+                  background-color var(--transition-standard), color var(--transition-standard);
     }
-    
-    .bible-modal.open {
-      height: calc(100vh - 70px); /* Full viewport height minus bottom nav */
+
+    .bible-modal.open, .search-modal.open, .notes-modal.open, .sabbath-modal.open, .profile-modal.open, .favorites-modal.open {
+      opacity: 1;
+      transform: translateY(0); 
+      pointer-events: auto;
     }
-    
-    .bible-modal-header {
+
+    .modal-header {
+      background-color: var(--primary-dark);
+      color: var(--text-on-primary);
+      padding: var(--spacing-md);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: var(--spacing-md);
       min-height: 60px;
+      border-bottom: 1px solid var(--divider);
+      transition: background-color var(--transition-standard), color var(--transition-standard), border-color var(--transition-standard);
     }
-    
-    .bible-modal-title {
+    .modal-title {
       font-weight: 600;
       margin-bottom: 0;
       font-size: 20px;
     }
-    
-    .bible-modal-close {
+    .modal-close {
       background: none;
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--accent);
+      transition: color var(--transition-fast);
+      border-radius: var(--radius-full); /* For focus state consistency */
+      padding: var(--spacing-xs); /* For focus state consistency */
     }
-        
-    .bible-modal-content {
+    html[data-theme="dark"] .modal-close {
+      color: var(--accent); 
+    }
+    .modal-close:hover {
+      color: var(--text-on-primary); 
+    }
+    html[data-theme="dark"] .modal-close:hover {
+       color: color-mix(in srgb, var(--text-on-primary) 80%, var(--accent));
+    }
+
+    .modal-content {
       flex: 1;
-      overflow: hidden;
-      position: relative;
+      overflow-y: auto;
     }
-    
+    .search-modal .modal-content { padding: var(--spacing-md); }
+    .favorites-modal .modal-content { padding: var(--spacing-md); } 
+    .notes-modal .modal-content { display: flex; overflow: hidden; padding: 0; }
+    .sabbath-modal .modal-content { display: flex; overflow: hidden; padding: 0; }
+    .bible-modal .modal-content {
+        overflow: hidden; 
+        position: relative; 
+        padding: 0; 
+    }
+
     .bible-iframe-container {
       width: 100%;
       height: 100%;
@@ -723,7 +772,7 @@
     
     .version-button {
       background-color: var(--accent);
-      color: var(--primary-dark); /* Good contrast on light blue accent */
+      color: var(--primary-dark); 
       border: none;
       border-radius: var(--radius-full);
       padding: var(--spacing-xs) var(--spacing-md);
@@ -733,22 +782,21 @@
       align-items: center;
       position: absolute;
       top: 12px;
-      right: 70px;
+      right: 70px; 
       z-index: 5;
       transition: background-color var(--transition-standard), color var(--transition-standard);
     }
     html[data-theme="dark"] .version-button {
-        background-color: var(--accent); /* Dark blue */
-        color: var(--primary); /* Light blue text */
+        background-color: var(--accent); 
+        color: var(--primary); 
     }
     
     .version-button:hover {
-      background-color: var(--accent-dark); /* Darker shade of accent */
+      background-color: var(--accent-dark); 
     }
     html[data-theme="dark"] .version-button:hover {
-        background-color: var(--accent-dark); /* Darker shade of dark blue */
+        background-color: var(--accent-dark); 
     }
-
     
     .version-button .material-icons-round {
       font-size: 1rem;
@@ -791,6 +839,7 @@
       border: none;
       cursor: pointer;
       transition: color var(--transition-standard), border-color var(--transition-standard);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0; /* For focus */
     }
     
     .version-tab.active {
@@ -826,7 +875,8 @@
       text-align: left;
       cursor: pointer;
       transition: var(--transition-fast);
-      color: var(--text-primary); /* Ensure text color */
+      color: var(--text-primary); 
+      border-radius: 0; /* For focus unless specific needed */
     }
     
     .version-item:hover {
@@ -854,7 +904,7 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.7); /* Stays dark for visibility */
+      background-color: rgba(0, 0, 0, 0.7); 
       color: white;
       padding: var(--spacing-sm) var(--spacing-md);
       border-radius: var(--radius-full);
@@ -864,52 +914,6 @@
       pointer-events: none;
       text-align: center;
       max-width: 80%;
-    }
-    
-    /* Search Modal Styles */
-    .search-modal {
-      position: fixed;
-      top: 0;
-      bottom: 70px; /* Leave space for bottom nav */
-      left: 0;
-      right: 0;
-      height: 0;
-      width: 100%;
-      z-index: 2000;
-      overflow: hidden;
-      box-shadow: var(--shadow-xl);
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .search-modal.open {
-      height: calc(100vh - 70px); /* Full viewport height minus bottom nav */
-    }
-    
-    .search-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--spacing-md);
-      min-height: 60px;
-    }
-    
-    .search-modal-title {
-      font-weight: 600;
-      margin-bottom: 0;
-      font-size: 20px;
-    }
-    
-    .search-modal-close {
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-        
-    .search-modal-content {
-      flex: 1;
-      padding: var(--spacing-md);
-      overflow-y: auto;
     }
     
     .search-input-container {
@@ -923,13 +927,13 @@
       border-radius: var(--radius-full);
       font-size: 1rem;
       box-shadow: var(--shadow-sm);
-      transition: var(--transition-standard); /* Add for box-shadow */
+      transition: var(--transition-standard); 
     }
     
-    .search-input:focus {
+    .search-input:focus-visible { 
       outline: none;
       border-color: var(--primary);
-      box-shadow: var(--shadow-md), 0 0 0 2px color-mix(in srgb, var(--primary) 30%, transparent); /* Keep custom shadow, add ring */
+      box-shadow: var(--shadow-md), 0 0 0 2px color-mix(in srgb, var(--primary) 30%, transparent); 
     }
     
     .search-icon {
@@ -954,7 +958,7 @@
       gap: var(--spacing-lg);
     }
     
-    .search-empty-state, .notes-empty-state, .sabbath-empty-state {
+    .search-empty-state, .notes-empty-state, .sabbath-empty-state, .favorites-empty-state {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -963,105 +967,134 @@
       color: var(--text-tertiary);
       text-align: center;
       transition: color var(--transition-standard);
+      width: 100%; /* Ensure it takes full width in its container */
+      height: 100%; /* Ensure it takes full height if parent allows */
     }
     
     .search-empty-state .material-icons-round,
     .notes-empty-state .material-icons-round,
-    .sabbath-empty-state .material-icons-round {
-      font-size: 4rem;
+    .sabbath-empty-state .material-icons-round,
+    .favorites-empty-state .material-icons-round {
+      font-size: 4rem; /* Default size, overridden by inline style for enhanced */
       margin-bottom: var(--spacing-md);
-      opacity: 0.5;
+      opacity: 0.5; /* Default opacity, overridden by inline style for enhanced */
     }
     
-    .search-empty-title, .notes-empty-title, .sabbath-empty-title {
+    .search-empty-title, .notes-empty-title, .sabbath-empty-title, .favorites-empty-title {
       font-size: 1.25rem;
       margin-bottom: var(--spacing-sm);
       color: var(--text-primary);
       transition: color var(--transition-standard);
     }
     
-    .search-empty-message, .notes-empty-message, .sabbath-empty-message {
+    .search-empty-message, .notes-empty-message, .sabbath-empty-message, .favorites-empty-message {
       font-size: 0.875rem;
       max-width: 400px;
       margin: 0 auto;
     }
     
-    /* Notes Modal Styles */
-    .notes-modal {
-      position: fixed;
-      top: 0;
-      bottom: 70px; /* Leave space for bottom nav */
-      left: 0;
-      right: 0;
-      height: 0;
-      width: 100%;
-      z-index: 2000;
-      overflow: hidden;
-      box-shadow: var(--shadow-xl);
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .notes-modal.open {
-      height: calc(100vh - 70px); /* Full viewport height minus bottom nav */
-    }
-    
-    .notes-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--spacing-md);
-      min-height: 60px;
-    }
-    
-    .notes-modal-title {
-      font-weight: 600;
-      margin-bottom: 0;
-      font-size: 20px;
-    }
-    
-    .notes-modal-close {
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-        
-    .notes-modal-content {
-      flex: 1;
-      display: flex;
-      overflow: hidden;
-    }
-    
+    /* Notes Sidebar & Tagging Styles */
     .notes-sidebar, .sabbath-sidebar {
       width: 300px;
       border-right: 1px solid var(--divider);
       overflow-y: auto;
-      background-color: var(--surface); /* Explicit background for sidebar distinct from main content area if needed */
+      background-color: var(--surface); 
       transition: border-color var(--transition-standard), background-color var(--transition-standard);
+      display: flex;
+      flex-direction: column;
     }
     
-    .notes-search, .sabbath-quarters {
+    .notes-controls { /* Container for search and tags filter */
       padding: var(--spacing-md);
       border-bottom: 1px solid var(--divider);
       transition: border-color var(--transition-standard);
     }
-    
-    .notes-search-input, .sabbath-quarter-select {
-      width: 100%;
-      font-size: 0.875rem;
+    .notes-search-input { 
+        width: 100%;
+        font-size: 0.875rem;
+        padding: var(--spacing-sm) var(--spacing-md); 
+        margin-bottom: var(--spacing-sm); /* Space before tag filter */
+    } 
+    .sabbath-quarters {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--divider);
+      transition: border-color var(--transition-standard);
     }
-    .notes-search-input { padding: var(--spacing-sm) var(--spacing-md); } /* Specific padding for this input */
+    .sabbath-quarter-select { width: 100%; font-size: 0.875rem; }
 
+    #allTagsArea {
+        margin-top: var(--spacing-sm);
+    }
+    #allTagsArea h6 {
+        font-size: 0.8rem;
+        color: var(--text-tertiary);
+        margin-bottom: var(--spacing-xs);
+        font-family: 'Poppins', sans-serif; /* Match body font */
+        font-weight: 500;
+    }
+    #tagPillsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+        margin-bottom: var(--spacing-xs);
+    }
+    .tag-pill {
+        background-color: var(--surface-variant);
+        color: var(--text-secondary);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: var(--radius-full);
+        font-size: 0.75rem;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: var(--transition-fast);
+        display: inline-flex; 
+        align-items: center; 
+    }
+    .tag-pill:hover {
+        background-color: var(--divider);
+        color: var(--text-primary);
+    }
+    .tag-pill.active-filter {
+        background-color: var(--primary);
+        color: var(--text-on-primary);
+        border-color: var(--primary-dark);
+    }
+    .tag-pill .remove-tag-icon { /* For tags in editor */
+        font-size: 1rem;
+        margin-left: var(--spacing-xs);
+        opacity: 0.7;
+        line-height: 1; /* Ensure icon is vertically centered */
+    }
+    .tag-pill:hover .remove-tag-icon {
+        opacity: 1;
+    }
+
+    #clearTagFilterBtn {
+        font-size: 0.75rem;
+        color: var(--primary);
+        background: none;
+        border: none;
+        padding: var(--spacing-xs) 0;
+        cursor: pointer;
+        display: none; /* Hidden by default */
+        margin-top: var(--spacing-xs);
+    }
+    #clearTagFilterBtn:hover {
+        color: var(--primary-light);
+    }
     
     .notes-list, .sabbath-lessons {
       padding: var(--spacing-sm) 0;
+      flex-grow: 1; /* Allow list to take remaining space */
+      overflow-y: auto; /* Ensure list itself is scrollable if content overflows */
     }
     
     .note-item, .sabbath-lesson {
       padding: var(--spacing-md);
       border-bottom: 1px solid var(--divider);
       cursor: pointer;
-      transition: var(--transition-fast); /* Covers background-color, border-color */
+      transition: var(--transition-fast); 
+      border-radius: 0; 
     }
     
     .note-item:hover, .sabbath-lesson:hover {
@@ -1069,8 +1102,9 @@
     }
     
     .note-item.active, .sabbath-lesson.active {
-      background-color: color-mix(in srgb, var(--primary) 10%, transparent); /* Subtle primary mix */
+      background-color: color-mix(in srgb, var(--primary) 10%, transparent); 
       border-left: 3px solid var(--primary);
+      padding-left: calc(var(--spacing-md) - 3px); /* Adjust padding for border */
     }
     
     .note-title, .sabbath-lesson-title {
@@ -1090,12 +1124,21 @@
       transition: color var(--transition-standard);
     }
     .note-date { font-size: 0.7rem; margin-top: var(--spacing-xs); }
+    .note-tags-preview { /* For tags on note item */
+        font-size: 0.7rem;
+        color: var(--text-tertiary);
+        margin-top: var(--spacing-xs);
+        opacity: 0.8;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
     
-    .notes-content, .sabbath-content {
+    .notes-content, .sabbath-content { 
       flex: 1;
       padding: var(--spacing-lg);
       overflow-y: auto;
-      background-color: var(--background); /* Use main background for content area */
+      background-color: var(--background); 
       transition: background-color var(--transition-standard);
     }
     
@@ -1105,78 +1148,50 @@
       flex-direction: column;
     }
     
-    .note-editor-title { /* This is an input */
+    .note-editor-title { 
       font-size: 1.5rem;
       font-weight: 600;
       padding: var(--spacing-sm) 0;
-      margin-bottom: var(--spacing-md);
+      margin-bottom: var(--spacing-sm); /* Reduced margin */
       border: none;
       border-bottom: 1px solid var(--divider);
+      width: 100%;
     }
     
-    .note-editor-title:focus {
+    .note-editor-title:focus-visible { 
       outline: none;
       border-bottom-color: var(--primary);
     }
+
+    /* Tag input in editor */
+    #noteTagInputContainer {
+        margin-bottom: var(--spacing-md);
+    }
+    #noteTagInput {
+        width: 100%;
+        padding: var(--spacing-sm);
+        font-size: 0.875rem;
+        margin-bottom: var(--spacing-xs);
+    }
+    #currentNoteTags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
     
-    .note-editor-body { /* This is a textarea */
+    .note-editor-body { 
       flex: 1;
       padding: var(--spacing-sm) 0;
       border: none;
       resize: none;
       font-size: 1rem;
       line-height: 1.8;
-      background-color: transparent; /* Make textarea background transparent to show notes-content background */
-    }
-    
-    .note-editor-body:focus {
-      outline: none;
-    }
-        
-    /* Sabbath School Book Modal Styles */
-    .sabbath-modal {
-      position: fixed;
-      top: 0;
-      bottom: 70px; /* Leave space for bottom nav */
-      left: 0;
-      right: 0;
-      height: 0;
+      background-color: transparent; 
       width: 100%;
-      z-index: 2000;
-      overflow: hidden;
-      box-shadow: var(--shadow-xl);
-      display: flex;
-      flex-direction: column;
     }
     
-    .sabbath-modal.open {
-      height: calc(100vh - 70px); /* Full viewport height minus bottom nav */
-    }
-    
-    .sabbath-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--spacing-md);
-      min-height: 60px;
-    }
-    
-    .sabbath-modal-title {
-      font-weight: 600;
-      margin-bottom: 0;
-      font-size: 20px;
-    }
-    
-    .sabbath-modal-close {
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-        
-    .sabbath-modal-content {
-      flex: 1;
-      display: flex;
-      overflow: hidden;
+    .note-editor-body:focus-visible { 
+      outline: none;
     }
         
     .sabbath-day {
@@ -1214,48 +1229,220 @@
       color: var(--text-secondary);
       transition: border-color var(--transition-standard), color var(--transition-standard);
     }
+
+    /* Skeleton Loader Styles */
+    .skeleton {
+      background-color: var(--surface-variant);
+      border-radius: var(--radius-sm);
+      position: relative;
+      overflow: hidden; 
+    }
+
+    .skeleton::before { 
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%; 
+      height: 100%;
+      width: 150%;
+      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, var(--surface-elevated) 50%, transparent) 50%, transparent 100%);
+      animation: shimmer 1.5s infinite linear;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100%); } 
+    }
+
+    .skeleton-loader-grid { 
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--spacing-lg);
+    }
+    .skeleton-card {
+        background-color: var(--surface-elevated); 
+        padding: var(--spacing-md); 
+         border-radius: var(--radius-md); 
+    }
+    .skeleton-image { width: 100%; height: 160px; margin-bottom: var(--spacing-md); }
+    .skeleton-content { display: flex; flex-direction: column; gap: var(--spacing-sm); padding-top: var(--spacing-xs); }
+    .skeleton-title { width: 70%; height: 20px; }
+    .skeleton-text { width: 100%; height: 14px; }
+    .skeleton-text-short { width: 80%; height: 14px; }
+    .skeleton-meta { width: 40%; height: 12px; margin-top: var(--spacing-xs); }
+
+    .skeleton-loader-list { 
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs); 
+    }
+    .skeleton-note-item {
+        padding: var(--spacing-md);
+        border-bottom: 1px solid var(--divider); 
+        background-color: var(--surface); 
+    }
+    .skeleton-note-title { width: 60%; height: 18px; margin-bottom: var(--spacing-xs); }
+    .skeleton-note-preview { width: 90%; height: 14px; margin-bottom: var(--spacing-xs); }
+    .skeleton-note-date { width: 40%; height: 12px; }
+
+    /* Enhanced Empty State Button */
+    .button-primary {
+        background-color: var(--primary);
+        color: var(--text-on-primary);
+        border: none;
+        padding: var(--spacing-sm) var(--spacing-lg);
+        border-radius: var(--radius-sm);
+        font-weight: 500;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+    .button-primary:hover {
+        background-color: var(--primary-light);
+    }
+    html[data-theme="dark"] .button-primary {
+        background-color: var(--primary);
+        color: var(--text-on-primary); 
+    }
+    html[data-theme="dark"] .button-primary:hover {
+        background-color: var(--primary-light);
+    }
+    
+    /* Scroll-to-Top Button */
+    #scrollToTopBtn {
+      position: fixed;
+      bottom: 90px; /* Above bottom nav */
+      right: var(--spacing-md);
+      background-color: var(--primary);
+      color: var(--text-on-primary);
+      border: none;
+      border-radius: var(--radius-full);
+      width: 50px;
+      height: 50px;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      display: none; 
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--transition-standard), transform var(--transition-standard), background-color var(--transition-standard);
+    }
+    #scrollToTopBtn.show {
+      display: flex; 
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #scrollToTopBtn:hover {
+      background-color: var(--primary-light);
+    }
+    #scrollToTopBtn .material-icons-round {
+      font-size: 24px; 
+    }
+    html[data-theme="dark"] #scrollToTopBtn {
+        background-color: var(--primary);
+        color: var(--text-on-primary);
+    }
+    html[data-theme="dark"] #scrollToTopBtn:hover {
+        background-color: var(--primary-light);
+    }
         
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .section-header { flex-direction: column; align-items: flex-start; }
       .section-action { margin-top: var(--spacing-xs); margin-left: var(--spacing-sm); }
-      .card-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+      .card-grid, .skeleton-loader-grid, .favorites-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
       .notes-sidebar, .sabbath-sidebar { width: 250px; }
       .video-card { flex: 0 0 100%; }
     }
     
     @media (max-width: 640px) {
-      .notes-modal-content, .sabbath-modal-content { flex-direction: column; }
+      .notes-modal .modal-content, 
+      .sabbath-modal .modal-content { 
+          flex-direction: column; 
+      }
       .notes-sidebar, .sabbath-sidebar {
         width: 100%;
-        height: 200px; /* Or auto, depending on content */
-        max-height: 40vh; /* Prevent taking too much space */
+        height: auto; /* Adjust height for content */
+        max-height: 45vh; /* Increase max-height or make it flexible */
         border-right: none;
         border-bottom: 1px solid var(--divider);
+      }
+      .notes-list { /* Ensure notes list inside sidebar is scrollable on mobile */
+         max-height: calc(45vh - 120px); /* approx height of controls */
       }
     }
     
     @media (max-width: 480px) {
-      .card-grid { grid-template-columns: 1fr; }
+      .card-grid, .skeleton-loader-grid, .favorites-grid { grid-template-columns: 1fr; }
       .header-content { flex-direction: column; align-items: flex-start; }
       .header-actions { margin-top: var(--spacing-sm); }
     }
 
-    /* Scrollbar styling for dark mode (optional, but nice) */
-    html[data-theme="dark"] .version-list::-webkit-scrollbar,
-    html[data-theme="dark"] .notes-sidebar::-webkit-scrollbar,
-    html[data-theme="dark"] .sabbath-sidebar::-webkit-scrollbar,
-    html[data-theme="dark"] .notes-content::-webkit-scrollbar,
-    html[data-theme="dark"] .sabbath-content::-webkit-scrollbar,
-    html[data-theme="dark"] .search-modal-content::-webkit-scrollbar {
+    /* Scrollbar styling */
+    .version-list::-webkit-scrollbar,
+    .notes-sidebar::-webkit-scrollbar,
+    .sabbath-sidebar::-webkit-scrollbar,
+    .notes-content::-webkit-scrollbar,
+    .sabbath-content::-webkit-scrollbar,
+    .search-modal .modal-content::-webkit-scrollbar, 
+    .profile-modal .modal-content::-webkit-scrollbar,
+    .bible-modal .modal-content::-webkit-scrollbar,
+    .favorites-modal .modal-content::-webkit-scrollbar,
+    .notes-list::-webkit-scrollbar { /* Added notes-list for its own scrollbar */
         width: 8px;
     }
+    .version-list::-webkit-scrollbar-track,
+    .notes-sidebar::-webkit-scrollbar-track,
+    .sabbath-sidebar::-webkit-scrollbar-track,
+    .notes-content::-webkit-scrollbar-track,
+    .sabbath-content::-webkit-scrollbar-track,
+    .search-modal .modal-content::-webkit-scrollbar-track, 
+    .profile-modal .modal-content::-webkit-scrollbar-track,
+    .bible-modal .modal-content::-webkit-scrollbar-track,
+    .favorites-modal .modal-content::-webkit-scrollbar-track,
+    .notes-list::-webkit-scrollbar-track {
+        background: var(--surface-variant);
+    }
+    .version-list::-webkit-scrollbar-thumb,
+    .notes-sidebar::-webkit-scrollbar-thumb,
+    .sabbath-sidebar::-webkit-scrollbar-thumb,
+    .notes-content::-webkit-scrollbar-thumb,
+    .sabbath-content::-webkit-scrollbar-thumb,
+    .search-modal .modal-content::-webkit-scrollbar-thumb, 
+    .profile-modal .modal-content::-webkit-scrollbar-thumb,
+    .bible-modal .modal-content::-webkit-scrollbar-thumb,
+    .favorites-modal .modal-content::-webkit-scrollbar-thumb,
+    .notes-list::-webkit-scrollbar-thumb {
+        background-color: var(--divider);
+        border-radius: var(--radius-sm);
+        border: 2px solid var(--surface-variant);
+    }
+    .version-list,
+    .notes-sidebar,
+    .sabbath-sidebar,
+    .notes-content,
+    .sabbath-content,
+    .search-modal .modal-content, 
+    .profile-modal .modal-content,
+    .bible-modal .modal-content,
+    .favorites-modal .modal-content,
+    .notes-list {
+        scrollbar-width: thin;
+        scrollbar-color: var(--divider) var(--surface-variant); 
+    }
+
+    /* Scrollbar styling for dark mode */
     html[data-theme="dark"] .version-list::-webkit-scrollbar-track,
     html[data-theme="dark"] .notes-sidebar::-webkit-scrollbar-track,
     html[data-theme="dark"] .sabbath-sidebar::-webkit-scrollbar-track,
     html[data-theme="dark"] .notes-content::-webkit-scrollbar-track,
     html[data-theme="dark"] .sabbath-content::-webkit-scrollbar-track,
-    html[data-theme="dark"] .search-modal-content::-webkit-scrollbar-track {
+    html[data-theme="dark"] .search-modal .modal-content::-webkit-scrollbar-track, 
+    html[data-theme="dark"] .profile-modal .modal-content::-webkit-scrollbar-track,
+    html[data-theme="dark"] .bible-modal .modal-content::-webkit-scrollbar-track,
+    html[data-theme="dark"] .favorites-modal .modal-content::-webkit-scrollbar-track,
+    html[data-theme="dark"] .notes-list::-webkit-scrollbar-track { 
         background: var(--surface);
     }
     html[data-theme="dark"] .version-list::-webkit-scrollbar-thumb,
@@ -1263,9 +1450,12 @@
     html[data-theme="dark"] .sabbath-sidebar::-webkit-scrollbar-thumb,
     html[data-theme="dark"] .notes-content::-webkit-scrollbar-thumb,
     html[data-theme="dark"] .sabbath-content::-webkit-scrollbar-thumb,
-    html[data-theme="dark"] .search-modal-content::-webkit-scrollbar-thumb {
+    html[data-theme="dark"] .search-modal .modal-content::-webkit-scrollbar-thumb, 
+    html[data-theme="dark"] .profile-modal .modal-content::-webkit-scrollbar-thumb,
+    html[data-theme="dark"] .bible-modal .modal-content::-webkit-scrollbar-thumb,
+    html[data-theme="dark"] .favorites-modal .modal-content::-webkit-scrollbar-thumb,
+    html[data-theme="dark"] .notes-list::-webkit-scrollbar-thumb { 
         background-color: var(--divider);
-        border-radius: var(--radius-sm);
         border: 2px solid var(--surface);
     }
     html[data-theme="dark"] .version-list,
@@ -1273,9 +1463,12 @@
     html[data-theme="dark"] .sabbath-sidebar,
     html[data-theme="dark"] .notes-content,
     html[data-theme="dark"] .sabbath-content,
-    html[data-theme="dark"] .search-modal-content {
-        scrollbar-width: thin;
-        scrollbar-color: var(--divider) var(--surface); /* thumb and track color for Firefox */
+    html[data-theme="dark"] .search-modal .modal-content, 
+    html[data-theme="dark"] .profile-modal .modal-content,
+    html[data-theme="dark"] .bible-modal .modal-content,
+    html[data-theme="dark"] .favorites-modal .modal-content,
+    html[data-theme="dark"] .notes-list { 
+        scrollbar-color: var(--divider) var(--surface); 
     }
 
   </style>
@@ -1284,7 +1477,7 @@
   <!-- Loading Screen HTML -->
   <div id="loading-screen">
     <div class="loader"></div>
-    <p>Loading The Well...</p> <!-- Optional text -->
+    <p>Loading The Well...</p> 
   </div>
 
   <header class="header">
@@ -1295,13 +1488,19 @@
           The Well
         </div>
         <div class="header-actions">
-          <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle theme" aria-pressed="false">
-            <span class="material-icons-round">light_mode</span> <!-- Icon will be updated by JS -->
+          <button id="theme-toggle" class="theme-toggle-button" aria-label="Switch to dark mode" aria-pressed="false">
+            <span class="material-icons-round">light_mode</span> 
+          </button>
+          <button id="favorites-header-button" class="theme-toggle-button" aria-label="View Favorites">
+            <span class="material-icons-round">favorite_border</span>
           </button>
           <div class="notification-badge">
             <span class="material-icons-round">notifications</span>
             <span class="badge">3</span>
           </div>
+          <button id="profile-button" class="theme-toggle-button" aria-label="View Profile">
+            <span class="material-icons-round">account_circle</span>
+          </button>
         </div>
       </div>
     </div>
@@ -1319,9 +1518,12 @@
       </div>
       
       <div class="card-scroll">
-        <div class="card">
+        <div class="card" data-card-id="Who Is Jesus?">
+          <button class="favorite-button" aria-label="Add Who Is Jesus? to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Understanding the Bible" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Understanding the Bible" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Who Is Jesus?</h5>
@@ -1333,9 +1535,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="The Holy Spirit">
+          <button class="favorite-button" aria-label="Add The Holy Spirit to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="The Holy Spirit" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>local_fire_department</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="The Holy Spirit" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>local_fire_department</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">The Holy Spirit</h5>
@@ -1347,9 +1552,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Resurrection Power">
+          <button class="favorite-button" aria-label="Add Resurrection Power to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Resurrection Power" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>brightness_7</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Resurrection Power" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>brightness_7</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Resurrection Power</h5>
@@ -1361,9 +1569,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Prayer Fundamentals">
+          <button class="favorite-button" aria-label="Add Prayer Fundamentals to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Prayer Fundamentals" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>volunteer_activism</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Prayer Fundamentals" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>volunteer_activism</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Prayer Fundamentals</h5>
@@ -1388,9 +1599,12 @@
       </div>
       
       <div class="card-scroll">
-        <div class="card">
+        <div class="card" data-card-id="Tots Class">
+          <button class="favorite-button" aria-label="Add Tots Class to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tots" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tots" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Tots</h5>
@@ -1402,9 +1616,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Class 1">
+           <button class="favorite-button" aria-label="Add Class 1 to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class 1" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class 1" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Class 1</h5>
@@ -1416,9 +1633,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Class 2">
+           <button class="favorite-button" aria-label="Add Class 2 to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1511949860663-92c5c57d48a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class 2" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1511949860663-92c5c57d48a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class 2" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Class 2</h5>
@@ -1430,9 +1650,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Class 3">
+           <button class="favorite-button" aria-label="Add Class 3 to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class 3" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class 3" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Class 3</h5>
@@ -1444,9 +1667,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Class 4">
+           <button class="favorite-button" aria-label="Add Class 4 to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class 4" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class 4" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Class 4</h5>
@@ -1458,9 +1684,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Class 5">
+           <button class="favorite-button" aria-label="Add Class 5 to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class 5" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class 5" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Class 5</h5>
@@ -1484,9 +1713,12 @@
       </div>
       
       <div class="card-scroll">
-        <div class="card">
+        <div class="card" data-card-id="Understanding the Bible">
+           <button class="favorite-button" aria-label="Add Understanding the Bible to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Understanding the Bible" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Understanding the Bible" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Understanding the Bible</h5>
@@ -1498,9 +1730,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="The Holy Spirit Recent"> 
+           <button class="favorite-button" aria-label="Add The Holy Spirit Recent to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="The Holy Spirit" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>local_fire_department</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="The Holy Spirit" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>local_fire_department</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">The Holy Spirit</h5>
@@ -1512,9 +1747,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Resurrection Power Recent">
+           <button class="favorite-button" aria-label="Add Resurrection Power Recent to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Resurrection Power" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>brightness_7</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Resurrection Power" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>brightness_7</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Resurrection Power</h5>
@@ -1526,9 +1764,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Prayer Fundamentals Recent">
+           <button class="favorite-button" aria-label="Add Prayer Fundamentals Recent to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Prayer Fundamentals" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>volunteer_activism</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Prayer Fundamentals" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>volunteer_activism</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Prayer Fundamentals</h5>
@@ -1553,9 +1794,12 @@
       </div>
       
       <div class="card-scroll">
-        <div class="card">
+        <div class="card" data-card-id="Foundations of Faith">
+           <button class="favorite-button" aria-label="Add Foundations of Faith to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Foundations of Faith" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>foundation</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Foundations of Faith" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>foundation</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Foundations of Faith</h5>
@@ -1567,9 +1811,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Spiritual Disciplines">
+           <button class="favorite-button" aria-label="Add Spiritual Disciplines to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Spiritual Disciplines" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>self_improvement</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Spiritual Disciplines" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>self_improvement</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Spiritual Disciplines</h5>
@@ -1581,9 +1828,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Biblical Leadership">
+           <button class="favorite-button" aria-label="Add Biblical Leadership to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Biblical Leadership" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>groups</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Biblical Leadership" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>groups</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Biblical Leadership</h5>
@@ -1595,9 +1845,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Gospel Foundations">
+           <button class="favorite-button" aria-label="Add Gospel Foundations to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Gospel Foundations" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>favorite</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Gospel Foundations" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>favorite</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Gospel Foundations</h5>
@@ -1622,9 +1875,12 @@
       </div>
       
       <div class="card-scroll">
-        <div class="card">
+        <div class="card" data-card-id="Biblical Studies Topic">
+          <button class="favorite-button" aria-label="Add Biblical Studies Topic to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Biblical Studies" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Biblical Studies" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>menu_book</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Biblical Studies</h5>
@@ -1636,9 +1892,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Christian Life Topic">
+           <button class="favorite-button" aria-label="Add Christian Life Topic to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Christian Life" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>person</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Christian Life" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>person</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Christian Life</h5>
@@ -1650,9 +1909,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Church Topic">
+           <button class="favorite-button" aria-label="Add Church Topic to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1438032005730-c779502df39b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Church" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>church</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1438032005730-c779502df39b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Church" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>church</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Church</h5>
@@ -1664,9 +1926,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Family Topic">
+           <button class="favorite-button" aria-label="Add Family Topic to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Family" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>family_restroom</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Family" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>family_restroom</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Family</h5>
@@ -1678,9 +1943,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Theology Topic">
+           <button class="favorite-button" aria-label="Add Theology Topic to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Theology" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Theology" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>school</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Theology</h5>
@@ -1692,9 +1960,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Spiritual Growth Topic">
+           <button class="favorite-button" aria-label="Add Spiritual Growth Topic to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Spiritual Growth" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>trending_up</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Spiritual Growth" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>trending_up</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Spiritual Growth</h5>
@@ -1706,9 +1977,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Ministry Topic">
+           <button class="favorite-button" aria-label="Add Ministry Topic to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ministry" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>volunteer_activism</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ministry" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>volunteer_activism</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Ministry</h5>
@@ -1720,9 +1994,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Apologetics Topic">
+           <button class="favorite-button" aria-label="Add Apologetics Topic to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Apologetics" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>psychology</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Apologetics" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>psychology</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Apologetics</h5>
@@ -1747,8 +2024,10 @@
       </div>
       
       <div class="card-scroll">
-        <!-- YouTube Video Card -->
-        <div class="card video-card">
+        <div class="card video-card" data-card-id="Sermon Series Playlist">
+          <button class="favorite-button" aria-label="Add Sermon Series Playlist to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="video-container">
             <iframe src="https://www.youtube.com/embed/iRvHy_MqihI?list=PL8TR2V6jBVJ3wihHuBIlpbIz2CGiSe_Uq" title="Sermon Series" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
@@ -1762,9 +2041,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="The Beatitudes Series">
+          <button class="favorite-button" aria-label="Add The Beatitudes Series to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="The Beatitudes" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>format_list_numbered</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="The Beatitudes" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>format_list_numbered</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">The Beatitudes</h5>
@@ -1776,9 +2058,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Fruit of the Spirit Series">
+          <button class="favorite-button" aria-label="Add Fruit of the Spirit Series to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Fruit of the Spirit" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>eco</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Fruit of the Spirit" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>eco</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Fruit of the Spirit</h5>
@@ -1790,9 +2075,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Heroes of Faith Series">
+          <button class="favorite-button" aria-label="Add Heroes of Faith Series to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Heroes of Faith" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>military_tech</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Heroes of Faith" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>military_tech</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Heroes of Faith</h5>
@@ -1817,9 +2105,12 @@
       </div>
       
       <div class="card-scroll">
-        <div class="card">
+        <div class="card" data-card-id="Daily Bread Devotional">
+          <button class="favorite-button" aria-label="Add Daily Bread Devotional to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Daily Bread" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>breakfast_dining</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Daily Bread" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>breakfast_dining</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Daily Bread</h5>
@@ -1831,9 +2122,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Quiet Moments Devotional">
+          <button class="favorite-button" aria-label="Add Quiet Moments Devotional to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Quiet Moments" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>nightlight</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Quiet Moments" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>nightlight</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Quiet Moments</h5>
@@ -1845,9 +2139,12 @@
           </div>
         </div>
         
-        <div class="card">
+        <div class="card" data-card-id="Promises of God Devotional">
+          <button class="favorite-button" aria-label="Add Promises of God Devotional to favorites" aria-pressed="false">
+            <span class="material-icons-round">favorite_border</span>
+          </button>
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Promises of God" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>verified</span>'">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Promises of God" onerror="this.style.display='none'; this.parentNode.innerHTML = '<span class=\'material-icons-round placeholder-icon\'>verified</span>'">
           </div>
           <div class="card-content">
             <h5 class="card-title">Promises of God</h5>
@@ -1862,9 +2159,8 @@
     </section>
   </main>
   
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <a href="#" class="nav-item active" id="nav-explore">
+  <nav class="bottom-nav" role="navigation">
+    <a href="#" class="nav-item active" id="nav-explore" aria-current="page">
       <span class="material-icons-round">explore</span>
       Explore
     </a>
@@ -1886,33 +2182,31 @@
     </a>
   </nav>
   
-  <!-- Bible Modal -->
-  <div class="bible-modal" id="bibleModal">
-    <div class="bible-modal-header">
-      <h4 class="bible-modal-title">Bible</h4>
-      <button class="bible-modal-close">
+  <div class="bible-modal" id="bibleModal" role="dialog" aria-modal="true" aria-labelledby="bibleModalTitle">
+    <div class="modal-header">
+      <h4 class="modal-title" id="bibleModalTitle">Bible</h4>
+      <button class="modal-close" aria-label="Close modal">
         <span class="material-icons-round">close</span>
       </button>
     </div>
-    <div class="bible-modal-content">
+    <div class="modal-content">
       <div class="bible-iframe-container">
         <iframe id="bibleIframe" class="bible-iframe" src="https://www.bible.com/bible/111/JHN.1.NIV"></iframe>
       </div>
     </div>
   </div>
   
-  <!-- Search Modal -->
-  <div class="search-modal" id="searchModal">
-    <div class="search-modal-header">
-      <h4 class="search-modal-title">Search</h4>
-      <button class="search-modal-close">
+  <div class="search-modal" id="searchModal" role="dialog" aria-modal="true" aria-labelledby="searchModalTitle">
+    <div class="modal-header">
+      <h4 class="modal-title" id="searchModalTitle">Search</h4>
+      <button class="modal-close" aria-label="Close modal">
         <span class="material-icons-round">close</span>
       </button>
     </div>
-    <div class="search-modal-content">
+    <div class="modal-content">
       <div class="search-input-container">
         <span class="material-icons-round search-icon">search</span>
-        <input type="text" id="searchInput" class="search-input" placeholder="Search for courses, topics, or devotionals...">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search for courses, topics, or devotionals..." aria-label="Search for courses, topics, or devotionals">
       </div>
       
       <div class="search-results-info">
@@ -1920,94 +2214,118 @@
       </div>
       
       <div class="search-results-grid" id="searchResultsGrid">
-        <!-- Search results will be populated here -->
+         <div class="skeleton-loader-grid" id="searchSkeletonGrid" style="display: none;">
+            <div class="card skeleton-card">
+                <div class="skeleton skeleton-image"></div>
+                <div class="skeleton-content">
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text-short"></div>
+                    <div class="skeleton skeleton-meta"></div>
+                </div>
+            </div>
+            <div class="card skeleton-card">
+                <div class="skeleton skeleton-image"></div>
+                <div class="skeleton-content">
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text-short"></div>
+                    <div class="skeleton skeleton-meta"></div>
+                </div>
+            </div>
+             <div class="card skeleton-card">
+                <div class="skeleton skeleton-image"></div>
+                <div class="skeleton-content">
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text-short"></div>
+                    <div class="skeleton skeleton-meta"></div>
+                </div>
+            </div>
+        </div>
       </div>
       
       <div class="search-empty-state" id="noResults">
-        <span class="material-icons-round">search_off</span>
-        <h4 class="search-empty-title">No results found</h4>
-        <p class="search-empty-message">Try different keywords or browse our categories to find what you're looking for.</p>
+        <span class="material-icons-round" style="font-size: 5rem; opacity: 0.4;">manage_search</span>
+        <h4 class="search-empty-title" style="margin-top: var(--spacing-sm);">Oops! Nothing Found Here</h4>
+        <p class="search-empty-message">Sorry, we couldn't find anything matching your search. Try a different term like 'faith' or 'grace', or browse our categories.</p>
+        <button class="button-primary" id="browseCategoriesButton" style="margin-top: var(--spacing-md);">Browse Categories</button>
       </div>
     </div>
   </div>
   
-  <!-- Notes Modal -->
-  <div class="notes-modal" id="notesModal">
-    <div class="notes-modal-header">
-      <h4 class="notes-modal-title">Notes</h4>
-      <button class="notes-modal-close">
+  <div class="notes-modal" id="notesModal" role="dialog" aria-modal="true" aria-labelledby="notesModalTitle">
+    <div class="modal-header">
+      <h4 class="modal-title" id="notesModalTitle">Notes</h4>
+      <button class="modal-close" aria-label="Close modal">
         <span class="material-icons-round">close</span>
       </button>
     </div>
-    <div class="notes-modal-content">
+    <div class="modal-content">
       <div class="notes-sidebar">
-        <div class="notes-search">
-          <input type="text" class="notes-search-input" placeholder="Search notes...">
+        <div class="notes-controls">
+          <input type="text" id="notesSearchInput" class="notes-search-input" placeholder="Search notes..." aria-label="Search your notes">
+          <div id="allTagsArea">
+            <h6>Filter by Tag:</h6>
+            <div id="tagPillsContainer">
+              <!-- Tag pills will be dynamically inserted here -->
+            </div>
+            <button id="clearTagFilterBtn" aria-label="Clear tag filter">Clear Filter</button>
+          </div>
         </div>
-        <div class="notes-list">
-          <div class="note-item active">
-            <div class="note-title">Sermon Reflections</div>
-            <div class="note-preview">Today's sermon on the prodigal son really spoke to me...</div>
-            <div class="note-date">May 15, 2023</div>
-          </div>
-          <div class="note-item">
-            <div class="note-title">Prayer Requests</div>
-            <div class="note-preview">1. Healing for Mom's surgery 2. Wisdom for career decision...</div>
-            <div class="note-date">May 10, 2023</div>
-          </div>
-          <div class="note-item">
-            <div class="note-title">Bible Study - Romans</div>
-            <div class="note-preview">Key themes in Romans: righteousness, justification, sanctification...</div>
-            <div class="note-date">May 5, 2023</div>
-          </div>
-          <div class="note-item">
-            <div class="note-title">Worship Song Ideas</div>
-            <div class="note-preview">Songs for next Sunday: 1. How Great Thou Art 2. Amazing Grace...</div>
-            <div class="note-date">April 28, 2023</div>
-          </div>
+        <div class="notes-list" id="notesListContainer">
+           <div class="skeleton-loader-list" id="notesSkeletonList" style="display: none;">
+                <div class="note-item skeleton-note-item">
+                    <div class="skeleton skeleton-note-title"></div>
+                    <div class="skeleton skeleton-note-preview"></div>
+                    <div class="skeleton skeleton-note-date"></div>
+                </div>
+                <div class="note-item skeleton-note-item">
+                    <div class="skeleton skeleton-note-title"></div>
+                    <div class="skeleton skeleton-note-preview"></div>
+                    <div class="skeleton skeleton-note-date"></div>
+                </div>
+                 <div class="note-item skeleton-note-item">
+                    <div class="skeleton skeleton-note-title"></div>
+                    <div class="skeleton skeleton-note-preview"></div>
+                    <div class="skeleton skeleton-note-date"></div>
+                </div>
+            </div>
+          <!-- Note items will be dynamically inserted here by JS -->
+        </div>
+         <div class="notes-empty-state" id="noNotesState" style="display: none; padding: var(--spacing-xl); text-align: center;">
+            <span class="material-icons-round" style="font-size: 5rem; opacity: 0.4;">note_add</span>
+            <h4 class="notes-empty-title" style="margin-top: var(--spacing-sm);">No Notes Yet?</h4>
+            <p class="notes-empty-message">It looks a bit empty here. Why not create your first note to capture your thoughts or study insights?</p>
+            <button class="button-primary" id="createNewNoteButton" style="margin-top: var(--spacing-md);">Create New Note</button>
         </div>
       </div>
-      <div class="notes-content">
+      <div class="notes-content" id="notesContentArea">
         <div class="note-editor">
-          <input type="text" class="note-editor-title" value="Sermon Reflections">
-          <textarea class="note-editor-body">Today's sermon on the prodigal son really spoke to me. The pastor highlighted how the father's unconditional love mirrors God's love for us.
-
-Key points:
-- The son's rebellion represents our turning away from God
-- The father's waiting represents God's patience
-- The celebration represents God's joy when we return
-
-Questions to reflect on:
-1. In what ways have I been like the prodigal son?
-2. How can I better appreciate God's unconditional love?
-3. Am I ever like the older brother, resentful of God's grace to others?
-
-Scripture references:
-- Luke 15:11-32
-- Ephesians 2:4-5
-- Romans 5:8
-
-Action steps:
-- Meditate on God's unconditional love this week
-- Reach out to someone who might feel distant from God
-- Practice gratitude for God's patience with me</textarea>
+          <input type="text" id="noteEditorTitle" class="note-editor-title" value="Sermon Reflections" aria-label="Note title">
+          <div id="noteTagInputContainer">
+            <input type="text" id="noteTagInput" placeholder="Add tags (e.g., sermon, prayer)..." aria-label="Add tags to note">
+            <div id="currentNoteTags">
+              <!-- Current note's tags will be displayed here as pills -->
+            </div>
+          </div>
+          <textarea id="noteEditorBody" class="note-editor-body" aria-label="Note content">Today's sermon on the prodigal son really spoke to me. The pastor highlighted how the father's unconditional love mirrors God's love for us...</textarea>
         </div>
       </div>
     </div>
   </div>
   
-  <!-- Sabbath School Book Modal -->
-  <div class="sabbath-modal" id="sabbathModal">
-    <div class="sabbath-modal-header">
-      <h4 class="sabbath-modal-title">Sabbath School Book</h4>
-      <button class="sabbath-modal-close">
+  <div class="sabbath-modal" id="sabbathModal" role="dialog" aria-modal="true" aria-labelledby="sabbathModalTitle">
+    <div class="modal-header">
+      <h4 class="modal-title" id="sabbathModalTitle">Sabbath School Book</h4>
+      <button class="modal-close" aria-label="Close modal">
         <span class="material-icons-round">close</span>
       </button>
     </div>
-    <div class="sabbath-modal-content">
+    <div class="modal-content">
       <div class="sabbath-sidebar">
         <div class="sabbath-quarters">
-          <select class="sabbath-quarter-select">
+          <select id="sabbathQuarterSelect" class="sabbath-quarter-select" aria-label="Select Sabbath School Quarter">
             <option>Q2 2023: Romans - Justified by Faith</option>
             <option>Q1 2023: Managing for the Master</option>
             <option>Q4 2022: On Death, Dying, and the Future Hope</option>
@@ -2022,83 +2340,72 @@ Action steps:
             <div class="sabbath-lesson-title">Lesson 2: The Law of God</div>
             <div class="sabbath-lesson-date">April 8-14, 2023</div>
           </div>
-          <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 3: The Human Condition</div>
-            <div class="sabbath-lesson-date">April 15-21, 2023</div>
-          </div>
-          <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 4: Justification by Faith</div>
-            <div class="sabbath-lesson-date">April 22-28, 2023</div>
-          </div>
-          <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 5: Justification and the Law</div>
-            <div class="sabbath-lesson-date">April 29 - May 5, 2023</div>
-          </div>
-          <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 6: Adam and Jesus</div>
-            <div class="sabbath-lesson-date">May 6-12, 2023</div>
-          </div>
-          <div class="sabbath-lesson">
-            <div class="sabbath-lesson-title">Lesson 7: Victory Over Sin</div>
-            <div class="sabbath-lesson-date">May 13-19, 2023</div>
-          </div>
         </div>
       </div>
       <div class="sabbath-content">
         <div class="sabbath-day">
           <h3 class="sabbath-day-title">Sunday: Introduction to Romans</h3>
           <div class="sabbath-day-content">
-            <p>The book of Romans, written by the apostle Paul around A.D. 57, is considered by many to be the most systematic presentation of Christian doctrine in all of Scripture. While Paul wrote this letter to address specific issues in the Roman church, God providentially designed it to unfold the great truths of salvation for all believers throughout the ages.</p>
-            
-            <p>Paul wrote Romans from Corinth during his third missionary journey, just before returning to Jerusalem with the collection for the poor saints. At this point in his ministry, Paul had not yet visited Rome, though he expressed his desire to do so (Romans 1:10-13). The letter served as an introduction of Paul to the Roman believers and a clear presentation of the gospel he preached.</p>
-            
-            <h4>Key Verse for the Week:</h4>
-            <blockquote>"For I am not ashamed of the gospel, because it is the power of God that brings salvation to everyone who believes: first to the Jew, then to the Gentile." (Romans 1:16, NIV)</blockquote>
-            
-            <p>As we begin our study of Romans, we should approach it with both intellectual rigor and spiritual openness, recognizing that these truths are not merely theological concepts but life-transforming realities that shape our understanding of God, ourselves, and our salvation.</p>
-          </div>
-        </div>
-        
-        <div class="sabbath-day">
-          <h3 class="sabbath-day-title">Monday: Paul's Greeting and Theme</h3>
-          <div class="sabbath-day-content">
-            <p>In Romans 1:1-7, Paul introduces himself and summarizes the gospel message. He identifies himself as "a servant of Christ Jesus, called to be an apostle and set apart for the gospel of God" (Romans 1:1). This threefold description—servant, apostle, and set apart—establishes Paul's authority while emphasizing his submission to Christ.</p>
-            
-            <p>The gospel Paul proclaims is not a human invention but "the gospel of God" (v. 1). It was "promised beforehand through his prophets in the Holy Scriptures" (v. 2), showing continuity between the Old Testament and the revelation of Jesus Christ. The gospel centers on God's Son, who was both fully human ("descended from David," v. 3) and fully divine ("declared to be the Son of God with power," v. 4).</p>
-            
-            <p>Paul addresses his letter to "all in Rome who are loved by God and called to be his holy people" (v. 7). This inclusive greeting embraces both Jewish and Gentile believers, foreshadowing a major theme of the letter: the gospel is for everyone who believes.</p>
+            <p>The book of Romans, written by the apostle Paul around A.D. 57, is considered by many to be the most systematic presentation of Christian doctrine in all of Scripture...</p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+    <div class="modal-header">
+      <h4 class="modal-title" id="profileModalTitle">Profile</h4>
+      <button class="modal-close" aria-label="Close modal">
+        <span class="material-icons-round">close</span>
+      </button>
+    </div>
+    <div class="modal-content" style="padding: var(--spacing-lg);">
+      <p>User profile information and settings will go here.</p>
+      <button class="button-primary" style="background-color: var(--primary); color: var(--text-on-primary); border:none; border-radius: var(--radius-sm);">Login/Sign Up</button>
+      <p style="margin-top: var(--spacing-md); font-size: 0.875rem; color: var(--text-tertiary);">
+        This is a placeholder for user account features. Future updates will include login, profile management, saved preferences, and group functionalities.
+      </p>
+    </div>
+  </div>
+
+  <div class="favorites-modal" id="favoritesModal" role="dialog" aria-modal="true" aria-labelledby="favoritesModalTitle">
+    <div class="modal-header">
+      <h4 class="modal-title" id="favoritesModalTitle">My Favorites</h4>
+      <button class="modal-close" aria-label="Close modal">
+        <span class="material-icons-round">close</span>
+      </button>
+    </div>
+    <div class="modal-content">
+        <div class="favorites-grid" id="favoritesGrid">
+            <!-- Favorite cards will be dynamically inserted here -->
+        </div>
+        <div class="favorites-empty-state" id="noFavoritesState" style="display: none;">
+            <span class="material-icons-round" style="font-size: 5rem; opacity: 0.4;">favorite_border</span>
+            <h4 class="favorites-empty-title" style="margin-top: var(--spacing-sm);">No Favorites Yet</h4>
+            <p class="favorites-empty-message">You haven't favorited anything yet. Look for the heart icon on content to save it here!</p>
+             <button class="button-primary" id="exploreContentButton" style="margin-top: var(--spacing-md);">Explore Content</button>
+        </div>
+    </div>
+  </div>
+
+  <button id="scrollToTopBtn" aria-label="Scroll to top">
+    <span class="material-icons-round">arrow_upward</span>
+  </button>
   
-  <!-- Main JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // --- START: Loading Screen & Theme Elements ---
       const loadingScreen = document.getElementById('loading-screen');
       const themeToggleButton = document.getElementById('theme-toggle');
       const themeToggleIcon = themeToggleButton.querySelector('.material-icons-round');
-      // --- END: Loading Screen & Theme Elements ---
 
-
-      // --- START: Theme Toggle Functionality (Runs early for loading screen) ---
       function applyTheme(theme) {
-        if (theme === 'dark') {
-          document.documentElement.setAttribute('data-theme', 'dark');
-          if (themeToggleIcon) themeToggleIcon.textContent = 'dark_mode';
-          if (themeToggleButton) {
-            themeToggleButton.setAttribute('aria-pressed', 'true');
-            themeToggleButton.setAttribute('aria-label', 'Switch to light mode');
-          }
-        } else { // 'light' or any other case
-          document.documentElement.removeAttribute('data-theme');
-          if (themeToggleIcon) themeToggleIcon.textContent = 'light_mode';
-          if (themeToggleButton) {
-            themeToggleButton.setAttribute('aria-pressed', 'false');
-            themeToggleButton.setAttribute('aria-label', 'Switch to dark mode');
-          }
+        const isDark = theme === 'dark';
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        if (themeToggleIcon) themeToggleIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+        if (themeToggleButton) {
+            themeToggleButton.setAttribute('aria-pressed', isDark.toString());
+            themeToggleButton.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
         }
       }
 
@@ -2107,53 +2414,75 @@ Action steps:
         localStorage.setItem('theme', theme);
       }
 
-      // Initial theme setup - This is crucial to run before the loading screen might be hidden
       const savedTheme = localStorage.getItem('theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
 
-      if (savedTheme) {
-        applyTheme(savedTheme);
-      } else if (prefersDark) {
-        applyTheme('dark');
-      } else {
-        applyTheme('light'); // Default to light if no preference or saved theme
-      }
-      // --- END: Theme Toggle Functionality ---
-
-
-      // --- START: All other element declarations ---
       const bibleModal = document.getElementById('bibleModal');
-      // const bibleModalClose = document.querySelector('.bible-modal-close'); // Handled in new logic
       const bibleIframe = document.getElementById('bibleIframe');
-      
       const searchModal = document.getElementById('searchModal');
-      // const searchModalClose = document.querySelector('.search-modal-close'); // Handled in new logic
       const searchInput = document.getElementById('searchInput');
       const searchResultsGrid = document.getElementById('searchResultsGrid');
       const resultsCount = document.getElementById('resultsCount');
       const noResults = document.getElementById('noResults');
       
       const notesModal = document.getElementById('notesModal');
-      // const notesModalClose = document.querySelector('.notes-modal-close'); // Handled in new logic
-      
+      const notesListContainer = document.getElementById('notesListContainer');
+      const notesSearchInput = document.getElementById('notesSearchInput');
+      const noteEditorTitle = document.getElementById('noteEditorTitle');
+      const noteEditorBody = document.getElementById('noteEditorBody');
+      const noNotesState = document.getElementById('noNotesState');
+      const notesContentArea = document.getElementById('notesContentArea');
+      const noteTagInput = document.getElementById('noteTagInput');
+      const currentNoteTagsContainer = document.getElementById('currentNoteTags');
+      const allTagsPillsContainer = document.getElementById('tagPillsContainer');
+      const clearTagFilterBtn = document.getElementById('clearTagFilterBtn');
+
+
       const sabbathModal = document.getElementById('sabbathModal');
-      // const sabbathModalClose = document.querySelector('.sabbath-modal-close'); // Handled in new logic
-      
       const navExplore = document.getElementById('nav-explore');
       const navSearch = document.getElementById('nav-search');
       const navBible = document.getElementById('nav-bible');
       const navNotes = document.getElementById('nav-notes');
       const navSabbath = document.getElementById('nav-sabbath');
-
-      // Icon Elements for bottom navigation
       const navExploreIcon = navExplore.querySelector('.material-icons-round');
       const navSearchIcon = navSearch.querySelector('.material-icons-round');
       const navBibleIcon = navBible.querySelector('.material-icons-round');
       const navSabbathIcon = navSabbath.querySelector('.material-icons-round');
       const navNotesIcon = navNotes.querySelector('.material-icons-round');
-      // --- END: All other element declarations ---
+      const profileButton = document.getElementById('profile-button');
+      const profileModal = document.getElementById('profileModal');
+      const favoritesHeaderButton = document.getElementById('favorites-header-button');
+      const favoritesModal = document.getElementById('favoritesModal');
+      const favoritesGrid = document.getElementById('favoritesGrid');
+      const noFavoritesState = document.getElementById('noFavoritesState');
+      const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+      
+      // --- START: Skeleton Loader Control ---
+      const searchSkeletonGrid = document.getElementById('searchSkeletonGrid');
+      const notesSkeletonList = document.getElementById('notesSkeletonList');
 
-      // --- START: Icon Management ---
+      function showSearchSkeleton(show) {
+          if (searchSkeletonGrid) searchSkeletonGrid.style.display = show ? 'grid' : 'none';
+          if (searchResultsGrid) searchResultsGrid.style.display = show ? 'none' : 'grid'; // Opposite
+          if (noResults) noResults.style.display = 'none'; // Hide empty state during skeleton
+      }
+
+      function showNotesSkeleton(show) {
+          if (notesSkeletonList) notesSkeletonList.style.display = show ? 'flex' : 'none';
+          // Ensure main notes list container visibility is handled correctly
+          if (notesListContainer) {
+            // Hide or show actual list based on skeleton, but also consider empty state
+             if (show) {
+                notesListContainer.style.display = 'none';
+             } else if (noNotesState.style.display !== 'flex') { // only show if not in empty state
+                notesListContainer.style.display = 'block';
+             }
+          }
+          if (noNotesState) noNotesState.style.display = 'none'; // Hide empty state during skeleton
+      }
+      // --- END: Skeleton Loader Control ---
+
       const iconStates = {
           explore: { selfActive: 'explore', selfInactiveDueToOtherModal: 'explore_off' },
           search:  { active: 'manage_search', inactive: 'search' },
@@ -2163,97 +2492,141 @@ Action steps:
       };
 
       function updateNavIcons(activeNavItemId) {
-          navExploreIcon.textContent = (activeNavItemId === 'nav-explore') ? iconStates.explore.selfActive : iconStates.explore.selfInactiveDueToOtherModal;
+          navExploreIcon.textContent = (activeNavItemId === 'nav-explore' || activeNavItemId === null) ? iconStates.explore.selfActive : iconStates.explore.selfInactiveDueToOtherModal;
           navSearchIcon.textContent =  (activeNavItemId === 'nav-search')  ? iconStates.search.active  : iconStates.search.inactive;
           navBibleIcon.textContent =   (activeNavItemId === 'nav-bible')   ? iconStates.bible.active   : iconStates.bible.inactive;
           navSabbathIcon.textContent = (activeNavItemId === 'nav-sabbath') ? iconStates.sabbath.active : iconStates.sabbath.inactive;
           navNotesIcon.textContent =   (activeNavItemId === 'nav-notes')   ? iconStates.notes.active   : iconStates.notes.inactive;
       }
-      // --- END: Icon Management ---
 
-
-      // --- START: Modal and Navigation Logic (NEW AND IMPROVED) ---
       const allNavItems = [navExplore, navSearch, navBible, navNotes, navSabbath];
       const allModalsMap = {
           'nav-search': { navItem: navSearch, modal: searchModal, inputToFocus: searchInput },
           'nav-bible':  { navItem: navBible, modal: bibleModal },
           'nav-notes':  { navItem: navNotes, modal: notesModal },
-          'nav-sabbath':{ navItem: navSabbath, modal: sabbathModal }
+          'nav-sabbath':{ navItem: navSabbath, modal: sabbathModal },
+          'profile':    { modal: profileModal },
+          'favorites':  { modal: favoritesModal, headerButton: favoritesHeaderButton }
       };
+      let currentOpenModalContent = null; // To track active modal for scroll-to-top
 
       function setActiveNav(activeItem) {
-          allNavItems.forEach(item => item.classList.remove('active'));
-          activeItem.classList.add('active');
-          updateNavIcons(activeItem.id);
+          allNavItems.forEach(item => {
+            item.classList.remove('active');
+            item.removeAttribute('aria-current');
+          });
+          if (activeItem) { 
+            activeItem.classList.add('active');
+            activeItem.setAttribute('aria-current', 'page');
+            updateNavIcons(activeItem.id);
+          } else {
+            updateNavIcons(null); 
+          }
       }
 
       function openModal(modalToOpen, navItemForModal, inputToFocus = null) {
-          // Close all other modals
           Object.values(allModalsMap).forEach(mInfo => {
               if (mInfo.modal !== modalToOpen) {
                   mInfo.modal.classList.remove('open');
               }
           });
-          // Open the target modal
           modalToOpen.classList.add('open');
-          setActiveNav(navItemForModal);
+          setActiveNav(navItemForModal); 
           if (inputToFocus) {
-              inputToFocus.focus();
+              setTimeout(() => inputToFocus.focus(), 50); // Slight delay for transition
           }
+          currentOpenModalContent = modalToOpen.querySelector('.modal-content');
+          checkScroll(currentOpenModalContent || window); // Check scroll for new modal
       }
 
       function closeSpecificModal(modalToClose) {
           modalToClose.classList.remove('open');
-          // After closing a specific modal, revert to explore view
-          setActiveNav(navExplore);
-          // Optionally scroll to top if main content is shown
-          // window.scrollTo(0, 0); 
+          setActiveNav(navExplore); 
+          currentOpenModalContent = null;
+          checkScroll(window); // Check scroll for main window
       }
 
-      // Event listener for the Explore navigation item
       navExplore.addEventListener('click', function(e) {
           e.preventDefault();
           Object.values(allModalsMap).forEach(mInfo => mInfo.modal.classList.remove('open'));
           setActiveNav(navExplore);
           window.scrollTo(0, 0);
+          currentOpenModalContent = null;
+          checkScroll(window);
       });
+      
+      Object.entries(allModalsMap).forEach(([key, itemInfo]) => { 
+          const triggerElement = itemInfo.navItem || itemInfo.headerButton; // Use headerButton for favorites
+          if (triggerElement) { 
+              triggerElement.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  if (itemInfo.modal.classList.contains('open')) {
+                      itemInfo.modal.classList.remove('open');
+                      setActiveNav(navExplore);
+                      currentOpenModalContent = null;
+                      checkScroll(window);
+                  } else {
+                      // Close other main modals if they are open
+                      Object.values(allModalsMap).forEach(m => {
+                          if (m.modal !== itemInfo.modal && m.modal.classList.contains('open')) {
+                              m.modal.classList.remove('open');
+                          }
+                      });
+                      openModal(itemInfo.modal, itemInfo.navItem, itemInfo.inputToFocus);
+                      
+                      if (key === 'nav-search' && searchInput.value === '') {
+                          showSearchSkeleton(true);
+                          setTimeout(() => { // Simulate fetch
+                              showSearchSkeleton(false);
+                              if(noResults) noResults.style.display = 'flex'; 
+                              if(resultsCount) resultsCount.textContent = 0;
+                              if(searchResultsGrid) searchResultsGrid.innerHTML = '';
+                          }, 700);
+                      } else if (key === 'nav-notes') {
+                          renderNotesList(); // This will handle empty state and skeleton internally
+                          renderAllTags();
+                      } else if (key === 'favorites') {
+                          renderFavorites();
+                      }
+                  }
+              });
+          }
 
-      // Event listeners for other navigation items and their modals
-      Object.values(allModalsMap).forEach(itemInfo => {
-          itemInfo.navItem.addEventListener('click', function(e) {
-              e.preventDefault();
-              if (itemInfo.modal.classList.contains('open')) {
-                  // If its modal is already open, close it and revert to Explore
-                  itemInfo.modal.classList.remove('open');
-                  setActiveNav(navExplore);
-              } else {
-                  // If its modal is closed, open it
-                  openModal(itemInfo.modal, itemInfo.navItem, itemInfo.inputToFocus);
-              }
-          });
-
-          // Add event listener for the modal's close button
-          const closeButton = itemInfo.modal.querySelector('.bible-modal-close, .search-modal-close, .notes-modal-close, .sabbath-modal-close');
+          const closeButton = itemInfo.modal.querySelector('.modal-close'); 
           if (closeButton) {
               closeButton.addEventListener('click', function() {
-                  closeSpecificModal(itemInfo.modal);
+                  closeSpecificModal(itemInfo.modal); 
               });
           }
       });
-      
-      // Set initial state (Explore active)
-      setActiveNav(navExplore);
-      // --- END: Modal and Navigation Logic (NEW AND IMPROVED) ---
-      
 
-      // --- START: Bible Version Selection Logic ---
+      profileButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (profileModal.classList.contains('open')) {
+              profileModal.classList.remove('open');
+              setActiveNav(navExplore); 
+              currentOpenModalContent = null;
+              checkScroll(window);
+          } else {
+              Object.values(allModalsMap).forEach(mInfo => {
+                  if (mInfo.modal !== profileModal && mInfo.modal.classList.contains('open')) { 
+                      mInfo.modal.classList.remove('open');
+                  }
+              });
+              profileModal.classList.add('open');
+              setActiveNav(null);
+              currentOpenModalContent = profileModal.querySelector('.modal-content');
+              checkScroll(currentOpenModalContent || window);
+          }
+      });
+      
+      setActiveNav(navExplore);
+      
       const versionButton = document.createElement('button');
       versionButton.className = 'version-button';
       versionButton.innerHTML = 'Version: NIV <span class="material-icons-round">arrow_drop_down</span>';
-      
       const versionSelector = document.createElement('div');
       versionSelector.className = 'version-selector';
-      
       const versionTabs = document.createElement('div');
       versionTabs.className = 'version-tabs';
       const preferredTab = document.createElement('button');
@@ -2265,29 +2638,17 @@ Action steps:
       const allTab = document.createElement('button');
       allTab.className = 'version-tab';
       allTab.textContent = 'All Versions';
-      versionTabs.appendChild(preferredTab);
-      versionTabs.appendChild(englishTab);
-      versionTabs.appendChild(allTab);
-      
-      const versionSearch = document.createElement('div');
-      versionSearch.className = 'version-search';
-      versionSearch.innerHTML = '<input type="text" placeholder="Search versions...">';
-      
+      versionTabs.append(preferredTab, englishTab, allTab);
+      const versionSearchContainer = document.createElement('div');
+      versionSearchContainer.className = 'version-search';
+      versionSearchContainer.innerHTML = '<input type="text" placeholder="Search versions..." aria-label="Search Bible versions">';
       const versionList = document.createElement('div');
       versionList.className = 'version-list';
-      
       const preferredVersions = [
         { abbr: 'NIV', name: 'New International Version', url: 'https://www.bible.com/bible/111/JHN.1.NIV' },
         { abbr: 'KJV', name: 'King James Version', url: 'https://www.bible.com/bible/1/JHN.1.KJV' },
         { abbr: 'NLT', name: 'New Living Translation', url: 'https://www.bible.com/bible/116/JHN.1.NLT' },
-        { abbr: 'ESV', name: 'English Standard Version', url: 'https://www.bible.com/bible/59/JHN.1.ESV' },
-        { abbr: 'TPT', name: 'The Passion Translation', url: 'https://www.bible.com/bible/1849/JHN.1.TPT' },
-        { abbr: 'MSG', name: 'The Message', url: 'https://www.bible.com/bible/97/JHN.1.MSG' },
-        { abbr: 'AMPC', name: 'Amplified Bible, Classic Edition', url: 'https://www.bible.com/bible/8/JHN.1.AMPC' },
-        { abbr: 'CEV', name: 'Holy Name Bible', url: 'https://www.bible.com/bible/46/JHN.1.CEV' }
       ];
-      // For brevity, assuming englishVersions and allVersions are populated as in original if needed.
-      // For this example, we'll reuse preferredVersions for other tabs if they are not defined.
       const englishVersions = preferredVersions; 
       const allVersions = preferredVersions; 
       
@@ -2296,10 +2657,7 @@ Action steps:
         versionsToShow.forEach(version => {
           const versionItem = document.createElement('button');
           versionItem.className = 'version-item' + (isPreferred ? ' preferred' : '');
-          versionItem.innerHTML = `
-            <span class="version-abbr">${version.abbr}</span>
-            <span class="version-name">${version.name}</span>
-          `;
+          versionItem.innerHTML = `<span class="version-abbr">${version.abbr}</span><span class="version-name">${version.name}</span>`;
           versionItem.addEventListener('click', function() {
             bibleIframe.src = version.url;
             versionSelector.style.display = 'none';
@@ -2309,111 +2667,334 @@ Action steps:
         });
       }
       
-      populateVersionList(preferredVersions, true); // Initial population
-      
-      versionSelector.appendChild(versionTabs);
-      versionSelector.appendChild(versionSearch);
-      versionSelector.appendChild(versionList);
-      
-      versionButton.addEventListener('click', function() {
+      populateVersionList(preferredVersions, true); 
+      versionSelector.append(versionTabs, versionSearchContainer, versionList);
+      versionButton.addEventListener('click', () => {
         versionSelector.style.display = (versionSelector.style.display === 'none' || versionSelector.style.display === '') ? 'block' : 'none';
       });
-      
-      preferredTab.addEventListener('click', function() {
-        preferredTab.classList.add('active'); englishTab.classList.remove('active'); allTab.classList.remove('active');
-        populateVersionList(preferredVersions, true);
-      });
-      englishTab.addEventListener('click', function() {
-        englishTab.classList.add('active'); preferredTab.classList.remove('active'); allTab.classList.remove('active');
-        populateVersionList(englishVersions); 
-      });
-      allTab.addEventListener('click', function() {
-        allTab.classList.add('active'); preferredTab.classList.remove('active'); englishTab.classList.remove('active');
-        populateVersionList(allVersions); 
+      [preferredTab, englishTab, allTab].forEach(tab => {
+        tab.addEventListener('click', function() {
+            [preferredTab, englishTab, allTab].forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            if(this === preferredTab) populateVersionList(preferredVersions, true);
+            else if (this === englishTab) populateVersionList(englishVersions);
+            else if (this === allTab) populateVersionList(allVersions);
+        });
       });
       
-      document.querySelector('.bible-modal-header').appendChild(versionButton);
-      document.querySelector('.bible-modal-content').appendChild(versionSelector);
-      
+      bibleModal.querySelector('.modal-header').appendChild(versionButton);
+      bibleModal.querySelector('.modal-content').appendChild(versionSelector);
       const guidanceMessage = document.createElement('div');
       guidanceMessage.className = 'guidance-message';
       guidanceMessage.textContent = 'Tap anywhere to navigate or use the version selector in the top-right';
-      document.querySelector('.bible-modal-content').appendChild(guidanceMessage);
+      bibleModal.querySelector('.modal-content').appendChild(guidanceMessage);
       
       navBible.addEventListener('click', function(e) { 
-        // This click is now handled by the general modal logic. 
-        // If guidance needs to show when Bible modal is opened, it should be tied to that.
-        if (bibleModal.classList.contains('open')) { // Check if modal was just opened
+        if (!bibleModal.classList.contains('open')) { 
             setTimeout(() => {
-                guidanceMessage.style.opacity = '1';
-                setTimeout(() => {
-                    guidanceMessage.style.opacity = '0';
-                }, 3000);
-            }, 500); // Delay to ensure modal is visible
+                if(bibleModal.classList.contains('open')) {
+                    guidanceMessage.style.opacity = '1';
+                    setTimeout(() => { guidanceMessage.style.opacity = '0'; }, 3000);
+                }
+            }, 50); 
         }
       });
-      // --- END: Bible Version Selection Logic ---
 
-
-      // --- START: Search Functionality ---
       searchInput.addEventListener('input', function() {
-        const query = this.value.toLowerCase();
-        // Dummy content for example. Replace with your actual content source.
-        const allContent = [
-            { title: "Understanding the Bible", description: "A comprehensive guide...", type: "course" },
-            { title: "The Holy Spirit", description: "Explore the person and work...", type: "course" },
-            { title: "Biblical Studies", description: "In-depth exploration...", type: "topic" },
-            { title: "Daily Bread", description: "Short, daily reflections...", type: "devotional" }
-        ];
+        const query = this.value.toLowerCase().trim();
         
-        const filteredContent = allContent.filter(item => 
-          item.title.toLowerCase().includes(query) || 
-          item.description.toLowerCase().includes(query)
-        );
-        
-        resultsCount.textContent = filteredContent.length;
-        searchResultsGrid.innerHTML = '';
-        
-        if (filteredContent.length === 0 && query.length > 0) {
-          noResults.style.display = 'flex';
+        if (query.length > 0) {
+            showSearchSkeleton(true); 
+            searchResultsGrid.innerHTML = ''; 
+
+            setTimeout(() => { // Simulate API call / filtering
+                const allCardsContent = Array.from(document.querySelectorAll('main .card')).map(card => ({
+                    id: card.dataset.cardId,
+                    title: card.querySelector('.card-title')?.textContent || '',
+                    description: card.querySelector('.card-description')?.textContent || '',
+                    image: card.querySelector('.card-image img')?.src || null,
+                    placeholderIcon: card.querySelector('.card-image .placeholder-icon')?.textContent || 'menu_book',
+                    meta: card.querySelector('.card-meta')?.innerHTML || '',
+                    isFavorited: getFavorites().some(fav => fav.id === card.dataset.cardId)
+                }));
+
+                const filteredContent = allCardsContent.filter(item => 
+                  item.title.toLowerCase().includes(query) || 
+                  item.description.toLowerCase().includes(query)
+                );
+                
+                resultsCount.textContent = filteredContent.length;
+                
+                if (filteredContent.length === 0) {
+                    noResults.style.display = 'flex';
+                } else {
+                    noResults.style.display = 'none';
+                    filteredContent.forEach(itemData => {
+                        const card = createContentCard(itemData);
+                        searchResultsGrid.appendChild(card);
+                    });
+                }
+                showSearchSkeleton(false); 
+            }, 700); 
         } else {
-          noResults.style.display = 'none';
-          filteredContent.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            let iconName = 'menu_book';
-            if (item.type === 'topic') iconName = 'category';
-            if (item.type === 'series') iconName = 'video_library';
-            if (item.type === 'devotional') iconName = 'auto_stories';
-            card.innerHTML = `
-              <div class="card-image"><span class="material-icons-round placeholder-icon">${iconName}</span></div>
-              <div class="card-content">
-                <h5 class="card-title">${item.title}</h5>
-                <p class="card-description">${item.description}</p>
-                <div class="card-meta">
-                  <span class="material-icons-round">label</span>
-                  ${item.type.charAt(0).toUpperCase() + item.type.slice(1)}
-                </div>
-              </div>`;
-            searchResultsGrid.appendChild(card);
-          });
-        }
-        if (query.length === 0) { // If search is empty, show no results initially
             searchResultsGrid.innerHTML = '';
             resultsCount.textContent = 0;
             noResults.style.display = 'flex';
+            showSearchSkeleton(true); 
         }
       });
-      noResults.style.display = 'flex'; // Initialize as empty
-      resultsCount.textContent = 0;
-      // --- END: Search Functionality ---
+      if(noResults) noResults.style.display = 'flex'; 
+      if(resultsCount) resultsCount.textContent = 0;
+      if(searchSkeletonGrid && searchInput.value === '') showSearchSkeleton(true);
 
+      // --- Notes Data and Functions ---
+      let notesData = [
+        { id: 'note1', title: "Sermon Reflections", preview: "Today's sermon on the prodigal son really spoke to me...", date: "May 15, 2023", content: "Today's sermon on the prodigal son really spoke to me. The pastor highlighted how the father's unconditional love mirrors God's love for us.\n\nKey points:\n- The son's rebellion represents our turning away from God\n- The father's waiting represents God's patience\n- The celebration represents God's joy when we return\n\nQuestions to reflect on:\n1. In what ways have I been like the prodigal son?\n2. How can I better appreciate God's unconditional love?\n3. Am I ever like the older brother, resentful of God's grace to others?\n\nScripture references:\n- Luke 15:11-32\n- Ephesians 2:4-5\n- Romans 5:8\n\nAction steps:\n- Meditate on God's unconditional love this week\n- Reach out to someone who might feel distant from God\n- Practice gratitude for God's patience with me", tags: ["sermon", "reflection", "luke"] },
+        { id: 'note2', title: "Prayer Requests", preview: "1. Healing for Mom's surgery 2. Wisdom for career decision...", date: "May 10, 2023", content: "Prayer Requests:\n1. Healing for Mom's surgery - that it goes well and recovery is swift.\n2. Wisdom for career decision - clarity on whether to take the new job offer.\n3. Strength for John as he faces exams.\n4. Thanksgiving for answered prayer regarding Sarah's health.", tags: ["prayer", "family", "healing"] },
+        { id: 'note3', title: "Bible Study - Romans", preview: "Key themes in Romans: righteousness, justification, sanctification...", date: "May 5, 2023", content: "Bible Study - Romans Chapters 1-3:\nKey themes:\n- Righteousness of God\n- Justification by faith\n- Sinfulness of humanity (both Jew and Gentile)\n- God's wrath against sin\n\nImportant verses:\n- Romans 1:16-17\n- Romans 3:23-24\n\nInsights:\n- No one is righteous on their own.\n- Salvation is a gift received through faith in Jesus Christ.", tags: ["bible study", "romans", "theology", "justification"] },
+        { id: 'note4', title: "Worship Song Ideas", preview: "Songs for next Sunday: 1. How Great Thou Art 2. Amazing Grace...", date: "April 28, 2023", content: "Worship Song Ideas for Next Sunday:\nTheme: God's Faithfulness\n\n1. How Great Thou Art\n2. Amazing Grace (My Chains Are Gone)\n3. Great Is Thy Faithfulness\n4. Way Maker\n5. Goodness of God\n\nConsider a call to worship from Psalm 100.", tags: ["worship", "music", "planning"] }
+      ];
+      let currentNoteId = notesData.length > 0 ? notesData[0].id : null;
+      let activeTagFilter = null;
+
+      function renderNotesList(notesToDisplay = notesData) {
+          showNotesSkeleton(true);
+          notesListContainer.innerHTML = ''; // Clear existing notes first
+
+          setTimeout(() => { // Simulate loading
+              if (notesToDisplay.length === 0 && !notesSearchInput.value && !activeTagFilter) {
+                  noNotesState.style.display = 'flex';
+                  notesContentArea.style.display = 'none';
+                  notesListContainer.style.display = 'none';
+              } else {
+                  noNotesState.style.display = 'none';
+                  notesContentArea.style.display = 'flex'; // Show editor if there are notes or search/filter is active
+                  notesListContainer.style.display = 'block';
+
+                  notesToDisplay.forEach(note => {
+                      const noteItem = document.createElement('div');
+                      noteItem.className = 'note-item';
+                      noteItem.dataset.noteId = note.id;
+                      if (note.id === currentNoteId) {
+                          noteItem.classList.add('active');
+                      }
+                      const tagsPreview = note.tags.length > 0 
+                          ? `<div class="note-tags-preview">Tags: ${note.tags.slice(0, 3).join(', ')}${note.tags.length > 3 ? '...' : ''}</div>` 
+                          : '';
+                      noteItem.innerHTML = `
+                          <div class="note-title">${note.title}</div>
+                          <div class="note-preview">${note.preview}</div>
+                          <div class="note-date">${note.date}</div>
+                          ${tagsPreview}
+                      `;
+                      noteItem.addEventListener('click', () => loadNoteIntoEditor(note.id));
+                      notesListContainer.appendChild(noteItem);
+                  });
+              }
+              showNotesSkeleton(false);
+              if (notesToDisplay.length > 0 && currentNoteId) {
+                  loadNoteIntoEditor(currentNoteId); // Ensure editor updates if list changes
+              } else if (notesToDisplay.length === 0 && (notesSearchInput.value || activeTagFilter)) {
+                  // If search/filter yields no results, show a specific empty state for that
+                  notesListContainer.innerHTML = `<p style="padding: var(--spacing-md); text-align: center; color: var(--text-tertiary);">No notes match your criteria.</p>`;
+                  notesContentArea.style.display = 'none'; // Hide editor if no notes match
+              }
+
+          }, 300); // Short delay for skeleton
+      }
       
-      // --- START: Theme Toggle Button Event Listener ---
+      function loadNoteIntoEditor(noteId) {
+          const note = notesData.find(n => n.id === noteId);
+          if (note) {
+              currentNoteId = note.id;
+              noteEditorTitle.value = note.title;
+              noteEditorBody.value = note.content;
+              renderCurrentNoteTags(note.tags);
+
+              document.querySelectorAll('.note-item').forEach(item => item.classList.remove('active'));
+              const activeItem = notesListContainer.querySelector(`.note-item[data-note-id="${noteId}"]`);
+              if (activeItem) activeItem.classList.add('active');
+              notesContentArea.style.display = 'flex';
+          }
+      }
+
+      function renderCurrentNoteTags(tags = []) {
+          currentNoteTagsContainer.innerHTML = '';
+          tags.forEach(tag => {
+              const tagPill = document.createElement('button');
+              tagPill.className = 'tag-pill';
+              tagPill.type = 'button';
+              tagPill.textContent = tag;
+              tagPill.setAttribute('aria-label', `Remove tag ${tag}`);
+              const removeIcon = document.createElement('span');
+              removeIcon.className = 'material-icons-round remove-tag-icon';
+              removeIcon.textContent = 'close';
+              removeIcon.setAttribute('aria-hidden', 'true');
+              tagPill.appendChild(removeIcon);
+              
+              tagPill.addEventListener('click', () => {
+                  removeTagFromCurrentNote(tag);
+              });
+              currentNoteTagsContainer.appendChild(tagPill);
+          });
+      }
+
+      noteTagInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter' || e.key === ',') {
+              e.preventDefault();
+              const newTag = this.value.trim().toLowerCase();
+              if (newTag && currentNoteId) {
+                  addTagToCurrentNote(newTag);
+                  this.value = '';
+              }
+          }
+      });
+
+      function addTagToCurrentNote(tag) {
+          const note = notesData.find(n => n.id === currentNoteId);
+          if (note && !note.tags.includes(tag)) {
+              note.tags.push(tag);
+              renderCurrentNoteTags(note.tags);
+              renderAllTags(); // Update global tag list
+              renderNotesList(getFilteredNotes()); // Re-render list to show updated tags preview
+          }
+      }
+
+      function removeTagFromCurrentNote(tagToRemove) {
+          const note = notesData.find(n => n.id === currentNoteId);
+          if (note) {
+              note.tags = note.tags.filter(tag => tag !== tagToRemove);
+              renderCurrentNoteTags(note.tags);
+              renderAllTags(); // Update global tag list
+              renderNotesList(getFilteredNotes()); // Re-render list to show updated tags preview
+          }
+      }
+
+      function getUniqueTags() {
+          const allTags = new Set();
+          notesData.forEach(note => note.tags.forEach(tag => allTags.add(tag)));
+          return Array.from(allTags).sort();
+      }
+
+      function renderAllTags() {
+          const uniqueTags = getUniqueTags();
+          allTagsPillsContainer.innerHTML = '';
+          if (uniqueTags.length === 0) {
+             allTagsPillsContainer.innerHTML = `<p style="font-size: 0.8rem; color: var(--text-tertiary);">No tags yet. Add tags to your notes to filter them here.</p>`;
+             clearTagFilterBtn.style.display = 'none';
+             return;
+          }
+
+          uniqueTags.forEach(tag => {
+              const tagPill = document.createElement('button');
+              tagPill.className = 'tag-pill';
+              tagPill.type = 'button';
+              tagPill.textContent = tag;
+              tagPill.dataset.tag = tag;
+              if (tag === activeTagFilter) {
+                  tagPill.classList.add('active-filter');
+              }
+              tagPill.addEventListener('click', () => {
+                  toggleTagFilter(tag);
+              });
+              allTagsPillsContainer.appendChild(tagPill);
+          });
+          clearTagFilterBtn.style.display = activeTagFilter ? 'inline-block' : 'none';
+      }
+      
+      function toggleTagFilter(tag) {
+          notesSearchInput.value = ''; // Clear search when filtering by tag
+          if (activeTagFilter === tag) {
+              activeTagFilter = null; // Deselect if already active
+          } else {
+              activeTagFilter = tag;
+          }
+          renderNotesList(getFilteredNotes());
+          renderAllTags(); // To update active state of pills
+      }
+
+      clearTagFilterBtn.addEventListener('click', () => {
+          activeTagFilter = null;
+          notesSearchInput.value = '';
+          renderNotesList(getFilteredNotes());
+          renderAllTags();
+      });
+
+      notesSearchInput.addEventListener('input', () => {
+          activeTagFilter = null; // Clear tag filter when searching
+          renderNotesList(getFilteredNotes());
+          renderAllTags(); // Update tag pills if needed (e.g., remove active state)
+      });
+
+      function getFilteredNotes() {
+          let filtered = notesData;
+          const searchTerm = notesSearchInput.value.toLowerCase().trim();
+
+          if (activeTagFilter) {
+              filtered = filtered.filter(note => note.tags.includes(activeTagFilter));
+          }
+          if (searchTerm) {
+              filtered = filtered.filter(note => 
+                  note.title.toLowerCase().includes(searchTerm) ||
+                  note.preview.toLowerCase().includes(searchTerm) ||
+                  note.content.toLowerCase().includes(searchTerm) ||
+                  note.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+              );
+          }
+          return filtered;
+      }
+
+
+      // --- START: Enhanced Empty State Buttons ---
+      const browseCategoriesButton = document.getElementById('browseCategoriesButton');
+      const createNewNoteButton = document.getElementById('createNewNoteButton');
+      const exploreContentFavoritesButton = document.getElementById('exploreContentButton');
+
+
+      if (browseCategoriesButton) {
+          browseCategoriesButton.addEventListener('click', () => {
+              closeSpecificModal(searchModal);
+              navExplore.click(); 
+          });
+      }
+      if (exploreContentFavoritesButton) {
+          exploreContentFavoritesButton.addEventListener('click', () => {
+              closeSpecificModal(favoritesModal);
+              navExplore.click(); 
+          });
+      }
+
+      if (createNewNoteButton) {
+          createNewNoteButton.addEventListener('click', () => {
+              // Logic to create a new note (simplified: add to notesData and render)
+              const newNoteId = `note${Date.now()}`;
+              const newNote = {
+                  id: newNoteId,
+                  title: "New Note",
+                  preview: "Start writing your new note here...",
+                  date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+                  content: "",
+                  tags: []
+              };
+              notesData.unshift(newNote); // Add to the beginning
+              currentNoteId = newNoteId; // Set as active
+              
+              renderNotesList(); // Re-render the list (will show the new note)
+              loadNoteIntoEditor(newNoteId); // Load the new note into the editor
+              renderAllTags(); // Update available tags
+
+              notesContentArea.style.display = 'flex';
+              noNotesState.style.display = 'none';
+              notesListContainer.style.display = 'block';
+              
+              setTimeout(() => noteEditorTitle.focus(), 50);
+          });
+      }
+      // --- END: Enhanced Empty State Buttons ---
+      
       themeToggleButton.addEventListener('click', () => {
         const currentDataTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentDataTheme === 'dark' ? 'light' : 'dark';
-        setThemePreference(newTheme);
+        setThemePreference(currentDataTheme === 'dark' ? 'light' : 'dark');
       });
 
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
@@ -2421,10 +3002,209 @@ Action steps:
             applyTheme(event.matches ? 'dark' : 'light');
         }
       });
-      // --- END: Theme Toggle Button Event Listener ---
+
+      // --- Favorites ---
+      const FAVORITES_KEY = 'theWellAppFavorites';
+
+      function getFavorites() {
+          return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+      }
+
+      function saveFavorites(favorites) {
+          localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+          updateFavoritesHeaderIcon(favorites.length);
+      }
+       function updateFavoritesHeaderIcon(count) {
+        const icon = favoritesHeaderButton.querySelector('.material-icons-round');
+        if (count > 0) {
+            icon.textContent = 'favorite';
+        } else {
+            icon.textContent = 'favorite_border';
+        }
+      }
 
 
-      // --- START: Hide Loading Screen (Must be last or near last in DOMContentLoaded) ---
+      function createContentCard(itemData, isFavoriteCard = false) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.cardId = itemData.id; // Use a unique ID for the card
+
+        const favoriteButton = document.createElement('button');
+        favoriteButton.className = 'favorite-button';
+        favoriteButton.setAttribute('aria-pressed', itemData.isFavorited.toString());
+        
+        const favIcon = document.createElement('span');
+        favIcon.className = 'material-icons-round';
+        favIcon.textContent = itemData.isFavorited ? 'favorite' : 'favorite_border';
+        favoriteButton.appendChild(favIcon);
+        favoriteButton.setAttribute('aria-label', itemData.isFavorited ? `Remove ${itemData.title} from favorites` : `Add ${itemData.title} to favorites`);
+
+
+        favoriteButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card click if any
+            toggleFavorite(itemData, favoriteButton, favIcon, card, isFavoriteCard);
+        });
+        card.appendChild(favoriteButton);
+        
+        const cardImageDiv = document.createElement('div');
+        cardImageDiv.className = 'card-image';
+        if (itemData.image) {
+            const img = document.createElement('img');
+            img.loading = 'lazy';
+            img.src = itemData.image;
+            img.alt = itemData.title;
+            img.onerror = function() { 
+                this.style.display='none'; 
+                this.parentNode.innerHTML = `<span class='material-icons-round placeholder-icon'>${itemData.placeholderIcon || 'menu_book'}</span>`;
+            };
+            cardImageDiv.appendChild(img);
+        } else if (itemData.placeholderIcon) {
+            cardImageDiv.innerHTML = `<span class='material-icons-round placeholder-icon'>${itemData.placeholderIcon}</span>`;
+        } else if (itemData.iframeSrc) { // For video cards
+            card.classList.add('video-card'); // Ensure video-card styling if it's a video
+            cardImageDiv.classList.add('video-container');
+            cardImageDiv.innerHTML = `<iframe src="${itemData.iframeSrc}" title="${itemData.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        }
+
+
+        const cardContentDiv = document.createElement('div');
+        cardContentDiv.className = 'card-content';
+        cardContentDiv.innerHTML = `
+            <h5 class="card-title">${itemData.title}</h5>
+            <p class="card-description">${itemData.description}</p>
+            <div class="card-meta">
+              ${itemData.meta}
+            </div>
+        `;
+        card.appendChild(cardImageDiv);
+        card.appendChild(cardContentDiv);
+        return card;
+      }
+      
+      function toggleFavorite(itemData, buttonEl, iconEl, cardEl, isFavoriteCardView) {
+          let favorites = getFavorites();
+          const itemIndex = favorites.findIndex(fav => fav.id === itemData.id);
+          let isNowFavorited;
+
+          if (itemIndex > -1) { // Item is already favorited, so remove it
+              favorites.splice(itemIndex, 1);
+              isNowFavorited = false;
+          } else { // Item is not favorited, so add it
+              // Store only necessary data
+              const favData = {
+                  id: itemData.id, // Essential
+                  title: itemData.title,
+                  description: itemData.description,
+                  image: itemData.image,
+                  placeholderIcon: itemData.placeholderIcon,
+                  meta: itemData.meta,
+                  iframeSrc: itemData.iframeSrc // for video cards
+              };
+              favorites.push(favData);
+              isNowFavorited = true;
+          }
+          saveFavorites(favorites);
+
+          // Update button state
+          buttonEl.setAttribute('aria-pressed', isNowFavorited.toString());
+          iconEl.textContent = isNowFavorited ? 'favorite' : 'favorite_border';
+          buttonEl.setAttribute('aria-label', isNowFavorited ? `Remove ${itemData.title} from favorites` : `Add ${itemData.title} to favorites`);
+          buttonEl.classList.toggle('favorited', isNowFavorited);
+
+
+          // If in favorites view and unfavorited, remove from view
+          if (isFavoriteCardView && !isNowFavorited) {
+              cardEl.remove();
+              if (favoritesGrid.children.length === 0) {
+                  noFavoritesState.style.display = 'flex';
+              }
+          }
+          // Update corresponding card on main page if it exists
+          const mainPageCardFavoriteButton = document.querySelector(`.card[data-card-id="${itemData.id}"] .favorite-button`);
+          if (mainPageCardFavoriteButton) {
+              mainPageCardFavoriteButton.setAttribute('aria-pressed', isNowFavorited.toString());
+              mainPageCardFavoriteButton.querySelector('.material-icons-round').textContent = isNowFavorited ? 'favorite' : 'favorite_border';
+              mainPageCardFavoriteButton.setAttribute('aria-label', isNowFavorited ? `Remove ${itemData.title} from favorites` : `Add ${itemData.title} to favorites`);
+              mainPageCardFavoriteButton.classList.toggle('favorited', isNowFavorited);
+          }
+      }
+
+
+      function renderFavorites() {
+          const favorites = getFavorites();
+          favoritesGrid.innerHTML = '';
+          if (favorites.length === 0) {
+              noFavoritesState.style.display = 'flex';
+          } else {
+              noFavoritesState.style.display = 'none';
+              favorites.forEach(favData => {
+                  const cardDataForRender = {...favData, isFavorited: true}; // Ensure it's marked as favorited
+                  const card = createContentCard(cardDataForRender, true); // true for isFavoriteCard
+                  favoritesGrid.appendChild(card);
+              });
+          }
+      }
+
+      function initializeFavoriteButtons() {
+          const favorites = getFavorites();
+          document.querySelectorAll('.card').forEach(cardElement => {
+              const cardId = cardElement.dataset.cardId;
+              const favButton = cardElement.querySelector('.favorite-button');
+              if (!favButton) return; // Should not happen if HTML is correct
+
+              const isFavorited = favorites.some(fav => fav.id === cardId);
+              const icon = favButton.querySelector('.material-icons-round');
+              
+              favButton.setAttribute('aria-pressed', isFavorited.toString());
+              icon.textContent = isFavorited ? 'favorite' : 'favorite_border';
+              favButton.classList.toggle('favorited', isFavorited);
+              const cardTitle = cardElement.querySelector('.card-title')?.textContent || 'this item';
+              favButton.setAttribute('aria-label', isFavorited ? `Remove ${cardTitle} from favorites` : `Add ${cardTitle} to favorites`);
+
+
+              favButton.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  const currentCardData = { // Re-fetch or construct card data for toggling
+                      id: cardId,
+                      title: cardTitle,
+                      description: cardElement.querySelector('.card-description')?.textContent || '',
+                      image: cardElement.querySelector('.card-image img')?.src || null,
+                      placeholderIcon: cardElement.querySelector('.card-image .placeholder-icon')?.textContent || 'menu_book',
+                      meta: cardElement.querySelector('.card-meta')?.innerHTML || '',
+                      iframeSrc: cardElement.querySelector('.video-container iframe')?.src || null,
+                      // isFavorited will be determined by toggleFavorite logic
+                  };
+                  toggleFavorite(currentCardData, favButton, icon, cardElement, false);
+              });
+          });
+          updateFavoritesHeaderIcon(favorites.length);
+      }
+      initializeFavoriteButtons();
+
+
+      // --- Scroll-to-Top Button ---
+      function checkScroll(scrollableElement) {
+          const scrollTop = (scrollableElement === window) ? scrollableElement.pageYOffset : scrollableElement.scrollTop;
+          if (scrollTop > 200) {
+              scrollToTopBtn.classList.add('show');
+          } else {
+              scrollToTopBtn.classList.remove('show');
+          }
+      }
+
+      window.addEventListener('scroll', () => checkScroll(window));
+      // Add scroll listeners for modal content areas when they are opened
+      [searchModal, notesModal.querySelector('.notes-content'), notesModal.querySelector('.notes-list'), sabbathModal.querySelector('.sabbath-content'), profileModal, favoritesModal, bibleModal.querySelector('.bible-iframe-container')].forEach(el => {
+          if (el) el.addEventListener('scroll', () => checkScroll(el));
+      });
+
+
+      scrollToTopBtn.addEventListener('click', () => {
+          const targetElement = currentOpenModalContent || window;
+          targetElement.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+
       window.addEventListener('load', () => {
           if (loadingScreen) {
               loadingScreen.classList.add('hidden');
@@ -2434,8 +3214,13 @@ Action steps:
                   }
               }, { once: true });
           }
+          // Initial notes render
+          renderNotesList();
+          renderAllTags();
+          if (notesData.length > 0) {
+             loadNoteIntoEditor(notesData[0].id);
+          }
       });
-      // --- END: Hide Loading Screen ---
 
     });
   </script>
