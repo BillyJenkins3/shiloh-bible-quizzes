@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Genesis Chapter 1 Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: url('genesis1-splash-final-clean-only.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.85);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+    .splash {
+      text-align: center;
+      padding: 100px 20px;
+    }
+    .splash h1 {
+      font-size: 2.8rem;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+    .start-btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #42a5f5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .quiz-box, .result-box {
+      display: none;
+      background: rgba(30, 30, 30, 0.9);
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 20px;
+    }
+    .question h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .options button {
+      padding: 14px;
+      font-size: 16px;
+      background: #1a2a38;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .correct {
+      background-color: #388e3c !important;
+    }
+    .incorrect {
+      background-color: #d32f2f !important;
+    }
+    ul {
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+<div class="overlay">
+  <div class="container">
+    <div class="splash" id="splash">
+      <h1>Genesis Chapter 1 Quiz</h1>
+      <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <div class="quiz-box" id="quiz">
+      <div id="questionContent"></div>
+    </div>
+
+    <div class="result-box" id="result">
+      <div id="finalScoreText"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    "q": "1. In Genesis 1:1, what did God create in the beginning?",
+    "a": "The heavens and the earth",
+    "options": [
+      "The heavens and the earth",
+      "Light and darkness",
+      "The sky and the sea",
+      "Earth and mankind"
+    ]
+  },
+  {
+    "q": "2. What was the earth like before God said, 'Let there be light'? (Genesis 1:2)",
+    "a": "Formless and empty",
+    "options": [
+      "Bright and full",
+      "Formless and empty",
+      "Covered in fire",
+      "Filled with clouds"
+    ]
+  },
+  {
+    "q": "3. What did God call the light? (Genesis 1:5)",
+    "a": "Day",
+    "options": [
+      "Morning",
+      "Sun",
+      "Day",
+      "Brightness"
+    ]
+  },
+  {
+    "q": "4. On which day did God create the expanse to separate the waters? (Genesis 1:6\u20138)",
+    "a": "The second day",
+    "options": [
+      "The first day",
+      "The second day",
+      "The third day",
+      "The fifth day"
+    ]
+  },
+  {
+    "q": "5. What did God call the expanse? (Genesis 1:8)",
+    "a": "Sky",
+    "options": [
+      "Heaven",
+      "Atmosphere",
+      "Sky",
+      "Clouds"
+    ]
+  },
+  {
+    "q": "6. What did God gather to let dry ground appear? (Genesis 1:9)",
+    "a": "The waters",
+    "options": [
+      "The clouds",
+      "The winds",
+      "The mountains",
+      "The waters"
+    ]
+  },
+  {
+    "q": "7. What did God call the dry ground? (Genesis 1:10)",
+    "a": "Land",
+    "options": [
+      "Earth",
+      "Land",
+      "Soil",
+      "Dirt"
+    ]
+  },
+  {
+    "q": "8. What types of vegetation did God create? (Genesis 1:11\u201312)",
+    "a": "Seed-bearing plants and trees with fruit",
+    "options": [
+      "Only trees",
+      "Grass and weeds",
+      "Seed-bearing plants and trees with fruit",
+      "Flowers and grass"
+    ]
+  },
+  {
+    "q": "9. What did God place in the expanse of the sky to separate day from night? (Genesis 1:14\u201318)",
+    "a": "Lights",
+    "options": [
+      "Clouds",
+      "Stars",
+      "Lights",
+      "Darkness"
+    ]
+  },
+  {
+    "q": "10. What did the greater light govern? (Genesis 1:16)",
+    "a": "The day",
+    "options": [
+      "The night",
+      "The seasons",
+      "The earth",
+      "The day"
+    ]
+  },
+  {
+    "q": "11. What did God create on the fifth day? (Genesis 1:20\u201323)",
+    "a": "Birds and sea creatures",
+    "options": [
+      "Birds and land animals",
+      "Birds and sea creatures",
+      "Fish and insects",
+      "Man and woman"
+    ]
+  },
+  {
+    "q": "12. What command did God give the creatures of the sea and sky? (Genesis 1:22)",
+    "a": "Be fruitful and increase in number",
+    "options": [
+      "Obey man",
+      "Be still and quiet",
+      "Be fruitful and increase in number",
+      "Fly over the land"
+    ]
+  },
+  {
+    "q": "13. According to Genesis 1:26, in whose image did God make man?",
+    "a": "Our image",
+    "options": [
+      "Our image",
+      "An angelic image",
+      "Man's own image",
+      "God's reflection"
+    ]
+  },
+  {
+    "q": "14. What authority was given to mankind? (Genesis 1:28)",
+    "a": "Rule over every living creature",
+    "options": [
+      "Rule the sky",
+      "Rule the mountains",
+      "Rule over every living creature",
+      "Rule over darkness"
+    ]
+  },
+  {
+    "q": "15. What did God say about all He had made at the end of the sixth day? (Genesis 1:31)",
+    "a": "It was very good",
+    "options": [
+      "It was good enough",
+      "It was very good",
+      "It was complete",
+      "It was wonderful"
+    ]
+  }
+];
+
+let index = 0, wrongAnswers = {};
+
+function startQuiz() {
+  document.getElementById("splash").style.display = "none";
+  document.getElementById("quiz").style.display = "block";
+  index = 0;
+  wrongAnswers = {};
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const q = questions[index];
+  let html = `<div class="question"><h2>${q.q}</h2></div><div class="options">`;
+  q.options.forEach(opt => {
+    html += `<button onclick="checkAnswer(this,'${opt}','${q.a}')">${opt}</button>`;
+  });
+  html += '</div>';
+  document.getElementById("questionContent").innerHTML = html;
+}
+
+function checkAnswer(button, selected, correct) {
+  const all = button.parentElement.querySelectorAll("button");
+  all.forEach(b => b.disabled = true);
+  if (selected === correct) {
+    button.classList.add("correct");
+  } else {
+    button.classList.add("incorrect");
+    wrongAnswers[index] = true;
+  }
+  setTimeout(() => {
+    index++;
+    if (index < questions.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  }, 800);
+}
+
+function showResult() {
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("result").style.display = "block";
+  let output = "<h2>Review Incorrect Answers</h2><ul>";
+  let count = 0;
+  for (let i = 0; i < questions.length; i++) {
+    if (wrongAnswers[i]) {
+      count++;
+      output += `<li><strong>Q${i + 1}:</strong> ${questions[i].q}<br><em>Correct Answer:</em> ${questions[i].a}</li><br>`;
+    }
+  }
+  if (count === 0) {
+    output += "<li>Excellent! You got all questions correct.</li>";
+  }
+  output += "</ul>";
+  document.getElementById("finalScoreText").innerHTML = output;
+}
+</script>
+</body>
+</html>
